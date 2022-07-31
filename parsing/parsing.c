@@ -5,8 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/31 18:10:12 by abellakr          #+#    #+#             */
-/*   Updated: 2022/07/31 18:10:13 by abellakr         ###   ########.fr       */
+/*   Created: 2022/07/31 18:39:23 by mmasstou          #+#    #+#             */
+/*   Updated: 2022/07/31 18:48:36 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cub3d.h"
+
+void    parsing(char *argv[], t_data *data)
+{
+    
+}

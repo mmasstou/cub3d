@@ -27,5 +27,7 @@ typedef struct data
     t_color c;
     char  **map;
 }   t_data;
+//----------------------------- Parsing
+void    parsing(char *argv[], t_data *data);
 
 #endif

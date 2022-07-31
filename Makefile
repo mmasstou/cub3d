@@ -4,7 +4,12 @@ CFLAGS = -Wall -Wextra -Werror
 LIBFT_DIR = utils/libft
 LIBFT_NAME = libft.a 
 FRAMEWORKS =  -lmlx -framework AppKit -framework OpenGL
-SRCS = cub3d.c
+
+
+
+
+
+SRCS = cub3d.c parsing/parsing.c
 OBJS	= $(SRC:.c=.o)
 
 %.o:%.c  

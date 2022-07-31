@@ -1,9 +1,7 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
+# include <libc.h>
 # include "utils/libft/libft.h"
 
 # define COLOR_SUCCESS "\033[38;5;42m"

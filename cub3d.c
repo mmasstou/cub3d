@@ -11,7 +11,11 @@ void    checkLeaks()
 
 int main(int argc, char *argv[])
 {
+    t_data  data;
+
+    data = NULL;
     atexit(checkLeaks);
+    parsing(&data)
     printf("Cub3d\n");
     return (0);
 }

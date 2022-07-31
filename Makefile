@@ -1,11 +1,11 @@
 NAME = cub3D
 CC = cc
-SRCS = cub3d.c checkargs.c cub_error.c stockData.c
 CFLAGS = -Wall -Wextra -Werror
-OBJS	= $(SRC:.c=.o)
 LIBFT_DIR = utils/libft
 LIBFT_NAME = libft.a 
-FRAMEWORKS =  utils/minilibx_macos/libmlx.a -framework AppKit -framework OpenGL
+FRAMEWORKS =  -lmlx -framework AppKit -framework OpenGL
+SRCS = cub3d.c
+OBJS	= $(SRC:.c=.o)
 
 %.o:%.c  
 	@${CC} $(CFLAGS)  -I . -o $@ -c $<
@@ -27,7 +27,10 @@ push:fclean
 	git commit -m "$$message"; \
 	git push origin master
 
-pull :
+pull_master :
+	git pull origin master
+
+pull_dev :
 	git pull origin master
 
 clean: 

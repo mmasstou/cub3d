@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:39:23 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/01 19:42:09 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/01 22:07:43 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*ft_reassign(void *oldptr, void *newptr)
 void    _error(char *msg)
 {
     ft_putstr_fd("\033[0;31m", STDERR_FILENO);
-    ft_putstr_fd("Error :", STDERR_FILENO);
+    ft_putstr_fd("❌ Error :", STDERR_FILENO);
     if (msg != NULL)
         ft_putstr_fd(msg, STDERR_FILENO);
     ft_putendl_fd("\033[0m", STDERR_FILENO);
@@ -67,7 +67,49 @@ void map_freme(char **g_map, int g_map_size, int i)
         }
     }
 }
+void    chech_direction(char **map, int index, int jndex, int dirc)
+{
+    int m;
+    if (map[index] == NULL)
+        _error("space with zero down");
+    else if (map[index][jndex] != '\0' || map[index][jndex] != '\n')
+    {
+        if (map[index][jndex] == SPACE)
+            _error("space with zero down");
+    }
+}
 
+// void    check_minimap(char **minimap, t_data *data)
+// {
+//     int index;
+//     int jndex;
+
+//     index = 0;
+//     jndex = 0;
+//     while (minimap[index])
+//     {
+//         while (minimap[index][jndex] != '\0' && minimap[index][jndex] != '\n')
+//         {
+//             if (minimap[index][jndex] == ZERO)
+//             {
+//                 // check 0 up -&-
+//                 chech_direction(minimap, index - 1, jndex, NORD);
+//                 // check 0 down -&-
+//                 chech_direction(minimap, index + 1, jndex, SOUTH);
+//                 // check 0 left -&-
+//                 chech_direction(minimap, index, jndex - 1, WEST);
+//                 // check 0 right -&-
+//                 chech_direction(minimap, index, jndex + 1, EAST);
+//                 printf("%s", "🍀");
+//             }
+//             else if (minimap[index][jndex] == SPACE)
+//                 printf("%s", "  ");
+//             jndex++;
+//         }
+//        index++;
+//     }
+    
+// }
 void    parsing_map(char **g_map, t_data *data, int g_map_size)
 {
     int index;
@@ -76,8 +118,8 @@ void    parsing_map(char **g_map, t_data *data, int g_map_size)
     int m;
     
     (void)data;
-    index = 0;
     // printf("g_map_size : %d\n", g_map_size);
+    index = 0;
     while (g_map[index])
     {
         // g_map[index] = ft_reassign(g_map[index], ft_strtrim(g_map[index], " "));
@@ -90,9 +132,7 @@ void    parsing_map(char **g_map, t_data *data, int g_map_size)
             g_map[index][0] != '\n')
         {
             // check map errors
-           
-            i = index;
-            map_freme(g_map, g_map_size, i);
+            // map_freme(g_map, g_map_size, i);
             while (true)
             {
                 // printf("line[%2d] : |%s", index, g_map[index]);
@@ -100,101 +140,47 @@ void    parsing_map(char **g_map, t_data *data, int g_map_size)
                 while (g_map[index] && g_map[index][jndex] != '\0' && g_map[index][jndex] != '\n')
                 {
                     // -&- check 0 -&-
-                    if (g_map[index][0] != ONE)
-                    {
-                        if (g_map[index][0] != SPACE)
-                            _error("Zero");
-                    }
                     if (g_map[index][jndex] == ZERO)
                     {
-                        m = jndex;
-                        while (g_map[index][m] == ZERO)
-                            m++;
-                        if (g_map[index][m] != ONE)
-                            _error("Zero");
-                        // // check 0 up -&-
-                        // i = index - 1;
-                        // if (!g_map[i])
-                        //     i = 0;
-                        // else if (g_map[i][jndex] != '\0' || g_map[i][jndex] != '\n')
-                        // {
-                        //     if (g_map[i][jndex] == SPACE)
-                        //         _error("space with zero up");
-                        // }
-                        // // check 0 down -&-
-                        // i = index + 1;
-                        // if (!g_map[i])
-                        //     i = 0;
-                        // else if (g_map[i][jndex] != '\0' || g_map[i][jndex] != '\n')
-                        // {
-                        //     if (g_map[i][jndex] == SPACE)
-                        //         _error("space with zero down");
-                        // }
-                        // // check 0 left -&-
-                        // i = jndex - 1;
-                        // if (g_map[index][i] != '\0' || g_map[index][i] != '\n')
-                        // {
-                        //     if (g_map[index][i] == SPACE)
-                        //         _error("space with zero left");
-                        // }
-                        // // check 0 right -&-
-                        // i = jndex + 1;
-                        // if (g_map[index][i] != '\0' || g_map[index][i] != '\n')
-                        // {
-                        //     if (g_map[index][i] == SPACE)
-                        //         _error("space with zero right");
-                        // }
+                        // check 0 up -&-
+                        chech_direction(g_map, index - 1, jndex, NORD);
+                        // check 0 down -&-
+                        chech_direction(g_map, index + 1, jndex, SOUTH);
+                        // check 0 left -&-
+                        chech_direction(g_map, index, jndex - 1, WEST);
+                        // check 0 right -&-
+                        chech_direction(g_map, index, jndex + 1, EAST);
                         printf("%s", "🍀");
                     }
                     // -&- check 1 -&-
                     else if (g_map[index][jndex] == SPACE)
-                    {
-                        m = jndex;
-                        while (g_map[index][m] == SPACE)
-                            m++;
-                        if (g_map[index][m] != ONE)
-                            _error("space");
-                        // // check 0 up -&-
-                        // i = index - 1;
-                        // if (!g_map[i])
-                        //     i = 0;
-                        // else if (g_map[i][jndex] != '\0' || g_map[i][jndex] != '\n')
-                        // {
-                        //     if (g_map[i][jndex] == ZERO)
-                        //         _error("Zero with space up");
-                        // }
-                        // // check 0 down -&-
-                        // i = index + 1;
-                        // if (!g_map[i])
-                        //     i = 0;
-                        // else if (g_map[i][jndex] != '\0' || g_map[i][jndex] != '\n')
-                        // {
-                        //     if (g_map[i][jndex] == ZERO)
-                        //         _error("Zero with space down");
-                        // }
-                        // // check 0 left -&-
-                        // i = jndex - 1;
-                        // if (g_map[index][i] != '\0' || g_map[index][i] != '\n')
-                        // {
-                        //     if (g_map[index][i] == ZERO)
-                        //         _error("Zero with space left");
-                        // }
-                        // // check 0 right -&-
-                        // i = jndex + 1;
-                        // if (g_map[index][i] != '\0' || g_map[index][i] != '\n')
-                        // {
-                        //     if (g_map[index][i] == ZERO)
-                        //         _error("Zero with space right");
-                        // }
                         printf("%s", "  ");
+                    else if (g_map[index][jndex] != SPACE && g_map[index][jndex] != ZERO && g_map[index][jndex] != ONE)
+                    {
+                        // check 0 up -&-
+                        chech_direction(g_map, index - 1, jndex, NORD);
+                        // check 0 down -&-
+                        chech_direction(g_map, index + 1, jndex, SOUTH);
+                        // check 0 left -&-
+                        chech_direction(g_map, index, jndex - 1, WEST);
+                        // check 0 right -&-
+                        chech_direction(g_map, index, jndex + 1, EAST);
+                        if (g_map[index][jndex] == 'W')
+                            printf("%s", "👈");
+                        else if (g_map[index][jndex] == 'N')
+                            printf("%s", "👆");
+                        else if (g_map[index][jndex] == 'S')
+                            printf("%s", "👇");
+                        else if (g_map[index][jndex] == 'E')
+                            printf("%s", "👉");
+                        else 
+                            _error("Stranger Element");
                     }
                     // -&- check 0 -&-
                     else if (g_map[index][jndex] == ONE)
                         printf("\033[0;31m%s\033[0m", "🎱");
                     else 
-                    {
-                       printf("%s", "🔴");
-                    }
+                        _error("Stranger Element");
                     jndex++;
                 }
                 if (!g_map[index])
@@ -202,7 +188,6 @@ void    parsing_map(char **g_map, t_data *data, int g_map_size)
                 printf("\n");
                 index++;
             }
-            // return ;
         }
         index++;
     }

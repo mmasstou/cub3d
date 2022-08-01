@@ -26,6 +26,13 @@ typedef struct data
     t_color c;
     char  **map;
 }   t_data;
+
+enum dir{
+    NORD = 121,
+    EAST,
+    WEST,
+    SOUTH
+};
 //----------------------------- Parsing
 void    parsing(char *argv[], t_data *data);
 

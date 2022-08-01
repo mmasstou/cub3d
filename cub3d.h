@@ -2,6 +2,7 @@
 # define CUB3D_H
 
 # include <libc.h>
+# include <stdbool.h>
 # include "utils/libft/libft.h"
 
 # define COLOR_SUCCESS "\033[38;5;42m"

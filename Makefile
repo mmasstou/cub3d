@@ -1,6 +1,6 @@
 NAME = cub3D
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 LIBFT_DIR = utils/libft
 LIBFT_NAME = libft.a 
 FRAMEWORKS =  -lmlx -framework AppKit -framework OpenGL

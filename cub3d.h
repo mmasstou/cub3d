@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:34:57 by abellakr          #+#    #+#             */
-/*   Updated: 2022/07/31 18:34:58 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/01 14:59:49 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,12 @@ typedef struct data
 }   t_data;
 //----------------------------- Parsing
 void    parsing(char *argv[], t_data *data);
+void	check_map_parameters(char **map, t_data *data);
+void	save_parameters_data(char *line, t_data *data);
+int twod_array_size(char **tab);
+void	save_texture(char *texture,char *texture_data, t_data *data);
+void	save_color(char *color, char *color_data, t_data *data);
 
 #endif
+//TODO: check leaks and norme errors
+// free leaks

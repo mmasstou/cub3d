@@ -30,6 +30,7 @@ typedef struct data
     t_color f;
     t_color c;
     char  **map;
+    int start_map;
 }   t_data;
 
 enum dir{
@@ -40,14 +41,24 @@ enum dir{
 };
 // -&- SRCS -&-
 void    _error(char *msg);
+void     checkargs(int argc, char *argv[]);
 //----------------------------- Parsing
 void    parsing(char *argv[], t_data *data);
 void    stock_minimap(char **minimap, t_data **data, int minimap_size);
-bool    is_player(char c);
+bool    is_player(char c, t_data *data);
 void    check_minimap(char **minimap, t_data *data);
 int     get_map_size(char *file);
 void    chech_direction(char **map, int index, int jndex);
 char    **get_g_map(char *file);
-void    print_minimap(char **g_map);
 void    parsing_minimap(char **g_map, t_data *data);
+
+
+
+
+
+
+
+
+
+void    print_minimap(char **g_map);
 #endif

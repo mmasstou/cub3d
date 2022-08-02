@@ -46,7 +46,7 @@ void    print_minimap(char **g_map)
                 printf("%s", "🍀");
             else if (g_map[index][jndex] == SPACE)
                 printf("%s", "  ");
-            else if (is_player(g_map[index][jndex]))
+            else if (g_map[index][jndex] == 'W' || g_map[index][jndex] == 'N' || g_map[index][jndex] == 'S' || g_map[index][jndex] == 'E')
             {
                 if (g_map[index][jndex] == 'W')
                     printf("%s", "👈");

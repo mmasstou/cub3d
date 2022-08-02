@@ -1,23 +1,25 @@
 #include "../cub3d.h"
 
-void    parsing_minimap(char **g_map, t_data *data)
+void    parsing_minimap(char **minimap, t_data *data)
 {
-    int index;
-    
-    index = 0;
-    while (g_map[index])
+    int jndex;
+    char    *tmp;
+
+    data->p = 0;
+    while (minimap[data->start_map])
     {
-        if (ft_strncmp("NO", g_map[index],2) != 0 &&
-            ft_strncmp("SO", g_map[index], 2) != 0 &&
-            ft_strncmp("WE", g_map[index], 2) != 0 &&
-            ft_strncmp("EA", g_map[index], 2) != 0 &&
-            ft_strncmp("F", g_map[index], 1) != 0 &&
-            ft_strncmp("C", g_map[index], 1) != 0 &&
-            g_map[index][0] != '\n')
-            {
-                check_minimap(&g_map[index], data);
-                return ;
-            }
-        index++;
+        jndex = 0;
+        tmp = ft_strtrim(minimap[data->start_map], " ");
+        if (tmp[0] == '\n')
+        {
+            free(tmp);
+            data->start_map++;
+        }
+        else
+        {
+            free(tmp);
+            break ;
+        }
     }
+    check_minimap(&minimap[data->start_map], data);
 }

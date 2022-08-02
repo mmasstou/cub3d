@@ -1,13 +1,13 @@
 NAME = cub3D
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror  
 LIBFT_DIR = utils/libft
 PARS_DIR = parsing/
 LIBFT_NAME = libft.a 
 FRAMEWORKS =  -lmlx -framework AppKit -framework OpenGL
 
 
-SRCS = cub3d.c  _error.c
+SRCS = cub3d.c  _error.c checkargs.c
 
 PARS_SRCS = $(PARS_DIR)parsing.c $(PARS_DIR)stock_minimap.c $(PARS_DIR)is_player.c $(PARS_DIR)check_minimap.c $(PARS_DIR)get_map_size.c  $(PARS_DIR)chech_direction.c $(PARS_DIR)get_g_map.c $(PARS_DIR)parsing_minimap.c
 
@@ -48,3 +48,4 @@ fclean: clean
 	@rm -rf $(NAME)
 	
 re : fclean all
+# -fsanitize=address

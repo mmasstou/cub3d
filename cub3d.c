@@ -14,7 +14,10 @@ int main(int argc, char *argv[])
     t_data  data;
 
     (void)argc;
-    // atexit(checkLeaks);
+    atexit(checkLeaks);
+    checkargs(argc, argv);
+    data.start_map = 7;
+    data.p = 0;
     parsing(argv, &data);
     return (0);
 }

@@ -5,10 +5,9 @@ void    check_minimap(char **minimap, t_data *data)
     int index;
     int jndex;
     int m;
-    char p;
 
     index = 0;
-    p = 0;
+    data->p = 0;
     while (minimap[index])
     {
         jndex = 0;
@@ -27,8 +26,8 @@ void    check_minimap(char **minimap, t_data *data)
                 m = 1;
             else if (is_player(minimap[index][jndex]) == true)
             {
-                if (p == 0)
-                    p = minimap[index][jndex];
+                if (data->p == 0)
+                    data->p = minimap[index][jndex];
                 else
                     _error("multiple player ");
                 chech_direction(minimap, index - 1, jndex);

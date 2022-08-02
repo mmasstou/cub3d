@@ -26,6 +26,7 @@ typedef struct data
     char    *so;
     char    *we;
     char    *ea;
+    char    p;
     t_color f;
     t_color c;
     char  **map;

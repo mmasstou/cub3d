@@ -13,9 +13,8 @@ int main(int argc, char *argv[])
 {
     t_data  data;
 
-    printf("Cub3d\n");
-    atexit(checkLeaks);
+    (void)argc;
+    // atexit(checkLeaks);
     parsing(argv, &data);
-    printf("Dane\n");
     return (0);
 }

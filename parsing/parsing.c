@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:39:23 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/02 15:50:05 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/02 18:33:03 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,10 @@ void    get_map_parameters(char **map, t_data *data)
 		i++;
 	}
 	// check file extentions and check they execist 
+	check_files(data->no);
+	check_files(data->so);
+	check_files(data->we);
+	check_files(data->ea);
 }
 
 //--------------------------------------------------- function to trait each line
@@ -279,4 +283,25 @@ void	check_color_digit(char **color_tab)
 		}
 		i++;
 	}
+}
+//--------------------------------------------
+void	check_files(char *filename)
+{
+	int fd;
+	
+	char *extension;
+
+	extension = ft_strrchr(filename, '.');		
+	if(extension == NULL || ft_strncmp(extension, ".xpm", 4))
+	{
+		printf("Error\n");
+		exit(1);
+	}
+	fd = open(filename, O_RDONLY);
+	if(fd < 0)
+	{
+		printf("Error\n");
+		exit(1);
+	}
+	close(fd);
 }

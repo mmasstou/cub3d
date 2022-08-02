@@ -22,7 +22,7 @@ _libft :
 	@make bonus -C $(LIBFT_DIR)
 
 $(NAME): $(OBJS) _libft
-	@$(CC) $(SRCS) $(LIBFT_DIR)/$(LIBFT_NAME) -o $(NAME) -g $(FRAMEWORKS)
+	@$(CC) $(SRCS) $(LIBFT_DIR)/$(LIBFT_NAME) -o $(NAME)
 	@echo "\x1b[36m   +> cub3D \033[0m\033[38;5;42m [Done] \033[0m";
 
 push:fclean

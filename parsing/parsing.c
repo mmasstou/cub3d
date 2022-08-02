@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:39:23 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/02 13:10:46 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/02 15:50:05 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ int get_map_size(char *file)
 	if (fd == -1)
 		exit (1);
 	line = get_next_line(fd);
+	if(line == NULL)
+	{
+		printf("Error\n");
+		exit(1);
+	}
 	while (line)
 	{
 		index++;
@@ -88,10 +93,16 @@ void    get_map_parameters(char **map, t_data *data)
 		if(data->params == 6)
 			break;
 		line = ft_split(map[i], ' ');
+		if(array_size(line) != 2 && array_size(line) != 0)
+		{
+			printf("Error\n");
+			exit(1);
+		}
 		get_line_parameters(line, data);
 		free_array(line);
 		i++;
 	}
+	// check file extentions and check they execist 
 }
 
 //--------------------------------------------------- function to trait each line
@@ -234,9 +245,12 @@ void	check_color_validity(char **color_tab)
 	int g;
 	int b;
 
-	r = ft_atoi(color_tab[0]);
-	g = ft_atoi(color_tab[1]);
-	b = ft_atoi(color_tab[2]);
+	if(color_tab[0] && color_tab[1] && color_tab[2])
+	{
+		r = ft_atoi(color_tab[0]);
+		g = ft_atoi(color_tab[1]);
+		b = ft_atoi(color_tab[2]);
+	}
 	check_color_digit(color_tab);
 	if(array_size(color_tab) != 3 || r < 0 || g < 0 || b < 0 || r > 255 || g > 255 || b > 255)
 	{

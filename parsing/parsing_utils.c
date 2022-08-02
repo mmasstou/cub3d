@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 07:29:05 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/02 09:31:20 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/02 15:05:49 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,12 @@ void free_array(char **array)
     }
     if(array)
         free(array);
+}
+//--------------------------------------- free data params
+void    free_params(t_data *data)
+{
+    free(data->no);
+    free(data->so);
+    free(data->we);
+    free(data->ea);
 }

@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:34:57 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/02 18:17:45 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/02 20:17:19 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct data
     t_color f;
     t_color c;
     char  **map;
+    int start_map;
 }   t_data;
 //----------------------------- Parsing
 void    parsing(char *argv[], t_data *data);

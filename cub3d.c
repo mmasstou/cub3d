@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
 
     // atexit(checkLeaks); 
     parsing(argv, &data);
+    printf("\n%d\n", data.start_map);
     free_params(&data);
     return (0);
 }

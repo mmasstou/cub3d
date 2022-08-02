@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:39:23 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/02 18:33:03 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/02 20:20:07 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,10 @@ void    get_map_parameters(char **map, t_data *data)
 	while(map[i])
 	{
 		if(data->params == 6)
+		{
+			data->start_map = i + 1;
 			break;
+		}
 		line = ft_split(map[i], ' ');
 		if(array_size(line) != 2 && array_size(line) != 0)
 		{

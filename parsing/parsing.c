@@ -6,62 +6,12 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:39:23 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/01 15:38:26 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/02 13:10:46 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-void	*ft_reassign(void *oldptr, void *newptr)
-{
-	free(oldptr);
-	return (newptr);
-}
-
-void    parsing_map(char **g_map, t_data *data, int g_map_size)
-{
-	int index;
-	int jndex;
-	
-	(void)data;
-	index = 0;
-	// printf("g_map_size : %d\n", g_map_size);
-	while (g_map[index])
-	{
-		// g_map[index] = ft_reassign(g_map[index], ft_strtrim(g_map[index], " "));
-		if (ft_strncmp("NO", g_map[index],2) != 0 &&
-			ft_strncmp("SO", g_map[index], 2) != 0 &&
-			ft_strncmp("WE", g_map[index], 2) != 0 &&
-			ft_strncmp("EA", g_map[index], 2) != 0 &&
-			ft_strncmp("F", g_map[index], 1) != 0 &&
-			ft_strncmp("C", g_map[index], 1) != 0 &&
-			g_map[index][0] != '\n')
-		{
-			printf("line[%2d] : |%s", index, g_map[index]);
-			// check map errors
-			jndex = 0;
-			while (g_map[index][jndex] != '\0' && g_map[index][jndex] != '\n')
-			{
-				// printf("|%c| -- |%c|\n", g_map[index][jndex], g_map[index][jndex + 1]);
-				if (
-					g_map[index][jndex] == 32 &&
-					(((g_map[index][jndex + 1] && g_map[index][jndex + 1] == '0') || (g_map[index][jndex - 1] && g_map[index][jndex - 1] == '0')) ||
-					((g_map[index - 1][jndex + 1] && g_map[index - 1][jndex + 1] == '0') || (g_map[index - 1][jndex - 1] && g_map[index - 1][jndex - 1] == '0'))
-					)
-					)
-				{
-					printf("Map Error\n1->|%c|->|%c|\n", g_map[index][jndex], g_map[index][jndex + 1]);
-					printf("jndex |%d", jndex);
-					exit (1);
-				}
-				jndex++;
-			}
-			// return ;
-		}
-		index++;
-	}
-}
-
+//---------------------------------------------- function to get map size
 int get_map_size(char *file)
 {
 	int index;
@@ -82,7 +32,7 @@ int get_map_size(char *file)
 	close(fd);
 	return (index);
 }
-
+//------------------------------------------------------ function ti get all map 
 char    **get_g_map(char *file, int *g_map_size)
 {
 	int     fd;
@@ -101,14 +51,14 @@ char    **get_g_map(char *file, int *g_map_size)
 	index = 0;
 	while (line)
 	{
-		g_map[index] = ft_strdup(line);
+		g_map[index] = ft_strtrim(line, " \n"); // change ft_strdub with ft_strtrim
 		free(line);
 		line = get_next_line(fd);
 		index++;
 	}
 	return (g_map[index] = NULL, g_map);
 }
-
+//---------------------------------------------------------- parsing 
 void    parsing(char *argv[], t_data *data)
 {
 	char    **g_map;
@@ -116,8 +66,7 @@ void    parsing(char *argv[], t_data *data)
 	int     index;
 
 	g_map = get_g_map(argv[1], &g_map_size);
-	// parsing_map(g_map, data, g_map_size);
-	check_map_parameters(g_map, data);
+	get_map_parameters(g_map, data);
 	index = 0;
 	while (g_map[index])
 	{
@@ -125,108 +74,195 @@ void    parsing(char *argv[], t_data *data)
 		index++;
 	}
 	free(g_map);
-	
 }
-//-------------------------------------- check map parmeters 
-void	check_map_parameters(char **map, t_data *data)
+//--------------------------------------------------------------- get map parameters
+void    get_map_parameters(char **map, t_data *data)
 {
 	int i;
-	int	parameters;
+	char **line;
 
 	i = 0;
-	parameters = 6;
-	while(map[i] != NULL)
+	line = NULL;
+	while(map[i])
 	{
-		if(ft_strncmp(map[i],"NO ", 3) == 0 || ft_strncmp(map[i],"SO ", 3) == 0 || \
-		ft_strncmp(map[i],"WE ", 3) == 0 || ft_strncmp(map[i],"EA ", 3) == 0 \
-		|| ft_strncmp(map[i],"C ", 2) == 0 || ft_strncmp(map[i],"F ", 2) == 0 && parameters != 0)
-		{
-			save_parameters_data(map[i], data);
-			parameters--;
-			i++;
-		}
-		else if(ft_strncmp(map[i],"\n", 2) == 0)
-			i++;
-		else if (parameters == 0)
+		if(data->params == 6)
 			break;
-		else 
-		{
-			printf("Error by bellakrim parsing\n");
-			exit(1);
-		}
+		line = ft_split(map[i], ' ');
+		get_line_parameters(line, data);
+		free_array(line);
+		i++;
 	}
 }
-//----------------------------------- 
-void	save_parameters_data(char *line, t_data *data)
-{
-	char **parameters;
 
-	parameters = ft_split(line, ' ');
-	if(twod_array_size(parameters) != 2)
+//--------------------------------------------------- function to trait each line
+void    get_line_parameters(char **line, t_data *data)
+{
+	if(line[0] && (ft_strncmp(line[0], "NO", 2) && ft_strncmp(line[0], "SO", 2) && ft_strncmp(line[0], "WE", 2) \
+	&& ft_strncmp(line[0], "EA", 2) && ft_strncmp(line[0], "F", 1) \
+	&& ft_strncmp(line[0], "C", 1)))
 	{
-		printf("Error by bellakrim parsing\n");
+		printf("Error\n");
 		exit(1);
 	}
-	if(ft_strncmp(parameters[0], "NO", 2) == 0 || ft_strncmp(parameters[0], "SO", 2) == 0 || \
-	ft_strncmp(parameters[0], "WE", 2) == 0 || ft_strncmp(parameters[0], "EA", 2) == 0)
-		save_texture(parameters[0], parameters[1], data);
-	else if(ft_strncmp(parameters[0], "C", 2) == 0 || ft_strncmp(parameters[0], "F", 2) == 0)
-		save_color(parameters[0], parameters[1], data);
+	else if((line[0] && (!ft_strncmp(line[0], "NO", 2) || !ft_strncmp(line[0], "SO", 2) || !ft_strncmp(line[0], "WE", 2) \
+	|| !ft_strncmp(line[0], "EA", 2) || !ft_strncmp(line[0], "F", 1) \
+	|| !ft_strncmp(line[0], "C", 1)) && data->params != 6))
+	{
+		save_data(line, data);
+		data->params++;
+	}
 }
-//---------------------------------------------------- save texture data
-void	save_texture(char *texture,char *texture_data, t_data *data)
+//-------------------------------------------------------
+void	save_data(char **line, t_data *data)
 {
-	if(ft_strncmp(texture, "NO", 2) == 0)
-		data->no = ft_strdup(texture_data);
-	else if(ft_strncmp(texture, "SO", 2) == 0)
-		data->so = ft_strdup(texture_data);
-	else if(ft_strncmp(texture, "WE", 2) == 0)
-		data->we = ft_strdup(texture_data);
-	else if(ft_strncmp(texture, "EA", 2) == 0)
-		data->ea = ft_strdup(texture_data);
+	save_no(line, data);
+	save_so(line, data);
+	save_we(line, data);
+	save_ea(line, data);
+	save_f(line, data);
+	save_c(line, data);
 }
-//-------------------------------------------------------- save color data
+//-----------------------------------------------------
+void	save_no(char **line, t_data *data)
+{
+	if(!ft_strncmp(line[0], "NO", 2) && data->exit.no == 0)
+	{
+		data->no = ft_strdup(line[1]);
+		data->exit.no++;
+	}
+	else if(!ft_strncmp(line[0], "NO", 2) && data->exit.no == 1)
+	{
+		printf("Error\n");
+		exit(1);
+	}
+}
+//-----------------------------------------------------
+void	save_so(char **line, t_data *data)
+{
+	if(!ft_strncmp(line[0], "SO", 2) && data->exit.so == 0)
+	{
+		data->so = ft_strdup(line[1]);
+		data->exit.so++;
+	}
+	else if(!ft_strncmp(line[0], "SO", 2) && data->exit.so == 1)
+	{
+		printf("Error\n");
+		exit(1);
+	}
+}
+//-----------------------------------------------------
+void	save_we(char **line, t_data *data)
+{
+	if(!ft_strncmp(line[0], "WE", 2) && data->exit.we == 0)
+	{
+		data->we = ft_strdup(line[1]);
+		data->exit.we++;
+	}
+	else if(!ft_strncmp(line[0], "WE", 2) && data->exit.we == 1)
+	{
+		printf("Error\n");
+		exit(1);
+	}
+}
+//-----------------------------------------------------
+void	save_ea(char **line, t_data *data)
+{
+	if(!ft_strncmp(line[0], "EA", 2) && data->exit.ea == 0)
+	{
+		data->ea = ft_strdup(line[1]);
+		data->exit.ea++;
+	}
+	else if(!ft_strncmp(line[0], "EA", 2) && data->exit.ea == 1)
+	{
+		printf("Error\n");
+		exit(1);
+	}
+}
+//----------------------------------------------
+void	save_f(char **line, t_data *data)
+{
+	if(!ft_strncmp(line[0], "F", 1) && data->exit.f == 0)
+	{
+		save_color(line[0], line[1], data);
+		data->exit.f++;
+	}
+	else if(!ft_strncmp(line[0], "F", 2) && data->exit.f == 1)
+	{
+		printf("Error\n");
+		exit(1);
+	}
+}
+//----------------------------------------------
+void	save_c(char **line, t_data *data)
+{
+	if(!ft_strncmp(line[0], "C", 1) && data->exit.c == 0)
+	{
+		save_color(line[0], line[1], data);
+		data->exit.c++;
+	}
+	else if(!ft_strncmp(line[0], "C", 2) && data->exit.c == 1)
+	{
+		printf("Error\n");
+		exit(1);
+	}
+}
+//------------------------------------------------------------------------
 void	save_color(char *color, char *color_data, t_data *data)
+{
+	char **color_tab;
+
+	color_tab = ft_split(color_data, ',');
+	check_color_validity(color_tab);
+	if(ft_strncmp(color, "C", 1) == 0)
+	{
+		data->c.r = ft_atoi(color_tab[0]);
+		data->c.g = ft_atoi(color_tab[1]);
+		data->c.b = ft_atoi(color_tab[2]);
+	}
+	else if (ft_strncmp(color, "F", 1) == 0)
+	{
+		data->f.r = ft_atoi(color_tab[0]);
+		data->f.g = ft_atoi(color_tab[1]);
+		data->f.b = ft_atoi(color_tab[2]);
+	}
+	free_array(color_tab);
+}
+//--------------------------------------------------
+void	check_color_validity(char **color_tab)
 {
 	int r;
 	int g;
 	int b;
-	char **color_tab;
 
-	color_tab = ft_split(color_data, ',');
-	if(twod_array_size(color_tab) != 3)
-	{
-		printf("Error by bellakrim parsing\n");
-		exit(1);
-	}
 	r = ft_atoi(color_tab[0]);
 	g = ft_atoi(color_tab[1]);
 	b = ft_atoi(color_tab[2]);
-	if(r < 0 || g < 0 || b < 0 || r > 255 || g > 255 || b > 255 || !ft_isalnum(r) || !ft_isalnum(g) || !ft_isalnum(b))
+	check_color_digit(color_tab);
+	if(array_size(color_tab) != 3 || r < 0 || g < 0 || b < 0 || r > 255 || g > 255 || b > 255)
 	{
-		printf("Error by bellakrim\n");
+		printf("Error\n");
 		exit(1);
 	}
-	if(ft_strncmp(color, "C", 1) == 0)
-	{
-		data->c.r = r;
-		data->c.g = g;
-		data->c.b = b;
-	}
-	else if (ft_strncmp(color, "F", 1) == 0)
-	{
-		data->f.r = r;
-		data->f.g = g;
-		data->f.b = b;
-	}
 }
-//--------------------------------------------- function returns 2d array size 
-int twod_array_size(char **tab)
+//-------------------------------------------
+void	check_color_digit(char **color_tab)
 {
 	int i;
+	int j;
 
 	i = 0;
-	while(tab[i] != NULL)
+	while(color_tab[i])
+	{
+		j = 0;
+		while(color_tab[i][j])
+		{
+			if(ft_isdigit(color_tab[i][j]) == 0)
+			{
+				printf("Error\n");
+				exit(1);
+			}
+			j++;	
+		}
 		i++;
-	return (i);
+	}
 }

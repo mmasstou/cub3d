@@ -6,13 +6,16 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 11:53:38 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/01 15:27:22 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/02 13:07:39 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	isdigit( int d)
+int	ft_isdigit(int str)
 {
-	return (d >= '0' && d <= '9');
+	if (str >= 48 && str <= 57)
+		return (1);
+	else
+		return (0);
 }

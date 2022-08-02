@@ -9,7 +9,7 @@ FRAMEWORKS =  -lmlx -framework AppKit -framework OpenGL
 
 
 
-SRCS = cub3d.c parsing/parsing.c
+SRCS = cub3d.c parsing/parsing.c parsing/parsing_utils.c
 OBJS	= $(SRC:.c=.o)
 
 %.o:%.c  
@@ -46,3 +46,4 @@ fclean: clean
 	@rm -rf $(NAME)
 	
 re : fclean all
+# rah makncompiliwch b les flag 

@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:34:57 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/01 14:59:49 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/02 13:00:37 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,19 @@ typedef struct color
     int g;
     int b;
 }   t_color;
-
+typedef struct exist
+{
+    int no;
+    int so;
+    int we;
+    int ea;
+    int f;
+    int c;
+}   t_exist;
 typedef struct data
 {
+    t_exist exit;
+    int     params;
     char    *no;
     char    *so;
     char    *we;
@@ -39,12 +49,19 @@ typedef struct data
 }   t_data;
 //----------------------------- Parsing
 void    parsing(char *argv[], t_data *data);
-void	check_map_parameters(char **map, t_data *data);
-void	save_parameters_data(char *line, t_data *data);
-int twod_array_size(char **tab);
-void	save_texture(char *texture,char *texture_data, t_data *data);
+//------------------------------------- new by bellakrim
+void    get_map_parameters(char **map, t_data *data);
+void    get_line_parameters(char **line, t_data *data);
+void    free_array(char **array);
+int      array_size(char **tab);
+void	save_data(char **line, t_data *data);
+void	save_no(char **line, t_data *data);
+void	save_so(char **line, t_data *data);
+void	save_we(char **line, t_data *data);
+void	save_ea(char **line, t_data *data);
+void	save_f(char **line, t_data *data);
+void	save_c(char **line, t_data *data);
 void	save_color(char *color, char *color_data, t_data *data);
-
+void	check_color_validity(char **color_tab);
+void	check_color_digit(char **color_tab);
 #endif
-//TODO: check leaks and norme errors
-// free leaks

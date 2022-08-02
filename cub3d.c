@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 {
     t_data  data;
 
-    // atexit(checkLeaks);
+    // atexit(checkLeaks); 
     parsing(argv, &data);
     return (0);
 }

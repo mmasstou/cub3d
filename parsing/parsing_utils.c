@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 07:29:05 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/02 15:05:49 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/03 09:35:19 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,10 @@ void    free_params(t_data *data)
     free(data->so);
     free(data->we);
     free(data->ea);
+}
+//-------------------------------------------- error function
+void ft_error()
+{
+    printf("Error\n");
+    exit(1);
 }

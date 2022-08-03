@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:34:57 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/03 07:17:57 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/03 09:35:38 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,5 @@ void	check_color_validity(char **color_tab);
 void	check_color_digit(char **color_tab);
 void    free_params(t_data *data);
 void	check_files(char *filename);
+void    ft_error();
 #endif

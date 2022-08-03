@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:39:23 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/03 07:25:52 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/03 09:40:52 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ int get_map_size(char *file)
 		exit (1);
 	line = get_next_line(fd);
 	if(line == NULL)
-	{
-		printf("Error\n");
-		exit(1);
-	}
+		ft_error();
 	while (line)
 	{
 		index++;

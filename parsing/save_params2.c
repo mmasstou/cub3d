@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 07:22:41 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/03 07:23:45 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/03 09:51:41 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ void	save_f(char **line, t_data *data)
 		data->exit.f++;
 	}
 	else if(!ft_strncmp(line[0], "F", 2) && data->exit.f == 1)
-	{
-		printf("Error\n");
-		exit(1);
-	}
+		ft_error();
 }
 //----------------------------------------------
 void	save_c(char **line, t_data *data)
@@ -35,10 +32,7 @@ void	save_c(char **line, t_data *data)
 		data->exit.c++;
 	}
 	else if(!ft_strncmp(line[0], "C", 2) && data->exit.c == 1)
-	{
-		printf("Error\n");
-		exit(1);
-	}
+		ft_error();
 }
 //------------------------------------------------------------------------
 void	save_color(char *color, char *color_data, t_data *data)
@@ -76,10 +70,7 @@ void	check_color_validity(char **color_tab)
 	}
 	check_color_digit(color_tab);
 	if(array_size(color_tab) != 3 || r < 0 || g < 0 || b < 0 || r > 255 || g > 255 || b > 255)
-	{
-		printf("Error\n");
-		exit(1);
-	}
+		ft_error();
 }
 //-------------------------------------------
 void	check_color_digit(char **color_tab)
@@ -94,10 +85,7 @@ void	check_color_digit(char **color_tab)
 		while(color_tab[i][j])
 		{
 			if(ft_isdigit(color_tab[i][j]) == 0)
-			{
-				printf("Error\n");
-				exit(1);
-			}
+				ft_error();
 			j++;	
 		}
 		i++;

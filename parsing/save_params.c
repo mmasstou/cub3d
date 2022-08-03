@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 07:21:06 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/03 07:23:33 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/03 09:46:07 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ void	save_no(char **line, t_data *data)
 		data->exit.no++;
 	}
 	else if(!ft_strncmp(line[0], "NO", 2) && data->exit.no == 1)
-	{
-		printf("Error\n");
-		exit(1);
-	}
+		ft_error();
 }
 //-----------------------------------------------------
 void	save_so(char **line, t_data *data)
@@ -35,10 +32,7 @@ void	save_so(char **line, t_data *data)
 		data->exit.so++;
 	}
 	else if(!ft_strncmp(line[0], "SO", 2) && data->exit.so == 1)
-	{
-		printf("Error\n");
-		exit(1);
-	}
+		ft_error();
 }
 //-----------------------------------------------------
 void	save_we(char **line, t_data *data)
@@ -49,10 +43,7 @@ void	save_we(char **line, t_data *data)
 		data->exit.we++;
 	}
 	else if(!ft_strncmp(line[0], "WE", 2) && data->exit.we == 1)
-	{
-		printf("Error\n");
-		exit(1);
-	}
+		ft_error();
 }
 //-----------------------------------------------------
 void	save_ea(char **line, t_data *data)
@@ -63,8 +54,5 @@ void	save_ea(char **line, t_data *data)
 		data->exit.ea++;
 	}
 	else if(!ft_strncmp(line[0], "EA", 2) && data->exit.ea == 1)
-	{
-		printf("Error\n");
-		exit(1);
-	}
+		ft_error();
 }

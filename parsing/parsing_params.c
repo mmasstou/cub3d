@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 07:25:24 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/03 07:26:04 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/03 09:45:43 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ void    get_map_parameters(char **map, t_data *data)
 		}
 		line = ft_split(map[i], ' ');
 		if(array_size(line) != 2 && array_size(line) != 0)
-		{
-			printf("Error\n");
-			exit(1);
-		}
+			ft_error();
 		get_line_parameters(line, data);
 		free_array(line);
 		i++;
@@ -50,10 +47,7 @@ void    get_line_parameters(char **line, t_data *data)
 	if(line[0] && (ft_strncmp(line[0], "NO", 2) && ft_strncmp(line[0], "SO", 2) && ft_strncmp(line[0], "WE", 2) \
 	&& ft_strncmp(line[0], "EA", 2) && ft_strncmp(line[0], "F", 1) \
 	&& ft_strncmp(line[0], "C", 1)))
-	{
-		printf("Error\n");
-		exit(1);
-	}
+		ft_error();
 	else if((line[0] && (!ft_strncmp(line[0], "NO", 2) || !ft_strncmp(line[0], "SO", 2) || !ft_strncmp(line[0], "WE", 2) \
 	|| !ft_strncmp(line[0], "EA", 2) || !ft_strncmp(line[0], "F", 1) \
 	|| !ft_strncmp(line[0], "C", 1)) && data->params != 6))
@@ -73,7 +67,6 @@ void	save_data(char **line, t_data *data)
 	save_c(line, data);
 }
 
-
 //--------------------------------------------
 void	check_files(char *filename)
 {
@@ -83,15 +76,9 @@ void	check_files(char *filename)
 
 	extension = ft_strrchr(filename, '.');		
 	if(extension == NULL || ft_strncmp(extension, ".xpm", 4))
-	{
-		printf("Error\n");
-		exit(1);
-	}
+		ft_error();
 	fd = open(filename, O_RDONLY);
 	if(fd < 0)
-	{
-		printf("Error\n");
-		exit(1);
-	}
+		ft_error();
 	close(fd);
 }

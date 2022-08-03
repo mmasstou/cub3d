@@ -9,7 +9,8 @@ FRAMEWORKS =  -lmlx -framework AppKit -framework OpenGL
 
 
 
-SRCS = cub3d.c parsing/parsing.c parsing/parsing_utils.c
+SRCS = cub3d.c parsing/parsing.c parsing/parsing_utils.c parsing/parsing_params.c \
+parsing/save_params.c parsing/save_params2.c 
 OBJS	= $(SRC:.c=.o)
 
 %.o:%.c  

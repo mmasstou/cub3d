@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:39:23 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/03 09:40:52 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/04 15:05:11 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char    **get_g_map(char *file, int *g_map_size)
 	index = 0;
 	while (line)
 	{
-		g_map[index] = ft_strtrim(line, " \n"); // change ft_strdub with ft_strtrim
+		g_map[index] = ft_strdup(line);
 		free(line);
 		line = get_next_line(fd);
 		index++;

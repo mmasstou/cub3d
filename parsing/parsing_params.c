@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 07:25:24 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/03 09:45:43 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/04 15:06:56 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@
 void    get_map_parameters(char **map, t_data *data)
 {
 	int i;
+	char *trimmed_line;
 	char **line;
 
 	i = 0;
 	line = NULL;
+	trimmed_line = NULL;
 	while(map[i])
 	{
 		if(data->params == 6)
@@ -27,11 +29,13 @@ void    get_map_parameters(char **map, t_data *data)
 			data->start_map = i + 1;
 			break;
 		}
-		line = ft_split(map[i], ' ');
+		trimmed_line = ft_strtrim(map[i], " \n");
+		line = ft_split(trimmed_line, ' ');
 		if(array_size(line) != 2 && array_size(line) != 0)
 			ft_error();
 		get_line_parameters(line, data);
 		free_array(line);
+		free(trimmed_line);
 		i++;
 	}
 	// check file extentions and check they execist 

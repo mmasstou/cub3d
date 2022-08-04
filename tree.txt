@@ -3,6 +3,12 @@
 ├── README.md
 ├── _error.c
 ├── checkargs.c
+├── cub3D.dSYM
+│   └── Contents
+│       ├── Info.plist
+│       └── Resources
+│           └── DWARF
+│               └── cub3D
 ├── cub3d.c
 ├── cub3d.h
 ├── parsing
@@ -16,6 +22,7 @@
 │   └── stock_minimap.c
 ├── tree.txt
 └── utils
+    ├── 3d.png
     ├── libft
     │   ├── Makefile
     │   ├── ft_atoi.c
@@ -80,3 +87,5 @@
         ├── no.xpm
         ├── so.xpm
         └── we.xpm
+
+9 directories, 79 files

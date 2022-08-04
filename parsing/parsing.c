@@ -80,7 +80,7 @@ void    parsing(char *argv[], t_data *data)
 
     g_map = get_g_map(argv[1]);
     parsing_minimap(g_map, data);
-    print_minimap(data->map);
+    // print_minimap(data->map);
     free_2d(data->map);
     free_2d(g_map);
 }

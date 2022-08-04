@@ -4,6 +4,7 @@
 # include <libc.h>
 # include <stdbool.h>
 # include "utils/libft/libft.h"
+# include <mlx.h>
 
 # define COLOR_SUCCESS "\033[38;5;42m"
 # define COLOR_FAILURE "\x1b[31m"
@@ -12,6 +13,11 @@
 # define ZERO '0'
 # define ONE '1'
 # define SPACE ' '
+// mlx
+# define W 1970
+# define H 1150
+
+
 
 typedef struct color
 {

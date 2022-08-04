@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+         #
+#    By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/06 15:54:55 by mmasstou          #+#    #+#              #
-#    Updated: 2022/04/18 17:14:26 by mmasstou         ###   ########.fr        #
+#    Updated: 2022/08/04 16:49:44 by abellakr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,15 +77,12 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@ar rc $(NAME) $(OBJS)
-	@echo "\x1b[36m   +> LIBFT \033[0m\033[38;5;42m [Done] \033[0m";
 	
 bonus: $(B_OBJS) $(OBJS)
 	@ar rc $(NAME) $(OBJS) $(B_OBJS)
-	@echo "\x1b[36m   +> LIBFT \033[0m\033[38;5;42m [Done] \033[0m";
 	
 %.o:%.c libft.h 
 		@${CC} ${CFLAGS} -I . -o $@ -c $<
-		@printf "\x1b[36m   +>\033[0m compiling \033[38;5;42m$< \033[0m\n"
 
 clean:
 	@rm -f *.o

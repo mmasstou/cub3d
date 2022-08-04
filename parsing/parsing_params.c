@@ -6,53 +6,51 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 07:25:24 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/04 15:06:56 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/04 18:53:18 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../cub3d.h"
-
-//--------------------------------------------------------------- get map parameters
-void    get_map_parameters(char **map, t_data *data)
+#include "../cub3d.h"
+//---------------------------- get map parameters
+void	get_map_parameters(char **map, t_data *data)
 {
-	int i;
-	char *trimmed_line;
-	char **line;
+	int		i;
+	char	*trimmed_line;
+	char	**line;
 
-	i = 0;
+	i = -1;
 	line = NULL;
 	trimmed_line = NULL;
-	while(map[i])
+	while (map[++i])
 	{
-		if(data->params == 6)
+		if (data->params == 6)
 		{
 			data->start_map = i + 1;
-			break;
+			break ;
 		}
 		trimmed_line = ft_strtrim(map[i], " \n");
 		line = ft_split(trimmed_line, ' ');
-		if(array_size(line) != 2 && array_size(line) != 0)
+		if (array_size(line) != 2 && array_size(line) != 0)
 			ft_error();
-		get_line_parameters(line, data);
-		free_array(line);
-		free(trimmed_line);
-		i++;
+		get_line_parameters (line, data);
+		free_array (line);
+		free (trimmed_line);
 	}
-	// check file extentions and check they execist 
-	check_files(data->no);
-	check_files(data->so);
-	check_files(data->we);
-	check_files(data->ea);
+	ft_check(data);
 }
 
-//--------------------------------------------------- function to trait each line
-void    get_line_parameters(char **line, t_data *data)
+//------------------------------ function to trait each line
+void	get_line_parameters(char **line, t_data *data)
 {
-	if(line[0] && (ft_strncmp(line[0], "NO", 2) && ft_strncmp(line[0], "SO", 2) && ft_strncmp(line[0], "WE", 2) \
+	if (line[0] && (ft_strncmp(line[0], "NO", 2) && \
+	ft_strncmp(line[0], "SO", 2) \
+	&& ft_strncmp(line[0], "WE", 2) \
 	&& ft_strncmp(line[0], "EA", 2) && ft_strncmp(line[0], "F", 1) \
 	&& ft_strncmp(line[0], "C", 1)))
 		ft_error();
-	else if((line[0] && (!ft_strncmp(line[0], "NO", 2) || !ft_strncmp(line[0], "SO", 2) || !ft_strncmp(line[0], "WE", 2) \
+	else if ((line[0] && (!ft_strncmp(line[0], "NO", 2) || \
+	!ft_strncmp(line[0], "SO", 2) \
+	|| !ft_strncmp(line[0], "WE", 2) \
 	|| !ft_strncmp(line[0], "EA", 2) || !ft_strncmp(line[0], "F", 1) \
 	|| !ft_strncmp(line[0], "C", 1)) && data->params != 6))
 	{
@@ -60,6 +58,7 @@ void    get_line_parameters(char **line, t_data *data)
 		data->params++;
 	}
 }
+
 //-------------------------------------------------------
 void	save_data(char **line, t_data *data)
 {
@@ -74,15 +73,23 @@ void	save_data(char **line, t_data *data)
 //--------------------------------------------
 void	check_files(char *filename)
 {
-	int fd;
-	
-	char *extension;
+	int		fd;
+	char	*extension;
 
-	extension = ft_strrchr(filename, '.');		
-	if(extension == NULL || ft_strncmp(extension, ".xpm", 4))
+	extension = ft_strrchr(filename, '.');
+	if (extension == NULL || ft_strncmp(extension, ".xpm", 4))
 		ft_error();
 	fd = open(filename, O_RDONLY);
-	if(fd < 0)
+	if (fd < 0)
 		ft_error();
-	close(fd);
+	close (fd);
+}
+
+//------------------------------- check_files
+void	ft_check(t_data *data)
+{
+	check_files(data->no);
+	check_files(data->so);
+	check_files(data->we);
+	check_files(data->ea);
 }

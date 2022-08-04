@@ -13,7 +13,6 @@ int main(int argc, char *argv[])
 {
     t_data  data;
 
-    // atexit(checkLeaks);  
     parsing(argv, &data);
     printf("NO %s\n", data.no);
     printf("SO %s\n", data.so);
@@ -22,5 +21,6 @@ int main(int argc, char *argv[])
     printf("F %d,%d,%d\n", data.f.r, data.f.g, data.f.b);
     printf("C %d,%d,%d\n", data.c.r, data.c.g, data.c.b);
     free_params(&data);
+    atexit(checkLeaks);  
     return (0);
 }

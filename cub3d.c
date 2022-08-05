@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:20:48 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/05 12:49:49 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/05 13:20:40 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int argc, char *argv[])
 	t_data	data;
 
 	(void)argc;
-	atexit(checkleaks);
+	// atexit(checkleaks);
 	checkargs(argc, argv);
 	init_data(&data);
 	parsing(argv, &data);

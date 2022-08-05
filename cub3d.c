@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:20:48 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/05 12:15:19 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/05 12:49:49 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	starting_windows(void)
 {
 	void	*mlx;
 	void	*win;
-	// void	*img;
 	char	*str;
+	// void	*img;
 
 	// int x = 500;
 	// int y =  500;

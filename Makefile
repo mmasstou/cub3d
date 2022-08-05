@@ -1,20 +1,37 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/08/05 11:22:44 by mmasstou          #+#    #+#              #
+#    Updated: 2022/08/05 11:22:45 by mmasstou         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = cub3D
-CC = cc
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror  
 LIBFT_NAME = libft.a
+MINILIX_NAME = libmlx.a
 FRAMEWORKS =  -lmlx -framework AppKit -framework OpenGL
 
 # directions : 
 PARS_DIR = parsing/
 LIBFT_DIR = utils/libft
+MINILIX_DIR = utils/minilibx_opengl
+
 # Srcs
 SRCS = cub3d.c  _error.c checkargs.c
 PARS_SRCS = $(PARS_DIR)parsing.c $(PARS_DIR)stock_minimap.c $(PARS_DIR)is_player.c $(PARS_DIR)check_minimap.c $(PARS_DIR)get_map_size.c  $(PARS_DIR)chech_direction.c $(PARS_DIR)get_g_map.c $(PARS_DIR)parsing_minimap.c
+
 # Objs
 OBJS	= $(SRC:.c=.o)
 PARS_OBJS	= $(PARS_SRCS:.c=.o)
+
 # All Files 
-FILES =  $(SRCS) $(PARS_SRCS)  $(LIBFT_DIR)/$(LIBFT_NAME)
+FILES =  $(SRCS) $(PARS_SRCS)  $(LIBFT_DIR)/$(LIBFT_NAME)  $(MINILIX_DIR)/$(MINILIX_NAME)
 
 %.o:%.c  
 	@${CC} $(CFLAGS)  -I . -o $@ -c $<

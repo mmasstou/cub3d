@@ -1,42 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parsing_minimap.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/31 18:39:23 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/05 12:02:11 by mmasstou         ###   ########.fr       */
+/*   Created: 2022/08/05 11:24:27 by mmasstou          #+#    #+#             */
+/*   Updated: 2022/08/05 11:59:13 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	*ft_reassign(void *oldptr, void *newptr)
+void	parsing_minimap(char **minimap, t_data *data)
 {
-	free(oldptr);
-	return (newptr);
-}
+	int		jndex;
+	char	*tmp;
 
-void	free_2d(char **map)
-{
-	int	index;
-
-	index = 0;
-	while (map[index])
+	data->p = 0;
+	while (minimap[data->start_map])
 	{
-		free(map[index]);
-		index++;
+		jndex = 0;
+		tmp = ft_strtrim(minimap[data->start_map], " ");
+		if (tmp[0] == '\n')
+		{
+			free(tmp);
+			data->start_map++;
+		}
+		else
+		{
+			free(tmp);
+			break ;
+		}
 	}
-	free(map);
-}
-
-void	parsing(char *argv[], t_data *data)
-{
-	char	**g_map;
-
-	g_map = get_g_map(argv[1]);
-	parsing_minimap(g_map, data);
-	free_2d(data->map);
-	free_2d(g_map);
+	check_minimap(&minimap[data->start_map], data);
 }

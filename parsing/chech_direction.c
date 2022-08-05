@@ -1,42 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   chech_direction.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/31 18:39:23 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/05 12:02:11 by mmasstou         ###   ########.fr       */
+/*   Created: 2022/08/05 11:24:05 by mmasstou          #+#    #+#             */
+/*   Updated: 2022/08/05 11:47:49 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	*ft_reassign(void *oldptr, void *newptr)
+void	chech_direction(char **map, int index, int jndex)
 {
-	free(oldptr);
-	return (newptr);
-}
-
-void	free_2d(char **map)
-{
-	int	index;
-
-	index = 0;
-	while (map[index])
+	if (map[index] == NULL)
+		_error("Parssing");
+	else if (map[index][jndex] != '\0' && map[index][jndex] != '\n')
 	{
-		free(map[index]);
-		index++;
+		if (map[index][jndex] == SPACE)
+			_error("Parssing");
 	}
-	free(map);
-}
-
-void	parsing(char *argv[], t_data *data)
-{
-	char	**g_map;
-
-	g_map = get_g_map(argv[1]);
-	parsing_minimap(g_map, data);
-	free_2d(data->map);
-	free_2d(g_map);
+	else
+		_error("Parssing");
 }

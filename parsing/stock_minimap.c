@@ -1,42 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   stock_minimap.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/31 18:39:23 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/05 12:02:11 by mmasstou         ###   ########.fr       */
+/*   Created: 2022/08/05 11:24:35 by mmasstou          #+#    #+#             */
+/*   Updated: 2022/08/05 12:00:13 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	*ft_reassign(void *oldptr, void *newptr)
-{
-	free(oldptr);
-	return (newptr);
-}
-
-void	free_2d(char **map)
+void	stock_minimap(char **minimap, t_data **data, int minimap_size)
 {
 	int	index;
 
+	(*data)->map = (char **)malloc(sizeof(char *) * minimap_size + 1);
+	if (!(*data)->map)
+		_error("malloc");
 	index = 0;
-	while (map[index])
+	while (minimap[index])
 	{
-		free(map[index]);
+		(*data)->map[index] = ft_strdup(minimap[index]);
 		index++;
 	}
-	free(map);
-}
-
-void	parsing(char *argv[], t_data *data)
-{
-	char	**g_map;
-
-	g_map = get_g_map(argv[1]);
-	parsing_minimap(g_map, data);
-	free_2d(data->map);
-	free_2d(g_map);
+	(*data)->map[index] = NULL;
 }

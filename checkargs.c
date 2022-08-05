@@ -1,42 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   checkargs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/31 18:39:23 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/05 12:02:11 by mmasstou         ###   ########.fr       */
+/*   Created: 2022/08/05 11:24:59 by mmasstou          #+#    #+#             */
+/*   Updated: 2022/08/05 12:10:00 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "cub3d.h"
 
-void	*ft_reassign(void *oldptr, void *newptr)
+void	checkargs(int argc, char *argv[])
 {
-	free(oldptr);
-	return (newptr);
-}
+	char	*map_name;
+	int		fd;
 
-void	free_2d(char **map)
-{
-	int	index;
-
-	index = 0;
-	while (map[index])
+	if (argc != 2)
+		_error("argument required");
+	map_name = ft_strrchr(argv[1], '.');
+	if ((map_name && ft_strcmp(map_name, ".cub") != 0) || !map_name)
 	{
-		free(map[index]);
-		index++;
+		_error("Map in format *.cub required ");
 	}
-	free(map);
-}
-
-void	parsing(char *argv[], t_data *data)
-{
-	char	**g_map;
-
-	g_map = get_g_map(argv[1]);
-	parsing_minimap(g_map, data);
-	free_2d(data->map);
-	free_2d(g_map);
+	fd = open(argv[1], O_RDONLY, 0777);
+	if (fd == -1)
+		_error("Can`t Open Map");
+	else
+		close(fd);
 }

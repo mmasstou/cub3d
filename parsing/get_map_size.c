@@ -1,42 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   get_map_size.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/31 18:39:23 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/05 12:02:11 by mmasstou         ###   ########.fr       */
+/*   Created: 2022/08/05 11:24:18 by mmasstou          #+#    #+#             */
+/*   Updated: 2022/08/05 11:57:59 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	*ft_reassign(void *oldptr, void *newptr)
+int	get_map_size(char *file)
 {
-	free(oldptr);
-	return (newptr);
-}
+	int		index;
+	int		fd;
+	char	*line;
 
-void	free_2d(char **map)
-{
-	int	index;
-
-	index = 0;
-	while (map[index])
+	index = 1;
+	fd = open(file, O_RDONLY, 0777);
+	if (fd == -1)
+		exit (1);
+	line = get_next_line(fd);
+	if (line == NULL)
+		_error("Map Not found");
+	while (line)
 	{
-		free(map[index]);
 		index++;
+		free(line);
+		line = get_next_line(fd);
 	}
-	free(map);
-}
-
-void	parsing(char *argv[], t_data *data)
-{
-	char	**g_map;
-
-	g_map = get_g_map(argv[1]);
-	parsing_minimap(g_map, data);
-	free_2d(data->map);
-	free_2d(g_map);
+	close(fd);
+	return (index + 1);
 }

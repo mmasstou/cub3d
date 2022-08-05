@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 04:11:08 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/06/22 11:22:56 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/05 12:08:24 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libft.h"
-
-
+#include "libft.h"
 
 int	cheak_buffer(char *str)
 {

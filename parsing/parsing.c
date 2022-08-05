@@ -6,17 +6,11 @@
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:39:23 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/05 12:02:11 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/05 13:36:37 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-void	*ft_reassign(void *oldptr, void *newptr)
-{
-	free(oldptr);
-	return (newptr);
-}
 
 void	free_2d(char **map)
 {
@@ -36,7 +30,9 @@ void	parsing(char *argv[], t_data *data)
 	char	**g_map;
 
 	g_map = get_g_map(argv[1]);
+	get_map_parameters(g_map, data);
 	parsing_minimap(g_map, data);
+	print_minimap(data->map);
 	free_2d(data->map);
 	free_2d(g_map);
 }

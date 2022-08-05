@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:20:48 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/05 13:20:40 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/05 13:35:49 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	checkleaks(void)
 int	init_data(t_data *data)
 {
 	data->map = NULL;
-	data->start_map = 7;
+	data->start_map = 0;
 	data->p = 0;
 	return (0);
 }

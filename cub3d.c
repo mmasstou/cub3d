@@ -23,7 +23,14 @@ int	init_data(t_data *data)
 {
 	data->map = NULL;
 	data->start_map = 0;
+	data->params = 0;
 	data->p = 0;
+	data->exit.no = 0;
+	data->exit.so = 0;
+	data->exit.we = 0;
+	data->exit.ea = 0;
+	data->exit.f = 0;
+	data->exit.c = 0;
 	return (0);
 }
 

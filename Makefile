@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+         #
+#    By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/05 11:22:44 by mmasstou          #+#    #+#              #
-#    Updated: 2022/08/05 13:37:18 by mmasstou         ###   ########.fr        #
+#    Updated: 2022/08/07 19:14:18 by abellakr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,10 +19,15 @@ FRAMEWORKS =  -lmlx -framework AppKit -framework OpenGL
 # directions : 
 PARS_DIR = parsing/
 LIBFT_DIR = utils/libft
+MINIMAP = minimap/
 
 # Srcs
 SRCS = cub3d.c  _error.c checkargs.c
-PARS_SRCS = $(PARS_DIR)parsing.c $(PARS_DIR)stock_minimap.c $(PARS_DIR)is_player.c $(PARS_DIR)check_minimap.c $(PARS_DIR)get_map_size.c  $(PARS_DIR)chech_direction.c $(PARS_DIR)get_g_map.c $(PARS_DIR)parsing_minimap.c $(PARS_DIR)parsing_utils.c  $(PARS_DIR)parsing_params.c  $(PARS_DIR)save_params.c  $(PARS_DIR)save_params2.c  $(PARS_DIR)print_minimap.c
+PARS_SRCS = $(PARS_DIR)parsing.c $(PARS_DIR)stock_minimap.c $(PARS_DIR)is_player.c $(PARS_DIR)check_minimap.c \
+$(PARS_DIR)get_map_size.c  $(PARS_DIR)chech_direction.c $(PARS_DIR)get_g_map.c \
+$(PARS_DIR)parsing_minimap.c $(PARS_DIR)parsing_utils.c  $(PARS_DIR)parsing_params.c  \
+$(PARS_DIR)save_params.c  $(PARS_DIR)save_params2.c  \
+$(MINIMAP)minimap.c
 
 # Objs
 OBJS	= $(SRC:.c=.o)

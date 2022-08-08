@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:20:48 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/05 13:35:49 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/08 09:40:59 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,6 @@ int	init_data(t_data *data)
 	return (0);
 }
 
-void	starting_windows(void)
-{
-	void	*mlx;
-	void	*win;
-	char	*str;
-	// void	*img;
-
-	// int x = 500;
-	// int y =  500;
-	str = ft_strdup("Hello i'm mmasstou");
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, W, H , "-&- Cub3D -&-");
-	mlx_string_put(mlx, win, (W / 2) - (W * 0.06) , 10, 0x219ebc, str);
-	// img = mlx_png_file_to_image(mlx, "utils/3d.png", &x, &y);
-	// mlx_put_image_to_window(mlx, win, img, x, y);
-	mlx_loop(mlx);
-}
-
 int	main(int argc, char *argv[])
 {
 	t_data	data;
@@ -61,6 +43,6 @@ int	main(int argc, char *argv[])
 	checkargs(argc, argv);
 	init_data(&data);
 	parsing(argv, &data);
-	// starting_windows();
+	graphic(&data);
 	return (0);
 }

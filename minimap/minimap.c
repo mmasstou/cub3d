@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 16:51:54 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/08 16:50:24 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/08 18:46:34 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,15 @@ void	draw_minimap(t_data *data)
         j = 0;
         while(data->map[i][j] != '\0' && data->map[i][j] != '\n')
         {
-            my_mlx_pixel_put(j*10 , i *10, data, 16777215);
+            if(data->map[i][j] == '1')
+                draw_rec(j * 20, i * 20, data, 16777215);
+            else if (data->map[i][j] == '0')
+                draw_rec(j * 20, i * 20, data, 255);
+            else if (data->map[i][j] == 'N' || data->map[i][j] == 'W' || data->map[i][j] == 'S' || data->map[i][j] == 'E' )
+                draw_rec(j * 20, i * 20, data, 16777045);
+            else if (data->map[i][j] == ' ')
+                draw_rec(j * 20, i * 20, data, 14957371);
+            
             j++;
         }
         i++;
@@ -51,5 +59,20 @@ void	my_mlx_pixel_put(int x, int y, t_data *data, int color)
 	{
 		dst = data->mlx_vars->buffer + (y * data->mlx_vars->line_lenght + x * (data->mlx_vars->bpp / 8));
 		*(unsigned int *)dst = color;
+	}
+}
+//---------------------------------------------------------- draw rec
+void    draw_rec(int x, int y, t_data *data, int color)
+{
+    int	i;
+	int j;
+
+	i = y;
+	while (i < y + 60)
+	{
+		j = x;
+		while (j < x + 60)
+			my_mlx_pixel_put(j++ , i, data, color);
+		++i;
 	}
 }

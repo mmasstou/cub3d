@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:25:05 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/08 15:51:25 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/08 18:33:51 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,5 @@ void	ft_check(t_data *data);
 void    graphic(t_data *data);
 void	draw_minimap(t_data *data);
 void	my_mlx_pixel_put(int x, int y, t_data *data, int color);
-
+void    draw_rec(int x, int y, t_data *data, int color);
 #endif

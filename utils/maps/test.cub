@@ -1,7 +1,7 @@
-SO ./asset/south.xpm
-WE ./asset/west.xpm
-NO ./asset/north.xpm
-EA ./asset/east.xpm
+SO utils/texture/no.xpm
+WE utils/texture/so.xpm
+NO utils/texture/we.xpm
+EA utils/texture/ea.xpm
 F 42,6,9
 C 104,206,219
 

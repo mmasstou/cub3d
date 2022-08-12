@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:39:23 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/08 09:39:12 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/12 16:33:25 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,5 @@ void	parsing(char *argv[], t_data *data)
 	g_map = get_g_map(argv[1]);
 	get_map_parameters(g_map, data);
 	parsing_minimap(g_map, data);
-	// free_2d(data->map);
 	free_2d(g_map);
 }

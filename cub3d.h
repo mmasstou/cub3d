@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:25:05 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/11 15:26:15 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/12 16:59:57 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # define ONE '1'
 # define SPACE ' '
 // mlx
-# define W 1970
-# define H 1150
+# define W 1320
+# define H 920
 //------------------------------------- structs
 typedef struct exist
 {
@@ -121,4 +121,5 @@ void	my_mlx_pixel_put(int x, int y, t_data *data, int color);
 void    draw_rec(int x, int y, t_data *data, int color);
 int	esc(int keycode, t_data *data);
 int	close_cross(void *param);
+void    draw_player(int x, int y, t_data *data, int color);
 #endif

@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:20:48 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/08 09:40:59 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/12 16:36:08 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,12 @@ int	main(int argc, char *argv[])
 	t_data	data;
 
 	(void)argc;
-	// atexit(checkleaks);
 	checkargs(argc, argv);
 	init_data(&data);
 	parsing(argv, &data);
 	graphic(&data);
+	free_params(&data);
+	free_array(data.map);
+	// atexit(checkleaks);
 	return (0);
 }

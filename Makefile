@@ -6,13 +6,13 @@
 #    By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/05 11:22:44 by mmasstou          #+#    #+#              #
-#    Updated: 2022/08/07 19:14:18 by abellakr         ###   ########.fr        #
+#    Updated: 2022/08/12 16:35:58 by abellakr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror  
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 LIBFT_NAME = libft.a
 FRAMEWORKS =  -lmlx -framework AppKit -framework OpenGL
 
@@ -66,4 +66,4 @@ fclean: clean
 re : fclean all
 
 # -fsanitize=address
-# rah makncompiliwch b les flag 
+# SANIT = -static-libsan -fsanitize=address

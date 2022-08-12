@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 16:51:54 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/11 15:36:13 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/12 17:05:38 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,18 @@ void	draw_minimap(t_data *data)
         j = 0;
         while(data->map[i][j] != '\0' && data->map[i][j] != '\n')
         {
-            if(data->map[i][j] == '1') // white
-                draw_rec(j * 20, i * 20, data, 16777215);
+            if(data->map[i][j] == '1') 
+                draw_rec(j, i , data, 16777215);
             else if (data->map[i][j] == '0')
-                draw_rec(j * 20, i * 20, data, 255); 
+                draw_rec(j, i, data, 255); 
             else if (data->map[i][j] == 'N' || data->map[i][j] == 'W' || data->map[i][j] == 'S' || data->map[i][j] == 'E' )// yellow
-                draw_rec(j * 20, i * 20, data, 16777045);
-            else if (data->map[i][j] == ' ') // red
-                draw_rec(j * 20, i * 20, data, 0);
+            {
+                draw_rec(j, i, data, 255);
+                draw_player(j, i, data, 16776960);
+                
+            }
+            else if (data->map[i][j] == ' ') 
+                draw_rec(j, i, data, 0);
             
             j++;
         }
@@ -70,11 +74,13 @@ void    draw_rec(int x, int y, t_data *data, int color)
     int	i;
 	int j;
 
+    x *= 10;
+    y *= 10;
 	i = y;
-	while (i <= y + 18)
+	while (i <= y + 8)
 	{
 		j = x;
-		while (j <= x + 18)
+		while (j <= x + 8)
         {
 			my_mlx_pixel_put(j, i, data, color);
             j++;
@@ -99,4 +105,24 @@ int	close_cross(void *param)
 {
 	(void)param;
 	exit (0);
+}
+//-----------------------------------------------------
+void    draw_player(int x, int y, t_data *data, int color)
+{
+    int	i;
+	int j;
+
+    x *= 10;
+    y *= 10;
+	i = y + 2;
+	while (i <= y + 6)
+	{
+		j = x + 2;
+		while (j <= x + 6)
+        {
+			my_mlx_pixel_put(j, i, data, color);
+            j++;
+        }
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:25:05 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/05 13:35:26 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/12 14:22:19 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ enum e_dir{
 // -&- SRCS -&-
 void	_error(char *msg);
 void	checkargs(int argc, char *argv[]);
+void	free_2d(char **map);
 //----------------------------- Parsing
 void	parsing(char *argv[], t_data *data);
 void	stock_minimap(char **minimap, t_data **data, int minimap_size);

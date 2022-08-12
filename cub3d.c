@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:20:48 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/05 13:35:49 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/12 14:23:40 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	init_data(t_data *data)
 	data->map = NULL;
 	data->start_map = 0;
 	data->p = 0;
+	data->exit.no = 0;
+	data->params = 0;
 	return (0);
 }
 
@@ -50,10 +52,11 @@ int	main(int argc, char *argv[])
 	t_data	data;
 
 	(void)argc;
-	// atexit(checkleaks);
+	atexit(checkleaks);
 	checkargs(argc, argv);
 	init_data(&data);
 	parsing(argv, &data);
 	// starting_windows();
+	free_2d(data.map);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_params.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 07:25:24 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/04 18:53:18 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/05 14:17:21 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	get_map_parameters(char **map, t_data *data)
 			data->start_map = i + 1;
 			break ;
 		}
-		trimmed_line = ft_strtrim(map[i], " \n");
+		trimmed_line = ft_strtrim(map[i], "      \n");
 		line = ft_split(trimmed_line, ' ');
 		if (array_size(line) != 2 && array_size(line) != 0)
 			ft_error();
@@ -37,6 +37,12 @@ void	get_map_parameters(char **map, t_data *data)
 		free (trimmed_line);
 	}
 	ft_check(data);
+	printf("NO %s\n", data->no);
+    printf("SO %s\n", data->so);
+    printf("WE %s\n", data->we);
+    printf("EA %s\n", data->ea);
+    printf("F %d,%d,%d\n", data->f.r, data->f.g, data->f.b);
+    printf("C %d,%d,%d\n", data->c.r, data->c.g, data->c.b);
 }
 
 //------------------------------ function to trait each line

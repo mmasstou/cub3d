@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:20:48 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/12 14:23:40 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/12 15:55:07 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ void	starting_windows(void)
 	mlx_loop(mlx);
 }
 
+void	free_data(t_data *data)
+{
+	free(data->ea);
+	free(data->we);
+	free(data->so);
+	free_2d(data->map);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_data	data;
@@ -57,6 +65,6 @@ int	main(int argc, char *argv[])
 	init_data(&data);
 	parsing(argv, &data);
 	// starting_windows();
-	free_2d(data.map);
+	free_data(&data);
 	return (0);
 }

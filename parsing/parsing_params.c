@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 07:25:24 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/05 14:17:21 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/12 15:46:19 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,6 @@ void	get_map_parameters(char **map, t_data *data)
 		free (trimmed_line);
 	}
 	ft_check(data);
-	printf("NO %s\n", data->no);
-    printf("SO %s\n", data->so);
-    printf("WE %s\n", data->we);
-    printf("EA %s\n", data->ea);
-    printf("F %d,%d,%d\n", data->f.r, data->f.g, data->f.b);
-    printf("C %d,%d,%d\n", data->c.r, data->c.g, data->c.b);
 }
 
 //------------------------------ function to trait each line
@@ -82,6 +76,8 @@ void	check_files(char *filename)
 	int		fd;
 	char	*extension;
 
+	if(!filename)
+		ft_error();
 	extension = ft_strrchr(filename, '.');
 	if (extension == NULL || ft_strncmp(extension, ".xpm", 4))
 		ft_error();

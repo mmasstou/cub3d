@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:39:23 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/12 14:20:30 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/14 11:18:10 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ void	parsing(char *argv[], t_data *data)
 	get_map_parameters(g_map, data);
 	parsing_minimap(g_map, data);
 	print_minimap(data->map);
-	free_2d(g_map);
+	// free_2d(g_map);
 }

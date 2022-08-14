@@ -6,13 +6,13 @@
 #    By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/05 11:22:44 by mmasstou          #+#    #+#              #
-#    Updated: 2022/08/05 13:37:18 by mmasstou         ###   ########.fr        #
+#    Updated: 2022/08/12 15:42:57 by mmasstou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror  
+CFLAGS = -Wall -Wextra -Werror 
 LIBFT_NAME = libft.a
 FRAMEWORKS =  -lmlx -framework AppKit -framework OpenGL
 

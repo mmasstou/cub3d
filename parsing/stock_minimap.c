@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stock_minimap.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:24:35 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/05 12:00:13 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/14 14:55:59 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,5 @@ void	stock_minimap(char **minimap, t_data **data, int minimap_size)
 		index++;
 	}
 	(*data)->map[index] = NULL;
+	(*data)->h = index;
 }

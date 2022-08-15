@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_minimap.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:24:12 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/05 11:56:07 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/14 17:59:53 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	check_minimap(char **minimap, t_data *data)
 		{
 			if (minimap[index][jndex] == SPACE || minimap[index][jndex] == ONE)
 				continue ;
-			else if (minimap[index][jndex] == ZERO || \
+			else if ( minimap[index][jndex] == ZERO || \
 				is_player(minimap[index][jndex], data) == true)
 			{
 				chech_direction(minimap, index - 1, jndex);

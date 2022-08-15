@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_params.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 07:25:24 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/12 15:46:19 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/12 11:53:48 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	get_map_parameters(char **map, t_data *data)
 			data->start_map = i + 1;
 			break ;
 		}
-		trimmed_line = ft_strtrim(map[i], "      \n");
+		trimmed_line = ft_strtrim(map[i], " \n");
 		line = ft_split(trimmed_line, ' ');
 		if (array_size(line) != 2 && array_size(line) != 0)
 			ft_error();
@@ -76,8 +76,6 @@ void	check_files(char *filename)
 	int		fd;
 	char	*extension;
 
-	if(!filename)
-		ft_error();
 	extension = ft_strrchr(filename, '.');
 	if (extension == NULL || ft_strncmp(extension, ".xpm", 4))
 		ft_error();

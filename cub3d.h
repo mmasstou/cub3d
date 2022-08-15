@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:25:05 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/12 14:22:19 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/15 11:39:54 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+//-------------------------------------- includes
 # include <libc.h>
 # include <stdbool.h>
 # include "utils/libft/libft.h"
 # include <mlx.h>
-
+# include <math.h>
+//------------------------------------------------ macros
 # define COLOR_SUCCESS "\033[38;5;42m"
 # define COLOR_FAILURE "\x1b[31m"
 # define COLOR_END "\x1b[0m"
@@ -26,9 +28,18 @@
 # define ONE '1'
 # define SPACE ' '
 // mlx
-# define W 1970
-# define H 1150
+# define W 1320
+# define H 920
+# define WALL  7220224
+# define EMPTY_SPACE  16777215
+# define PLAYER  3447003
 
+// claver Key
+# define W_KEY 13
+# define A_KEY 0
+# define S_KEY 1
+# define D_KEY 2
+//------------------------------------- structs
 typedef struct exist
 {
     int no;
@@ -39,14 +50,30 @@ typedef struct exist
     int c;
 }   t_exist;
 
+//---------------------------- new by bellakrim
+typedef struct mlx
+{
+	void *mlx_ptr;
+	void *mlx_window;
+	void *mlx_image;
+	//------------------------ for image filling
+	char	*buffer;
+	int		bpp;
+	int		line_lenght;
+	int		endian;
+	//-------------------------
+}t_mlx;
+//-------------------------------- new by bellakrim
 typedef struct color
 {
 	int	r;
 	int	g;
 	int	b;
 }	t_color;
+//---------------------------------
 typedef struct data
 {
+	t_mlx	*mlx_vars;
 	int     params;
 	t_exist exit;
 	char	*no;
@@ -58,6 +85,14 @@ typedef struct data
 	t_color	c;
 	char	**map;
 	int		start_map;
+	// ++++
+	int		h;
+	double		zoom;
+	int			i;
+	int unit;
+	// player movement
+	int		p_left;
+	int		p_up;
 }	t_data;
 
 enum e_dir{
@@ -70,7 +105,6 @@ enum e_dir{
 // -&- SRCS -&-
 void	_error(char *msg);
 void	checkargs(int argc, char *argv[]);
-void	free_2d(char **map);
 //----------------------------- Parsing
 void	parsing(char *argv[], t_data *data);
 void	stock_minimap(char **minimap, t_data **data, int minimap_size);
@@ -80,8 +114,6 @@ int		get_map_size(char *file);
 void	chech_direction(char **map, int index, int jndex);
 char	**get_g_map(char *file);
 void	parsing_minimap(char **g_map, t_data *data);
-void	print_minimap(char **g_map);
-//------------------------------------- new by bellakrim
 void    get_map_parameters(char **map, t_data *data);
 void    get_line_parameters(char **line, t_data *data);
 void    free_array(char **array);
@@ -100,5 +132,15 @@ void    free_params(t_data *data);
 void	check_files(char *filename);
 void    ft_error(void);
 void	ft_check(t_data *data);
+//---------------------------------------- new by bellakrim
+void    graphic(t_data *data);
+void	draw_minimap(t_data *data);
+void	my_mlx_pixel_put(int x, int y, t_data *data, int color);
+void    draw_rec(int x, int y, t_data *data, int color, int type);
+int	esc(int keycode, t_data *data);
+int	close_cross(void *param);
+void    draw_player(int x, int y, t_data *data, int color);
 
+int	move_player(int key, t_data *data);
+void	re_draw(t_data *data);
 #endif

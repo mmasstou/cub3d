@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:25:05 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/15 11:39:54 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/15 23:13:45 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define A_KEY 0
 # define S_KEY 1
 # define D_KEY 2
+# define STEP(x, y) (x > y) ? x:y
 //------------------------------------- structs
 typedef struct exist
 {
@@ -88,11 +89,19 @@ typedef struct data
 	// ++++
 	int		h;
 	double		zoom;
-	int			i;
+	float			x_player;
+	float			y_player;
+	int			last_x;
+	int			last_y;
 	int unit;
 	// player movement
 	int		p_left;
 	int		p_up;
+	// rays
+	int		nextx;
+	int		nexty;
+	int		deltax;
+	int		deltay;
 }	t_data;
 
 enum e_dir{
@@ -136,11 +145,13 @@ void	ft_check(t_data *data);
 void    graphic(t_data *data);
 void	draw_minimap(t_data *data);
 void	my_mlx_pixel_put(int x, int y, t_data *data, int color);
-void    draw_rec(int x, int y, t_data *data, int color, int type);
+void	draw_rec(int x, int y, t_data *data, int color, int type);
 int	esc(int keycode, t_data *data);
 int	close_cross(void *param);
-void    draw_player(int x, int y, t_data *data, int color);
+void    render_player(float x, float y, t_data *data, int color);
 
 int	move_player(int key, t_data *data);
 void	re_draw(t_data *data);
+int	dda(float x, float y, t_data *data);
+int	draw_rays(t_data *data);
 #endif

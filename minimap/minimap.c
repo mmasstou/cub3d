@@ -6,12 +6,11 @@
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 16:51:54 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/15 12:09:26 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/16 11:36:55 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../cub3d.h"
-
 void    graphic(t_data *data)
 {
     data->mlx_vars = (t_mlx *)malloc(sizeof(t_mlx));
@@ -29,7 +28,7 @@ void    graphic(t_data *data)
     mlx_loop (data->mlx_vars->mlx_ptr);
 }
 //-------------------------------------------------
-void	draw_minima(t_data *data)
+void	draw_player(t_data *data)
 {
     int i;
     int j;
@@ -41,7 +40,7 @@ void	draw_minima(t_data *data)
         while(data->map[i][j] != '\0' && data->map[i][j] != '\n')
         {
             if (data->map[i][j] == 'N' || data->map[i][j] == 'W' || data->map[i][j] == 'S' || data->map[i][j] == 'E' )// yellow
-                draw_player(j, i, data, PLAYER);
+                render_player(j, i, data, PLAYER);
             j++;
         }
         i++;
@@ -54,7 +53,7 @@ void	draw_minimap(t_data *data)
     int i;
     int j;
 
-	data->zoom = 10;
+	data->zoom = 20;
     i = 0;
     while(data->map[i])
     {
@@ -74,7 +73,7 @@ void	draw_minimap(t_data *data)
         }
         i++;
     }
-	draw_minima(data);
+	draw_player(data);
 }
 /*------------------------------------------------------------------*/
 void	my_mlx_pixel_put(int x, int y, t_data *data, int color)
@@ -134,18 +133,26 @@ int	close_cross(void *param)
 	exit (0);
 }
 //-----------------------------------------------------
-void    draw_player(int x, int y, t_data *data, int color)
+void	isomitric_fdf(float *x, float *y, float z)
 {
-    int	i;
-	int j;
+	*x = (*x - *y) * cos(0.523599);
+	*y = -z + (*x + *y) * sin(0.523599);
+}
 
+void    render_player(float x, float y, t_data *data, int color)
+{
+    float	i;
+	float	j;
 	
     x *= data->zoom;
     y *= data->zoom;
 	x += data->p_left;
 	y += data->p_up;
-	i = y + ( data->zoom / 4) ;
-	data->i = i;
+    // x += data->p_left;
+	i = y + ( data->zoom / 4);
+	data->x_player = (i / data->zoom) + data->unit;
+	data->y_player = (x / data->zoom) + data->unit;
+	printf("player x = %f, y = %f\n", data->x_player, data->y_player);
 	while (i <= y + data->unit)
 	{
 		j = x + ( data->zoom / 4);

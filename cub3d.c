@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:20:48 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/16 11:34:20 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/16 15:16:57 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ int	init_data(t_data *data)
 	data->exit.ea = 0;
 	data->exit.f = 0;
 	data->exit.c = 0;
-	data->unit = 10;
+	data->unit = 34;
 	data->last_x = 0;
 	data->last_y = 0;
-	data->p_left = 0;
+	data->bita = 0;
 	data->p_up = 0;
 	return (0);
 }

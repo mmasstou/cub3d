@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 14:24:41 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/16 11:32:04 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/16 20:26:42 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,20 @@ int	move_player(int key, t_data *data)
 		mlx_destroy_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window);
 		exit (0);
 	}
-	
 	if (key == S_KEY || key == 125)
 	{
-		data->p_up += 3.2;
+		if ( data->map[(int)data->y_player] &&( data->map[(int)data->y_player][(int)data->x_player] == '0'))
+			data->p_up += 5.6;
 	}
 	if (key == W_KEY || key == 126)
 	{
-		// if (data->map[(int)(data->x_player)][(int)(data->y_player) - 1] != '1')
-		data->p_up -= 3.2;
+		if (data->map[(int)data->y_player] && data->map[(int)(data->y_player - 0.0005)][(int)data->x_player] == '0')
+			data->p_up -= 5.6;
 	}
 	if (key == A_KEY || key == 123)
-		data->p_left -= 3.2;
+		data->bita -= .2;
 	if (key == D_KEY || key == 124)
-		data->p_left += 3.2;
+		data->bita += .2;
 	re_draw(data);
 	return (0);
 }

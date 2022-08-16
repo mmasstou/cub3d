@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:25:05 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/15 23:13:45 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/16 15:15:55 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ typedef struct data
 	int			last_y;
 	int unit;
 	// player movement
-	int		p_left;
+	double		bita;
 	int		p_up;
 	// rays
 	int		nextx;
@@ -148,7 +148,7 @@ void	my_mlx_pixel_put(int x, int y, t_data *data, int color);
 void	draw_rec(int x, int y, t_data *data, int color, int type);
 int	esc(int keycode, t_data *data);
 int	close_cross(void *param);
-void    render_player(float x, float y, t_data *data, int color);
+void    render_player(float x,float y, t_data *data, int color, int type);
 
 int	move_player(int key, t_data *data);
 void	re_draw(t_data *data);

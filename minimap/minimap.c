@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 16:51:54 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/16 11:36:55 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/16 16:15:42 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	draw_player(t_data *data)
         while(data->map[i][j] != '\0' && data->map[i][j] != '\n')
         {
             if (data->map[i][j] == 'N' || data->map[i][j] == 'W' || data->map[i][j] == 'S' || data->map[i][j] == 'E' )// yellow
-                render_player(j, i, data, PLAYER);
+                render_player(j * data->unit, i * data->unit, data, PLAYER, 0);
             j++;
         }
         i++;
@@ -51,9 +51,8 @@ void	draw_player(t_data *data)
 void	draw_minimap(t_data *data)
 {
     int i;
-    int j;
+    int j = 0;
 
-	data->zoom = 20;
     i = 0;
     while(data->map[i])
     {
@@ -61,13 +60,13 @@ void	draw_minimap(t_data *data)
         while(data->map[i][j] != '\0' && data->map[i][j] != '\n')
         {
             if(data->map[i][j] == '1') 
-                draw_rec(j, i , data, WALL, 1);
+                draw_rec(j * data->unit, i * data->unit , data, WALL, 2);
             else if (data->map[i][j] == '0')
-                draw_rec(j, i, data, EMPTY_SPACE, 0); 
+                draw_rec(j * data->unit, i * data->unit, data, EMPTY_SPACE, 0); 
             else if (data->map[i][j] == 'N' || data->map[i][j] == 'W' || data->map[i][j] == 'S' || data->map[i][j] == 'E' )// yellow
-                draw_rec(j, i, data, EMPTY_SPACE, 0);                
+                draw_rec(j * data->unit, i * data->unit, data, EMPTY_SPACE, 0);                
             else if (data->map[i][j] == ' ') 
-                draw_rec(j, i, data, 0, 0);
+                draw_rec(j * data->unit, i * data->unit, data, 0, 0);
             
             j++;
         }
@@ -89,32 +88,55 @@ void	my_mlx_pixel_put(int x, int y, t_data *data, int color)
 //---------------------------------------------------------- draw rec
 void    draw_rec(int x, int y, t_data *data, int color, int type)
 {
-    int	i;
+	int index;
+	int jndex;
+	int i;
 	int j;
-	int		m;
-	int		n;
-
-    x *=  data->zoom;
-    y *=  data->zoom;
-	i = y;
-	data->unit = data->zoom;
-	if (type == 1)
-		data->unit -= 2;
-	m = y + data->unit;
-	n =  x + data->unit;
-	while (i <= m)
+	
+	index = (x + data->unit);
+	i = (y + data->unit);
+	j = y;
+	while (x <= index - type)
 	{
-		j = x;
-		while (j <= n)
-        {
-			my_mlx_pixel_put(j, i + (H - (data->h * data->zoom)), data, color);
-            j++;
-        }
-		i++;
+		jndex = i;
+		y = j;
+		while (y <= jndex - type)
+		{
+			my_mlx_pixel_put(x, y, data, color);
+			y++;
+		}
+		x++;
+	}
+}
+void    render_player(float x,float y, t_data *data, int color, int type)
+{
+	int index;
+	int jndex;
+	int i;
+	int j;
+	
+	
+	y += (data->p_up);
+	type += data->unit / 4;
+	index = (x + data->unit);
+	i = (y + data->unit);
+	j = y;
+	data->x_player = x / data->unit;
+	data->y_player = (y - type) / data->unit;
+	printf("player x = %f, y = %f\n", x / data->unit, y / data->unit);
+	while (x <= index - type)
+	{
+		jndex = i;
+		y = j;
+		while (y <= jndex - type)
+		{
+			my_mlx_pixel_put(x, y, data, color);
+			y++;
+		}
+		x++;
 	}
 }
 
-/*----------------------------------------------------------------*/
 int	esc(int keycode, t_data *data)
 {
 	if (keycode == 53)
@@ -126,41 +148,8 @@ int	esc(int keycode, t_data *data)
 	return (0);
 }
 
-/*----------------------------------------------------------------*/
 int	close_cross(void *param)
 {
 	(void)param;
 	exit (0);
-}
-//-----------------------------------------------------
-void	isomitric_fdf(float *x, float *y, float z)
-{
-	*x = (*x - *y) * cos(0.523599);
-	*y = -z + (*x + *y) * sin(0.523599);
-}
-
-void    render_player(float x, float y, t_data *data, int color)
-{
-    float	i;
-	float	j;
-	
-    x *= data->zoom;
-    y *= data->zoom;
-	x += data->p_left;
-	y += data->p_up;
-    // x += data->p_left;
-	i = y + ( data->zoom / 4);
-	data->x_player = (i / data->zoom) + data->unit;
-	data->y_player = (x / data->zoom) + data->unit;
-	printf("player x = %f, y = %f\n", data->x_player, data->y_player);
-	while (i <= y + data->unit)
-	{
-		j = x + ( data->zoom / 4);
-		while (j <= x + data->unit)
-        {
-			my_mlx_pixel_put(j, i + (H - (data->h * data->zoom)), data, color);
-            j++;
-        }
-		i++;
-	}
 }

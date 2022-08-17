@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 16:51:54 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/17 14:50:44 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/17 17:59:24 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ void    graphic(t_data *data)
     data->mlx_vars->mlx_image = mlx_new_image(data->mlx_vars->mlx_ptr, W, H);
     data->mlx_vars->buffer = mlx_get_data_addr (data->mlx_vars->mlx_image, &data->mlx_vars->bpp, &data->mlx_vars->line_lenght, &data->mlx_vars->endian);
     drawing_minimap(data);
-    drawing_minimapp(data);
+    // drawing_minimapp(data);
     mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->mlx_vars->mlx_image, 0, 0);
-	mlx_hook(data->mlx_vars->mlx_window, 2, 1L << 0, move_player, data);
+	mlx_hook(data->mlx_vars->mlx_window, 02, 1L << 0, move_player_press, data);
+	mlx_hook(data->mlx_vars->mlx_window, 03, 1L << 1, move_player_release, data);
     // mlx_hook (data->mlx_vars->mlx_window, 5, 1L << 0, esc, data);
 	mlx_hook (data->mlx_vars->mlx_window, 17, 1L << 0, close_cross, data);
     mlx_loop (data->mlx_vars->mlx_ptr);

@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:25:05 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/17 14:50:33 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/17 17:49:48 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef struct s_player{
 	int walk_direction; // -1 if back , +1 if front
 	double rotation_angle;
 	double move_speed;
-	int rotation_speed;
+	double rotation_speed;
 }	t_player;
 //---------------------------------
 typedef struct data
@@ -165,7 +165,8 @@ int	esc(int keycode, t_data *data);
 int	close_cross(void *param);
 void    render_player(float x,float y, t_data *data, int color, int type);
 
-int	move_player(int key, t_data *data);
+int	move_player_release(int key, t_data *data);
+int	move_player_press(int key, t_data *data);
 void	re_draw(t_data *data);
 int	dda(float x, float y, t_data *data);
 int	draw_rays(t_data *data);
@@ -174,5 +175,4 @@ int	drawing_minimap(t_data	*data);
 t_player	*init_player(t_data *data);
 int	drawing_player(t_data	*data);
 void    draw_rect(float x, float y, t_data *data, int color, int type);
-int	drawing_minimapp(t_data	*data);
 #endif

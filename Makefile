@@ -6,7 +6,7 @@
 #    By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/05 11:22:44 by mmasstou          #+#    #+#              #
-#    Updated: 2022/08/15 19:58:34 by mmasstou         ###   ########.fr        #
+#    Updated: 2022/08/17 12:53:57 by mmasstou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ PARS_SRCS = $(PARS_DIR)parsing.c $(PARS_DIR)stock_minimap.c $(PARS_DIR)is_player
 $(PARS_DIR)get_map_size.c  $(PARS_DIR)chech_direction.c $(PARS_DIR)get_g_map.c \
 $(PARS_DIR)parsing_minimap.c $(PARS_DIR)parsing_utils.c  $(PARS_DIR)parsing_params.c  \
 $(PARS_DIR)save_params.c  $(PARS_DIR)save_params2.c  \
-$(MINIMAP)minimap.c $(MINIMAP)move_player.c $(MINIMAP)dda.c $(MINIMAP)draw_rays.c
+$(MINIMAP)minimap.c $(MINIMAP)move_player.c $(MINIMAP)dda.c $(MINIMAP)draw_rays.c $(MINIMAP)drawining_minimap.c $(MINIMAP)player_movement.c
 
 # Objs
 OBJS	= $(SRC:.c=.o)

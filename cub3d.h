@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:25:05 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/16 15:15:55 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/17 14:50:33 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define W 1320
 # define H 920
 # define WALL  7220224
-# define EMPTY_SPACE  16777215
+# define EMPTY_SPACE  13882833
 # define PLAYER  3447003
 
 // claver Key
@@ -71,10 +71,23 @@ typedef struct color
 	int	g;
 	int	b;
 }	t_color;
+
+typedef struct s_player{
+	char spawning_orientation;
+	int x_pos;
+	int y_pos;
+	int radius;
+	int turn_direction; // -1 if left , +1 if right
+	int walk_direction; // -1 if back , +1 if front
+	double rotation_angle;
+	double move_speed;
+	int rotation_speed;
+}	t_player;
 //---------------------------------
 typedef struct data
 {
 	t_mlx	*mlx_vars;
+	t_player *ply;
 	int     params;
 	t_exist exit;
 	char	*no;
@@ -103,6 +116,8 @@ typedef struct data
 	int		deltax;
 	int		deltay;
 }	t_data;
+
+
 
 enum e_dir{
 	NORD = 121,
@@ -154,4 +169,10 @@ int	move_player(int key, t_data *data);
 void	re_draw(t_data *data);
 int	dda(float x, float y, t_data *data);
 int	draw_rays(t_data *data);
+
+int	drawing_minimap(t_data	*data);
+t_player	*init_player(t_data *data);
+int	drawing_player(t_data	*data);
+void    draw_rect(float x, float y, t_data *data, int color, int type);
+int	drawing_minimapp(t_data	*data);
 #endif

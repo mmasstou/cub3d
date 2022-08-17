@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:20:48 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/16 15:16:57 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/17 13:21:45 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	checkleaks(void)
 
 int	init_data(t_data *data)
 {
+	data->ply = init_player(data);
 	data->map = NULL;
 	data->start_map = 0;
 	data->params = 0;

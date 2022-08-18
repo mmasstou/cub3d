@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 14:24:41 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/17 22:31:24 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/18 04:54:39 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,22 @@ int	move_player_press(int key, t_data *data)
 		mlx_destroy_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window);
 		exit (0);
 	}
-	if (key == S_KEY || key == 125)
+	else if (key == S_KEY || key == 125)
 	{
 		printf("DOWN\n");
 		data->ply->walk_direction += 1;
 	}
-	if (key == W_KEY || key == 126)
+	else if (key == W_KEY || key == 126)
 	{
 		printf("UP\n");
 		data->ply->walk_direction -= 1;
 	}
-	if (key == A_KEY || key == 123)
+	else if (key == A_KEY || key == 123)
 	{
 		printf("LEFT\n");
 		data->ply->turn_direction = 1;
 	}
-	if (key == D_KEY || key == 124)
+	else if (key == D_KEY || key == 124)
 	{
 		printf("RIGHT\n");
 		data->ply->turn_direction = -1;

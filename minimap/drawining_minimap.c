@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 11:55:42 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/17 22:35:44 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/18 04:56:35 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void    draw_rect(float x, float y, t_data *data, int color, int type)
 	int i;
 	int j;
 	
-	(void)type;
 	index = (x + data->unit);
 	i = (y + data->unit); 
 	j = y;
@@ -38,6 +37,7 @@ void    draw_rect(float x, float y, t_data *data, int color, int type)
 		x++;
 	}
 }
+
 
 int	drawing_minimap(t_data	*data){
 	
@@ -69,7 +69,6 @@ int	drawing_minimap(t_data	*data){
 				data->ply->spawning_orientation = data->map[index][jndex];
 				data->ply->x_pos = index;
 				data->ply->y_pos = jndex;
-				printf("i'Am here\n");
 			}
 			else
 				rect_color = 0;

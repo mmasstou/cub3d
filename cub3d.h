@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:25:05 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/17 17:49:48 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/18 04:52:14 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,4 +175,5 @@ int	drawing_minimap(t_data	*data);
 t_player	*init_player(t_data *data);
 int	drawing_player(t_data	*data);
 void    draw_rect(float x, float y, t_data *data, int color, int type);
+int	row_dda(float x, float y, float next_x, float next_y, t_data *data);
 #endif

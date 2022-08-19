@@ -11,6 +11,11 @@
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+void	get_player_pos(int x, int y, t_data *data)
+{
+	data->ply->x_pos = x;
+	data->ply->y_pos = y;
+}
 
 void	check_minimap(char **minimap, t_data *data)
 {
@@ -32,10 +37,13 @@ void	check_minimap(char **minimap, t_data *data)
 				chech_direction(minimap, index + 1, jndex);
 				chech_direction(minimap, index, jndex - 1);
 				chech_direction(minimap, index, jndex + 1);
+				get_player_pos(index, jndex, data);
 			}
 			else
 				_error("Stranger Element");
 		}
 	}
+	if (data->p == 0)
+		_error("No player in Map");
 	stock_minimap(minimap, &data, index + 1);
 }

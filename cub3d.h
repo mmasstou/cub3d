@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:25:05 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/18 04:52:14 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/20 17:16:55 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ t_player	*init_player(t_data *data);
 int	drawing_player(t_data	*data);
 void    draw_rect(float x, float y, t_data *data, int color, int type);
 int	row_dda(float x, float y, float next_x, float next_y, t_data *data);
+int	row_ddaa(float x, float y, float next_x, float next_y, t_data *data);
 void    updata_data(t_data **data);
 int ft_rgb(int t, int r, int g, int b);
 void    draw_ceilling_floor(t_data *data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:53:59 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/18 05:11:42 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/20 20:25:29 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void draw_pov(float x, float y, float des, t_data *data)
 	// x += (int)(data->ply->ply_w / 2);
 	x += data->ply->ply_w / 2;
 	// printf("x = %f, next_x = %f\ny = %f, next_y = %f\n", x, next_x, y, next_y);
-	while (x > next_x)
+	while (x >= next_x)
 	{
 		while (y >= next_y)
 		{
@@ -57,12 +57,7 @@ static void draw_pov(float x, float y, float des, t_data *data)
 	}
 }
 
-void	rotation_y(float *x, float *z, float beta)
-{
 
-	*x = *x * cos(beta);
-	*z = *z * sin(beta);
-}
 
 static void    render_ply(float x, float y, t_data *data, int color)
 {

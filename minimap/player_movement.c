@@ -12,7 +12,7 @@
 
 #include "../cub3d.h"
 // void trace(float x, float y, float radius, t_data *data);
-
+void	rotation_y(float *x, float *z, float beta);
 t_player	*init_player(t_data *data){
 	t_player *p;
 
@@ -22,36 +22,64 @@ t_player	*init_player(t_data *data){
 		exit(1);
 	p->x_pos = 0;
 	p->y_pos = 0;
+	p->x_pos_o = 0;
+	p->y_pos_o = 0;
 	p->radius = 0;
 	p->turn_direction = 0;
 	p->walk_direction = 0;
 	p->rotation_angle = M_PI_2;
-	p->move_speed = 4;
+	p->move_speed = .8;
 	p->rotation_speed = 2 * (M_PI / 180);
 	return (p);
 }
 
 
-static void draw_pov(float x, float y, t_data *data)
+static void draw_pov(float x, float y, float des, t_data *data)
 {
-	float next_x;
 	float next_y;
-	
-	next_x = x;
+	float next_x;
+
 	next_y = y;
-	next_x += cos(data->ply->rotation_angle) * 30;
-	next_y += sin(data->ply->rotation_angle) * 30;
+	next_x = x;
+	next_y -= des;
+	// rotation_y(&next_x, &next_y, data->ply->rotation_angle);
+	// x += (int)(data->ply->ply_w / 2);
+	x += data->ply->ply_w / 2;
 	// printf("x = %f, next_x = %f\ny = %f, next_y = %f\n", x, next_x, y, next_y);
-	row_dda(x, y, next_x, next_y, data);
+	while (x > next_x)
+	{
+		while (y >= next_y)
+		{
+			row_dda(x, y, next_x, next_y, data);
+			y --;
+		}
+		x--;
+	}
 }
+
+void	rotation_y(float *x, float *z, float beta)
+{
+
+	*x = *x * cos(beta);
+	*z = *z * sin(beta);
+}
+
 static void    render_ply(float x, float y, t_data *data, int color)
 {
 	int index;
 	int jndex;
+	int next_x;
+	int next_y;
 	int i;
 	int j;
+	int unitx;
+	int unity;
 
+	(void)color;
+	unitx = x;
+	unity = y;
 	index = (x + data->unit / 4);
+	data->ply->ply_w = 0;
 	i = (y + data->unit / 4);
 	j = y;
 	while (x <= index)
@@ -60,11 +88,22 @@ static void    render_ply(float x, float y, t_data *data, int color)
 		y = j;
 		while (y <= jndex)
 		{
-			my_mlx_pixel_put(x, y, data, color);
+			if (x < index)
+			{
+				next_x = x + 1;
+				row_dda(x, y, next_x, next_y, data);
+			}
+			if (y < jndex)
+			{
+				next_y = y + 1;
+				row_dda(x, y, next_x, next_y, data);
+			}
 			y++;
 		}
 		x++;
+		data->ply->ply_w++;
 	}
+	draw_pov(unitx, unity, 40, data);
 }
 void	update_turn_angle(t_data **data)
 {
@@ -87,16 +126,13 @@ int	drawing_player(t_data	*data){
 	int unitx;
 	int unity;
 	int rect_color;
-	int i;
-
+	// updata player position:
+	printf("x=%f, y=%f\n", data->ply->x_pos, data->ply->y_pos);
 	unitx = data->ply->y_pos * (data->unit) + (data->unit / 4);
 	unity = data->ply->x_pos * (data->unit) + (data->unit / 4);
-	update_player_pos(&unitx, &unity, data);
-	update_turn_angle(&data);
-	i = data->ply->radius;
 	rect_color = PLAYER;
 	render_ply(unitx, unity, data, rect_color);
-	draw_pov(unitx, unity, data);
+	
 	return (0);
 }
 

@@ -47,8 +47,9 @@ int	drawing_minimap(t_data	*data){
 	float unity;
 	int rect_color;
 	int i;
-	data->unit = 34;
+	data->unit = 36;
 	data->ply->radius = data->unit  / 4 ;
+    draw_ceilling_floor(data);
 	while (data->map[index])
 	{
 		jndex = 0;
@@ -57,22 +58,21 @@ int	drawing_minimap(t_data	*data){
 			i = 0;
 			unitx = jndex * data->unit;
 			unity = index * data->unit;
-			if (data->map[index][jndex] == '1')
+			if (data->map[index][jndex] != ' ')
 			{
-				i = 2;
-				rect_color = WALL;
+				if (data->map[index][jndex] == '1')
+				{
+					i = 2;
+					rect_color = WALL;
+					draw_rect(unitx, unity, data, rect_color, i);
+				}
+				else if (ft_strchr("SNWE", data->map[index][jndex]) != NULL)
+				{
+					data->ply->spawning_orientation = data->map[index][jndex];
+					data->ply->x_pos = index + data->ply->x_pos_o;
+					data->ply->y_pos = jndex + data->ply->y_pos_o;
+				}
 			}
-			else if (data->map[index][jndex] == '0')
-				rect_color = EMPTY_SPACE;
-			else if (ft_strchr("SNWE", data->map[index][jndex]) != NULL)
-			{
-				data->ply->spawning_orientation = data->map[index][jndex];
-				data->ply->x_pos = index;
-				data->ply->y_pos = jndex;
-			}
-			else
-				rect_color = 0;
-			draw_rect(unitx, unity, data, rect_color, i);
 			jndex++;
 		}
 		index++;

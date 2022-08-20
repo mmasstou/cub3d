@@ -17,8 +17,9 @@
 # include <libc.h>
 # include <stdbool.h>
 # include "utils/libft/libft.h"
-# include <mlx.h>
+# include "minilibx_opengl/mlx.h"
 # include <math.h>
+# include "key.h"
 //------------------------------------------------ macros
 # define COLOR_SUCCESS "\033[38;5;42m"
 # define COLOR_FAILURE "\x1b[31m"
@@ -28,17 +29,13 @@
 # define ONE '1'
 # define SPACE ' '
 // mlx
-# define W 1320
-# define H 920
+# define W 1200
+# define H 720
 # define WALL  7220224
 # define EMPTY_SPACE  13882833
-# define PLAYER  3447003
+# define PLAYER  4539460
 
 // claver Key
-# define W_KEY 13
-# define A_KEY 0
-# define S_KEY 1
-# define D_KEY 2
 # define STEP(x, y) (x > y) ? x:y
 //------------------------------------- structs
 typedef struct exist
@@ -74,8 +71,11 @@ typedef struct color
 
 typedef struct s_player{
 	char spawning_orientation;
-	int x_pos;
-	int y_pos;
+	float ply_w;
+	float x_pos;
+	float y_pos;
+	float x_pos_o;
+	float y_pos_o;
 	int radius;
 	int turn_direction; // -1 if left , +1 if right
 	int walk_direction; // -1 if back , +1 if front
@@ -176,4 +176,7 @@ t_player	*init_player(t_data *data);
 int	drawing_player(t_data	*data);
 void    draw_rect(float x, float y, t_data *data, int color, int type);
 int	row_dda(float x, float y, float next_x, float next_y, t_data *data);
+void    updata_data(t_data **data);
+int ft_rgb(int t, int r, int g, int b);
+void    draw_ceilling_floor(t_data *data);
 #endif

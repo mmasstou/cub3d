@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 14:24:41 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/21 14:05:53 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:05:45 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,44 +55,34 @@ int	move_player_press(int key, t_data *data)
 	}
 	else if (key == S_KEY)
 	{
-		printf("DOWN\n");
-		data->ply->x_pos_o += sin(data->ply->rotation_angle) * data->ply->move_speed;
-		data->ply->y_pos_o += cos(data->ply->rotation_angle) * data->ply->move_speed;
-
+		data->ply->walk_direction += 1;
+		data->ply->x_pos += data->ply->move_speed * cos(data->ply->rotation_angle);
+		data->ply->y_pos += data->ply->move_speed * sin(data->ply->rotation_angle);
 	}
 	else if (key == W_KEY)
 	{
-		printf("UP\n");
-		data->ply->x_pos_o -= sin(data->ply->rotation_angle) * data->ply->move_speed;
-		data->ply->y_pos_o -= cos(data->ply->rotation_angle) * data->ply->move_speed;
+		data->ply->walk_direction -= 1;
+		data->ply->x_pos -= data->ply->move_speed * cos(data->ply->rotation_angle);
+		data->ply->y_pos -= data->ply->move_speed * sin(data->ply->rotation_angle);
 	}
 	else if (key == AROW_LEFT)
 	{
-		printf("A_KEY\n");
 		data->ply->rotation_angle -= data->ply->rotation_speed;
 	}
 	else if (key == AROW_RIGHT)
 	{
-		printf("D_KEY\n");
 		data->ply->rotation_angle += data->ply->rotation_speed;
 	}
 	else if (key == A_KEY)
 	{
-		printf("AROW_LEFT\n");
+		printf("A_KEY\n");
 		
-		// rotate_vector(data, -1);
-		data->ply->y_pos_o -= cos(data->ply->rotation_angle) * data->ply->move_speed;
-		// data->ply->rotation_angle -= 0.231425;
 	}
 	else if (key == D_KEY)
 	{
-		printf("AROW_RIGHT\n");
-		// rotate_vector(data, +1);
-		data->ply->y_pos_o += cos(data->ply->rotation_angle) * data->ply->move_speed;
-		// data->ply->y_pos_o += .54 * data->ply->move_speed;
-		// data->ply->rotation_angle -= 0.231425;
+		printf("D_KEY\n");
+		
 	}
-	// printf("next_x=%f, next_y=%f\n", data->ply->x_pos, data->ply->y_pos);
 	re_draw(data);
 	return (0);
 }

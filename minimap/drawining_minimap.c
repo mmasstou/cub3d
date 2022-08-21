@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 11:55:42 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/21 13:10:56 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:15:32 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	drawing_minimap(t_data	*data){
 	float unity;
 	int rect_color;
 	int i;
-	data->unit = 36;
+	data->unit = 34;
 	data->ply->radius = data->unit  / 4 ;
     draw_ceilling_floor(data);
 	inc = 0.1;
@@ -80,7 +80,6 @@ int	drawing_minimap(t_data	*data){
 				}
 				else if (ft_strchr("SNWE", data->map[index][jndex]) != NULL)
 				{
-					data->ply->spawning_orientation = data->map[index][jndex];
 					data->ply->x_pos = jndex + data->ply->x_pos_o;
 					data->ply->y_pos = index + data->ply->y_pos_o;
 				}
@@ -89,6 +88,7 @@ int	drawing_minimap(t_data	*data){
 		}
 		index ++;
 	}
+	
 	player_render(data);
 	return (0);
 }

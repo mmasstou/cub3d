@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:24:12 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/14 17:59:53 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:17:40 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@ void	get_player_pos(int x, int y, t_data *data)
 {
 	data->ply->x_pos = x;
 	data->ply->y_pos = y;
+	
 }
 
 void	check_minimap(char **minimap, t_data *data)

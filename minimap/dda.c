@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:10:35 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/21 14:03:03 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:05:01 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	row_dda(float x, float y, float next_x, float next_y, t_data *data)
 	float	i;
 	float	j;
 	
-	printf("\n%f, %f  | %f, %f\n", x,y,next_x, next_y);
 	data->deltax = next_x - x;
 	data->deltay = next_y - y;
 	// rotation_y(&x, &y, data->ply->rotation_angle);

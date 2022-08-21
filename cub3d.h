@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:25:05 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/21 13:00:58 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/21 15:17:27 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define ONE '1'
 # define SPACE ' '
 // mlx
-# define W 1200
-# define H 720
+# define W 1920
+# define H 1080
 # define WALL  7220224
 # define EMPTY_SPACE  13882833
 # define PLAYER  4539460

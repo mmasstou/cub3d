@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:53:59 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/21 12:43:36 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:17:06 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,14 @@ t_player	*init_player(t_data *data){
 	p->radius = 0;
 	p->turn_direction = 0;
 	p->walk_direction = 0;
-	p->rotation_angle = M_PI_2;
+	if (p->spawning_orientation == 'N')
+		p->rotation_angle = 3 * M_PI_2;
+	else if (p->spawning_orientation == 'S')
+		p->rotation_angle = M_PI_2;
+	else if (p->spawning_orientation == 'E')
+		p->rotation_angle = 0;
+	else if (p->spawning_orientation == 'W')
+		p->rotation_angle = M_PI;
 	p->move_speed = .8;
 	p->rotation_speed = 2 * (M_PI / 180);
 	return (p);

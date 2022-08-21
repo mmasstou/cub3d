@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:25:05 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/20 17:16:55 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/21 13:00:58 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct color
 
 typedef struct s_player{
 	char spawning_orientation;
+	int color;
 	float ply_w;
 	float x_pos;
 	float y_pos;
@@ -180,4 +181,9 @@ int	row_ddaa(float x, float y, float next_x, float next_y, t_data *data);
 void    updata_data(t_data **data);
 int ft_rgb(int t, int r, int g, int b);
 void    draw_ceilling_floor(t_data *data);
+
+
+void    draw_ply(float x, float y, t_data *data, int color);
+void	player_render(t_data *data);
+void	player_updata(t_data *data);
 #endif

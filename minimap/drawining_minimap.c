@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawining_minimap.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 11:55:42 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/18 04:56:35 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/21 13:10:56 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,16 @@
 #define MAP_MUN_ROWS 0
 #define MAP_MUN_ROWS 0
 
+void	my_mlx_pixel_put(int x, int y, t_data *data, int color)
+{
+	char	*dst;
+
+	if ((x >= 0 && x < W) && (y >= 0 && y < H))
+	{
+		dst = data->mlx_vars->buffer + (y * data->mlx_vars->line_lenght + x * (data->mlx_vars->bpp / 8));
+		*(unsigned int *)dst = color;
+	}
+}
 void    draw_rect(float x, float y, t_data *data, int color, int type)
 {
 	int index;
@@ -43,6 +53,7 @@ int	drawing_minimap(t_data	*data){
 	
 	int index = 0;
 	int jndex = 0;
+	float	inc;
 	float unitx;
 	float unity;
 	int rect_color;
@@ -50,6 +61,7 @@ int	drawing_minimap(t_data	*data){
 	data->unit = 36;
 	data->ply->radius = data->unit  / 4 ;
     draw_ceilling_floor(data);
+	inc = 0.1;
 	while (data->map[index])
 	{
 		jndex = 0;
@@ -69,14 +81,14 @@ int	drawing_minimap(t_data	*data){
 				else if (ft_strchr("SNWE", data->map[index][jndex]) != NULL)
 				{
 					data->ply->spawning_orientation = data->map[index][jndex];
-					data->ply->x_pos = index + data->ply->x_pos_o;
-					data->ply->y_pos = jndex + data->ply->y_pos_o;
+					data->ply->x_pos = jndex + data->ply->x_pos_o;
+					data->ply->y_pos = index + data->ply->y_pos_o;
 				}
 			}
-			jndex++;
+			jndex ++;
 		}
-		index++;
+		index ++;
 	}
-	drawing_player(data);
+	player_render(data);
 	return (0);
 }

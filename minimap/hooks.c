@@ -6,11 +6,30 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 14:24:41 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/20 20:34:35 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/21 12:45:24 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void    graphic(t_data *data)
+{
+    data->mlx_vars = (t_mlx *)malloc(sizeof(t_mlx));
+    if(!data->mlx_vars)
+        ft_error();
+    data->mlx_vars->mlx_ptr = mlx_init();
+    data->mlx_vars->mlx_window = mlx_new_window ( data->mlx_vars->mlx_ptr, W, H,"cub3d");
+    data->mlx_vars->mlx_image = mlx_new_image(data->mlx_vars->mlx_ptr, W, H);
+    data->mlx_vars->buffer = mlx_get_data_addr (data->mlx_vars->mlx_image, &data->mlx_vars->bpp, &data->mlx_vars->line_lenght, &data->mlx_vars->endian);
+	drawing_minimap(data);
+    // drawing_minimapp(data);
+    mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->mlx_vars->mlx_image, 0, 0);
+	mlx_hook(data->mlx_vars->mlx_window, 02, 1L << 0, move_player_press, data);
+	// mlx_hook(data->mlx_vars->mlx_window, 03, 1L << 1, move_player_release, data);
+    // mlx_hook (data->mlx_vars->mlx_window, 5, 1L << 0, esc, data);
+	mlx_hook (data->mlx_vars->mlx_window, 17, 1L << 0, close_cross, data);
+    mlx_loop (data->mlx_vars->mlx_ptr);
+}
 
 void	re_draw(t_data *data)
 {
@@ -101,4 +120,9 @@ int	move_player_release(int key, t_data *data)
 	}
 	re_draw(data);
 	return (0);
+}
+int	close_cross(void *param)
+{
+	(void)param;
+	exit (0);
 }

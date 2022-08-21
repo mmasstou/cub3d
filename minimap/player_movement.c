@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:53:59 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/20 20:25:29 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/21 12:43:36 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void    render_ply(float x, float y, t_data *data, int color)
 	unitx = x;
 	unity = y;
 	index = (x + data->unit / 4);
-	data->ply->ply_w = 0;
+	data->ply->ply_w = index;
 	i = (y + data->unit / 4);
 	j = y;
 	while (x <= index)
@@ -96,10 +96,10 @@ static void    render_ply(float x, float y, t_data *data, int color)
 			y++;
 		}
 		x++;
-		data->ply->ply_w++;
 	}
 	draw_pov(unitx, unity, 40, data);
 }
+
 void	update_turn_angle(t_data **data)
 {
 	(*data)->ply->rotation_angle += (*data)->ply->turn_direction * (*data)->ply->rotation_speed;

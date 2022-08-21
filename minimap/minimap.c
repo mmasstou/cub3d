@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 16:51:54 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/21 13:17:38 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/21 14:07:32 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,35 @@ void	player_updata(t_data *data){
 	return ;
 }
 
+void draw_line(t_data *data, int x, int y, int x1, int y1)
+{
+	int dx, dy, err, sx,sy,e2;
+
+	dx = abs(x1 - x);
+	dy = -abs(y1 - y);
+	sx = x < x1 ? 1 : -1;
+	sy = y < y1 ? 1 : -1;
+	err = dx + dy;
+
+	while (1)
+	{
+		my_mlx_pixel_put(x,y,data,13728527);
+		e2 = 2*err;
+		if (e2 >= dy) { /* e_xy+e_x > 0 */
+ 		if (x == x1) break;
+ 		err += dy; x += sx;
+	 	}
+ 		if (e2 <= dx) { /* e_xy+e_y < 0 */
+ 		if (y == y1) break;
+ 		err += dx; y += sy;
+ 		}
+	}
+}
+
 void	player_render(t_data *data){
 	double angle;
+	double x;
+	double y;
 	data->ply->color = 13728527;
 	data->ply->x_pos *= data->unit;
 	data->ply->y_pos *= data->unit;
@@ -28,13 +55,16 @@ void	player_render(t_data *data){
 		data,
 		WALL
 	);
-	angle = 0.0;
-	row_dda(
+	data->ply->color = 13728527;
+	angle = M_PI / 2;
+	x = data->ply->x_pos + 30 *cos(angle);
+	y = data->ply->y_pos + 30 *sin(angle);
+	draw_line(
+		data,
 		data->ply->x_pos,
 		data->ply->y_pos,
-		data->ply->x_pos + cos(angle + M_PI_4) * 30,
-		data->ply->y_pos + sin(angle + M_PI_4) * 30,
-		data
+		x,
+		y
 	);
 }
 

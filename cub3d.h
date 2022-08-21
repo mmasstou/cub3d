@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:25:05 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/21 15:17:27 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/21 21:50:26 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ int	dda(float x, float y, t_data *data);
 int	draw_rays(t_data *data);
 
 int	drawing_minimap(t_data	*data);
-t_player	*init_player(t_data *data);
+t_player	*init_player(t_player **p);
 int	drawing_player(t_data	*data);
 void    draw_rect(float x, float y, t_data *data, int color, int type);
 int	row_dda(float x, float y, float next_x, float next_y, t_data *data);
@@ -185,5 +185,6 @@ void    draw_ceilling_floor(t_data *data);
 
 void    draw_ply(float x, float y, t_data *data, int color);
 void	player_render(t_data *data);
-void	player_updata(t_data *data);
+void	player_updata(t_data **data);
+double degreeto_radian(int angle);
 #endif

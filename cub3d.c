@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:20:48 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/17 13:21:45 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/21 19:29:03 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	checkleaks(void)
 
 int	init_data(t_data *data)
 {
-	data->ply = init_player(data);
+	data->ply = (t_player *)malloc(sizeof(t_player));
+	if (!data->ply)
+		_error("can't malloc");
 	data->map = NULL;
 	data->start_map = 0;
 	data->params = 0;
@@ -47,6 +49,7 @@ int	main(int argc, char *argv[])
 	checkargs(argc, argv);
 	init_data(&data);
 	parsing(argv, &data);
+	init_player(&(data.ply));
 	graphic(&data);
 	// free_params(&data);
 	// free_array(data.map);

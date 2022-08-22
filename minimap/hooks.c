@@ -54,15 +54,22 @@ int	move_player_press(int key, t_data *data)
 	}
 	else if (key == S_KEY)
 	{
-		data->ply->walk_direction = 1;
+
+		data->ply->y_pos += (sin(data->ply->rotation_angle) * data->ply->move_speed);
+		printf("X_ pos +>%f\n", data->ply->y_pos);
 	}
 	else if (key == W_KEY)
 	{
-		data->ply->walk_direction = -1;
+		data->ply->y_pos -= (sin(data->ply->rotation_angle) * data->ply->move_speed);
+		printf("X_ pos +>%f\n", data->ply->y_pos);
 	}
-	else if (key == AROW_LEFT)
+	else if (key == AROW_LEFT || key == AROW_RIGHT)
 	{
-		data->ply->turn_direction = -1;
+		if (key == AROW_LEFT)
+			data->ply->turn_direction = -1;
+		else if (key == AROW_RIGHT)
+			data->ply->turn_direction = 1;
+		data->ply->rotation_angle += (data->ply->turn_direction * data->ply->rotation_speed);
 	}
 	else if (key == AROW_RIGHT)
 	{
@@ -78,6 +85,8 @@ int	move_player_press(int key, t_data *data)
 		printf("D_KEY\n");
 		
 	}
+	else
+		return (0);
 	re_draw(data);
 	return (0);
 }

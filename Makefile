@@ -12,7 +12,7 @@
 
 NAME = cub3D
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = 
 LIBFT_NAME = libft.a
 FRAMEWORKS =  minilibx_opengl/libmlx.a -framework AppKit -framework OpenGL
 
@@ -28,7 +28,7 @@ PARS_SRCS = $(PARS_DIR)parsing.c $(PARS_DIR)stock_minimap.c $(PARS_DIR)is_player
 $(PARS_DIR)get_map_size.c  $(PARS_DIR)chech_direction.c $(PARS_DIR)get_g_map.c \
 $(PARS_DIR)parsing_minimap.c $(PARS_DIR)parsing_utils.c  $(PARS_DIR)parsing_params.c  \
 $(PARS_DIR)save_params.c  $(PARS_DIR)save_params2.c  \
-$(MINIMAP)minimap.c $(MINIMAP)hooks.c $(MINIMAP)dda.c $(MINIMAP)draw_rays.c $(MINIMAP)drawining_minimap.c $(MINIMAP)player_movement.c $(MINIMAP)updata_data.c $(MINIMAP)draw_ceilling_floor.c $(MINIMAP)ft_rgb.c $(MINIMAP)degreeto_radian.c
+$(MINIMAP)minimap.c $(MINIMAP)hooks.c $(MINIMAP)dda.c $(MINIMAP)draw_rays.c $(MINIMAP)drawining_minimap.c $(MINIMAP)player_movement.c $(MINIMAP)updata_data.c $(MINIMAP)draw_ceilling_floor.c $(MINIMAP)ft_rgb.c $(MINIMAP)degreeto_radian.c $(MINIMAP)fieldOfView.c
 
 # Objs
 OBJS	= $(SRC:.c=.o)

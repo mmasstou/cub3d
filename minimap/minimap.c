@@ -16,9 +16,9 @@ void	player_updata(t_data **data){
 	float step;
 
 	step = (*data)->ply->walk_direction * (*data)->ply->move_speed;
-	(*data)->ply->rotation_angle += ((*data)->ply->turn_direction * (*data)->ply->rotation_speed);
-	(*data)->ply->x_pos += (step * cos((*data)->ply->rotation_angle));
-	(*data)->ply->y_pos += (step * sin((*data)->ply->rotation_angle));
+	// (*data)->ply->rotation_angle += ((*data)->ply->turn_direction * (*data)->ply->rotation_speed);
+	// (*data)->ply->x_pos += (step * cos((*data)->ply->rotation_angle));
+	// (*data)->ply->y_pos += (step * sin((*data)->ply->rotation_angle));
 }
 
 void draw_line(t_data *data, int x, int y, int x1, int y1)
@@ -48,7 +48,6 @@ void draw_line(t_data *data, int x, int y, int x1, int y1)
 }
 
 void	player_render(t_data *data){
-
 	player_updata(&data);
 	data->ply->x_pos *= data->unit;
 	data->ply->y_pos *= data->unit;
@@ -58,16 +57,18 @@ void	player_render(t_data *data){
 		data->ply->y_pos, 
 		data, 
 		WALL);
-	data->ply->color = PLAYER;
+	data->ply->color = 13728527;
 	// printf("player with :%f\n", (data->ply->ply_w) / 2);
 	data->ply->x_pos += data->ply->ply_w / 2;
 	data->ply->y_pos += data->ply->ply_w / 2;
+	field_of_views(data);
+	data->ply->color = WALL;
 	draw_line(
 		data,
 		data->ply->x_pos,
 		data->ply->y_pos,
-		data->ply->x_pos + (60 * cos(data->ply->rotation_angle)),
-		data->ply->y_pos + (60 * sin(data->ply->rotation_angle))
+		data->ply->x_pos + (90 * cos(data->ply->rotation_angle)),
+		data->ply->y_pos + (90 * sin(data->ply->rotation_angle))
 	);
 }
 
@@ -77,37 +78,25 @@ void    draw_ply(float x, float y, t_data *data, int color)
 	int jndex;
 	int next_x;
 	int next_y;
-	int i;
-	int j;
-	int unitx;
+	float i;
+	float j;
+	int unit;
 	int unity;
 
-	(void)color;
-	unitx = x;
+	unit = data->unit / 5;
+	i = x + unit;
+	j = y + unit;
+	x -= unit / 2;
+	y -= unit / 2;
 	unity = y;
-	index = (x + 4);
-	data->ply->ply_w = 0;
-	i = (y + 4);
-	j = y;
-	while (x <= index)
+	while (x <= i - unit / 2)
 	{
-		jndex = i;
-		y = j;
-		while (y <= jndex)
+		y = unity;
+		while (y <= j - unit / 2)
 		{
-			if (x < index)
-			{
-				next_x = x + 1;
-				draw_line(data, x, y, next_x, next_y);
-			}
-			if (y < jndex)
-			{
-				next_y = y + 1;
-				draw_line(data, x, y, next_x, next_y);
-			}
+			my_mlx_pixel_put(x, y, data, color);
 			y++;
 		}
 		x++;
-		data->ply->ply_w ++;
 	}
 }

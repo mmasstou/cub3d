@@ -29,8 +29,9 @@
 # define ONE '1'
 # define SPACE ' '
 // mlx
-# define W 1920
-# define H 1080
+# define W 1200
+# define H 720
+# define FOV 60
 # define WALL  7220224
 # define EMPTY_SPACE  13882833
 # define PLAYER  4539460
@@ -187,4 +188,6 @@ void    draw_ply(float x, float y, t_data *data, int color);
 void	player_render(t_data *data);
 void	player_updata(t_data **data);
 double degreeto_radian(int angle);
+void draw_line(t_data *data, int x, int y, int x1, int y1);
+void   field_of_views(t_data *data);
 #endif

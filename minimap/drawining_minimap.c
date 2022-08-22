@@ -58,7 +58,7 @@ int	drawing_minimap(t_data	*data){
 	float unity;
 	int rect_color;
 	int i;
-	data->unit = 34;
+	data->unit = 36;
 	data->ply->radius = data->unit  / 4 ;
     draw_ceilling_floor(data);
 	inc = 0.1;

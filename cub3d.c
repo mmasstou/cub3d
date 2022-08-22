@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:20:48 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/22 10:42:08 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/22 20:50:49 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	main(int argc, char *argv[])
 			{
 				data.ply->x_pos = j;
 				data.ply->y_pos = i;
+				printf("####%f, %f\n", data.ply->x_pos, data.ply->y_pos);
 			}
 			j++;
 		}

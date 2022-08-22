@@ -6,13 +6,13 @@
 #    By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/05 11:22:44 by mmasstou          #+#    #+#              #
-#    Updated: 2022/08/21 21:48:41 by mmasstou         ###   ########.fr        #
+#    Updated: 2022/08/22 21:38:00 by mmasstou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 CC = gcc
-CFLAGS = 
+CFLAGS = -fsanitize=address
 LIBFT_NAME = libft.a
 FRAMEWORKS =  minilibx_opengl/libmlx.a -framework AppKit -framework OpenGL
 
@@ -28,7 +28,7 @@ PARS_SRCS = $(PARS_DIR)parsing.c $(PARS_DIR)stock_minimap.c $(PARS_DIR)is_player
 $(PARS_DIR)get_map_size.c  $(PARS_DIR)chech_direction.c $(PARS_DIR)get_g_map.c \
 $(PARS_DIR)parsing_minimap.c $(PARS_DIR)parsing_utils.c  $(PARS_DIR)parsing_params.c  \
 $(PARS_DIR)save_params.c  $(PARS_DIR)save_params2.c  \
-$(MINIMAP)minimap.c $(MINIMAP)hooks.c $(MINIMAP)dda.c $(MINIMAP)draw_rays.c $(MINIMAP)drawining_minimap.c $(MINIMAP)player_movement.c $(MINIMAP)updata_data.c $(MINIMAP)draw_ceilling_floor.c $(MINIMAP)ft_rgb.c $(MINIMAP)degreeto_radian.c $(MINIMAP)fieldOfView.c
+$(MINIMAP)minimap.c $(MINIMAP)hooks.c $(MINIMAP)dda.c $(MINIMAP)draw_rays.c $(MINIMAP)drawining_minimap.c $(MINIMAP)player_movement.c $(MINIMAP)updata_data.c $(MINIMAP)draw_ceilling_floor.c $(MINIMAP)ft_rgb.c $(MINIMAP)degreeto_radian.c $(MINIMAP)fieldOfView.c $(MINIMAP)Wall_collaction.c $(MINIMAP)RayCaste.c
 
 # Objs
 OBJS	= $(SRC:.c=.o)
@@ -47,7 +47,7 @@ _libft :
 	@make bonus -C $(LIBFT_DIR)
 
 $(NAME): $(OBJS) $(PARS_OBJS)  _libft
-	@$(CC) $(CFLAGS) $(FILES) -o $(NAME) -g $(FRAMEWORKS)
+	@$(CC) $(CFLAGS) $(FRAMEWORKS) $(FILES) -o $(NAME) -g 
 	@echo "\x1b[36m   +> cub3D \033[0m\033[38;5;42m [Done] \033[0m";
 
 push:fclean

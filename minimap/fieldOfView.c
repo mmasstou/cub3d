@@ -20,6 +20,8 @@ void   field_of_views(float x1, float y1, t_data *data){
 		x1 + (90 * cos(data->ply->rotation_angle - o)),
 		y1 + (90 * sin(data->ply->rotation_angle - o))
 		);
-		o += .00013;
+		o += .00013; 
+
 	}
+	printf("degreeto_radian(%d / %d) = |%f|\n", FOV, H, degreeto_radian(FOV / H));
 }

@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:25:05 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/22 10:57:37 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/22 22:05:26 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define W 1200
 # define H 720
 # define FOV 60
+# define FOV_INC  FOV / 120
 # define WALL  7220224
 # define EMPTY_SPACE  13882833
 # define PLAYER  4539460
@@ -88,6 +89,10 @@ typedef struct s_player{
 //---------------------------------
 typedef struct data
 {
+	float x1;
+	float y1;
+	float x2;
+	float y2;
 	t_mlx	*mlx_vars;
 	t_player *ply;
 	int     params;
@@ -190,4 +195,6 @@ void	player_updata(t_data **data);
 double degreeto_radian(int angle);
 void draw_line(t_data *data, int x, int y, int x1, int y1);
 void   field_of_views(float x1, float y1, t_data *data);
+int	wall_collaction(float index, float jndex, t_data *data);
+int ray_caste(t_data *data);
 #endif

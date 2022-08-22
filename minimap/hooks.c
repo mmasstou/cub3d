@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 14:24:41 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/22 11:12:08 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/22 20:18:39 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,8 @@ void    graphic(t_data *data)
     data->mlx_vars->mlx_image = mlx_new_image(data->mlx_vars->mlx_ptr, W, H);
     data->mlx_vars->buffer = mlx_get_data_addr (data->mlx_vars->mlx_image, &data->mlx_vars->bpp, &data->mlx_vars->line_lenght, &data->mlx_vars->endian);
 	drawing_minimap(data);
-    // drawing_minimapp(data);
     mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->mlx_vars->mlx_image, 0, 0);
-	mlx_hook(data->mlx_vars->mlx_window, 2, 1L << 0, move_player_press, data);
-	// mlx_hook(data->mlx_vars->mlx_window, 03, 1L << 1, move_player_release, data);
-    // mlx_hook (data->mlx_vars->mlx_window, 5, 1L << 0, esc, data);
-	// mlx_loop_hook(data->mlx_vars->mlx_ptr, move_player_press, data);
+	mlx_hook(data->mlx_vars->mlx_window, 2, 1L, move_player_press, data);
 	mlx_hook (data->mlx_vars->mlx_window, 17, 1L << 0, close_cross, data);
     mlx_loop (data->mlx_vars->mlx_ptr);
 }
@@ -47,6 +43,9 @@ void	rotate_vector(t_data *data, double angle)
 }
 int	move_player_press(int key, t_data *data)
 {
+	float newPlayerx;
+	float newPlayery;
+
 	if (key == 53)
 	{
 		mlx_destroy_image (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_image);
@@ -60,8 +59,14 @@ int	move_player_press(int key, t_data *data)
 			data->ply->walk_direction = -1;
 		else if (key == W_KEY)
 			data->ply->walk_direction = 1;
-		data->ply->x_pos = data->ply->x_pos + (cos(data->ply->rotation_angle) * (1 * data->ply->walk_direction));
-		data->ply->y_pos = data->ply->y_pos + (sin(data->ply->rotation_angle) * (1 * data->ply->walk_direction));
+		newPlayerx = data->ply->x_pos + (cos(data->ply->rotation_angle) * (data->ply->move_speed * data->ply->walk_direction));
+		newPlayery = data->ply->y_pos + (sin(data->ply->rotation_angle) * (data->ply->move_speed * data->ply->walk_direction));
+		if (wall_collaction(newPlayerx, newPlayery, data) == 0)
+		{
+			printf(">>>>> NO Wall\n");
+		}
+		data->ply->x_pos = newPlayerx;
+		data->ply->y_pos = newPlayery;
 	}
 	else if (key == AROW_LEFT || key == AROW_RIGHT)
 	{
@@ -76,17 +81,16 @@ int	move_player_press(int key, t_data *data)
 		if (key == A_KEY || key == D_KEY)
 		{
 			printf("A_KEY\n");
-			
-		}
+ 		}
 		else if (key == D_KEY)
 		{
 			printf("D_KEY\n");
-			
 		}
-		
 	}
 	else
 		return (0);
+	
+	printf("|>> %f, %f\n", data->ply->x_pos, data->ply->y_pos);
 	re_draw(data);
 	return (0);
 }

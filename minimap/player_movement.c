@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:53:59 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/21 21:50:38 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/22 13:57:17 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_player	*init_player(t_player **p){
 	(*p)->radius = 0;
 	(*p)->turn_direction = 0;
 	(*p)->walk_direction = 0;
-	printf("plpppp +> %c\n", (*p)->spawning_orientation);
+	// printf("plpppp +> %c\n", (*p)->spawning_orientation);
 	if ((*p)->spawning_orientation == 'N')
 		(*p)->rotation_angle = 3 * M_PI_2;
 	else if ((*p)->spawning_orientation == 'S')
@@ -31,7 +31,7 @@ t_player	*init_player(t_player **p){
 	else if ((*p)->spawning_orientation == 'W')
 		(*p)->rotation_angle = M_PI;
 	(*p)->move_speed = 4;
-	(*p)->rotation_speed = degreeto_radian(4);
+	(*p)->rotation_speed = degreeto_radian(15);
 	return (*p);
 }
 

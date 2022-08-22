@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawining_minimap.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 11:55:42 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/21 16:15:32 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/22 14:34:38 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ int	drawing_minimap(t_data	*data){
 	float unity;
 	int rect_color;
 	int i;
-	data->unit = 36;
-	data->ply->radius = data->unit  / 4 ;
+	data->unit = 10;
+	// data->ply->radius = data->unit  / 4 ; // later
     draw_ceilling_floor(data);
 	inc = 0.1;
 	while (data->map[index])

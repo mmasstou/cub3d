@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+         #
+#    By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/05 11:22:44 by mmasstou          #+#    #+#              #
-#    Updated: 2022/08/21 21:48:41 by mmasstou         ###   ########.fr        #
+#    Updated: 2022/08/22 09:58:19 by abellakr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ FILES =  $(SRCS) $(PARS_SRCS)  $(LIBFT_DIR)/$(LIBFT_NAME)
 all: $(NAME)
 
 _libft :
+	@make -C minilibx_opengl
 	@make bonus -C $(LIBFT_DIR)
 
 $(NAME): $(OBJS) $(PARS_OBJS)  _libft

@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:20:48 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/21 19:29:03 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/22 10:42:08 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,28 @@ int	init_data(t_data *data)
 int	main(int argc, char *argv[])
 {
 	t_data	data;
+	int i = 0,j = 0;
 
 	checkargs(argc, argv);
 	init_data(&data);
 	parsing(argv, &data);
+	// data.ply->x_pos = 10;
+	// data.ply->y_pos = 10;
 	init_player(&(data.ply));
+	while (data.map[i])
+	{
+		j = 0;
+		while (data.map[i][j])
+		{
+			if (ft_strchr("SNWE", data.map[i][j]) != NULL)
+			{
+				data.ply->x_pos = j;
+				data.ply->y_pos = i;
+			}
+			j++;
+		}
+		i++;
+	}
 	graphic(&data);
 	// free_params(&data);
 	// free_array(data.map);

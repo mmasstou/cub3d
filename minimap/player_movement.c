@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:53:59 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/21 21:50:38 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/22 10:27:37 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 // void trace(float x, float y, float radius, t_data *data);
 void	rotation_y(float *x, float *z, float beta);
 t_player	*init_player(t_player **p){
-	(*p)->x_pos = 0;
-	(*p)->y_pos = 0;
 	(*p)->x_pos_o = 0;
 	(*p)->y_pos_o = 0;
 	(*p)->radius = 0;

@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 14:24:41 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/21 19:59:06 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/22 11:12:08 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void    graphic(t_data *data)
 	mlx_hook(data->mlx_vars->mlx_window, 2, 1L << 0, move_player_press, data);
 	// mlx_hook(data->mlx_vars->mlx_window, 03, 1L << 1, move_player_release, data);
     // mlx_hook (data->mlx_vars->mlx_window, 5, 1L << 0, esc, data);
+	// mlx_loop_hook(data->mlx_vars->mlx_ptr, move_player_press, data);
 	mlx_hook (data->mlx_vars->mlx_window, 17, 1L << 0, close_cross, data);
     mlx_loop (data->mlx_vars->mlx_ptr);
 }
@@ -52,16 +53,15 @@ int	move_player_press(int key, t_data *data)
 		mlx_destroy_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window);
 		exit (0);
 	}
-	else if (key == S_KEY)
+	else if (key == S_KEY || key == W_KEY)
 	{
 
-		data->ply->y_pos += (sin(data->ply->rotation_angle) * data->ply->move_speed);
-		printf("X_ pos +>%f\n", data->ply->y_pos);
-	}
-	else if (key == W_KEY)
-	{
-		data->ply->y_pos -= (sin(data->ply->rotation_angle) * data->ply->move_speed);
-		printf("X_ pos +>%f\n", data->ply->y_pos);
+		if (key == S_KEY)
+			data->ply->walk_direction = -1;
+		else if (key == W_KEY)
+			data->ply->walk_direction = 1;
+		data->ply->x_pos = data->ply->x_pos + (cos(data->ply->rotation_angle) * (1 * data->ply->walk_direction));
+		data->ply->y_pos = data->ply->y_pos + (sin(data->ply->rotation_angle) * (1 * data->ply->walk_direction));
 	}
 	else if (key == AROW_LEFT || key == AROW_RIGHT)
 	{
@@ -71,18 +71,18 @@ int	move_player_press(int key, t_data *data)
 			data->ply->turn_direction = 1;
 		data->ply->rotation_angle += (data->ply->turn_direction * data->ply->rotation_speed);
 	}
-	else if (key == AROW_RIGHT)
+	else if (key == A_KEY || key == D_KEY)
 	{
-		data->ply->turn_direction = 1;
-	}
-	else if (key == A_KEY)
-	{
-		printf("A_KEY\n");
-		
-	}
-	else if (key == D_KEY)
-	{
-		printf("D_KEY\n");
+		if (key == A_KEY || key == D_KEY)
+		{
+			printf("A_KEY\n");
+			
+		}
+		else if (key == D_KEY)
+		{
+			printf("D_KEY\n");
+			
+		}
 		
 	}
 	else

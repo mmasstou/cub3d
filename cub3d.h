@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:25:05 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/22 22:05:26 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/23 18:35:40 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@
 # define ONE '1'
 # define SPACE ' '
 // mlx
-# define W 1200
+# define W 1080
 # define H 720
-# define FOV 60
-# define FOV_INC  FOV / 120
+# define WALL_STRIPE_WITH 1
+# define FOV ( 60 * (M_PI / 180))
+# define NBR_RAYS W / WALL_STRIPE_WITH
+# define FOV_INC  FOV / NBR_RAYS
 # define WALL  7220224
 # define EMPTY_SPACE  13882833
 # define PLAYER  4539460
@@ -50,6 +52,10 @@ typedef struct exist
     int c;
 }   t_exist;
 
+typedef struct s_pos{
+	float x;
+	float y;
+}	t_pos;
 //---------------------------- new by bellakrim
 typedef struct mlx
 {
@@ -194,7 +200,8 @@ void	player_render(t_data *data);
 void	player_updata(t_data **data);
 double degreeto_radian(int angle);
 void draw_line(t_data *data, int x, int y, int x1, int y1);
-void   field_of_views(float x1, float y1, t_data *data);
+void   field_of_views(float x1, float y1, double ray_angle, t_data *data);
 int	wall_collaction(float index, float jndex, t_data *data);
 int ray_caste(t_data *data);
+void    dda_function(t_data *vars);
 #endif

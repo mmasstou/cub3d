@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 16:51:54 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/22 16:47:04 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/23 19:02:07 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,31 +67,30 @@ void draw_line(t_data *data, int x, int y, int x1, int y1)
 }
 
 void	player_render(t_data *data){
+	double ray_angle;
 	int x1, y1;
 	player_updata(&data);
 	// printf(" OLD player Pos %f, %f\n", data->ply->x_pos, data->ply->y_pos);
-
 	x1 = data->ply->x_pos * data->unit;
 	y1 = data->ply->y_pos * data->unit;
 	// printf("player Pos %f, %f\n", data->ply->x_pos, data->ply->y_pos);
-
-	
 	data->ply->color = 13728527;
-
-	// draw_ply(
-	// 	x1,
-	// 	y1, 
-	// 	data, 
-	// 	WALL);
+	draw_ply(
+		x1,
+		y1, 
+		data, 
+		WALL);
 	data->ply->color = 13728527;
 	// printf("player with :%f\n", (data->ply->ply_w) / 2);
-	x1 += data->ply->ply_w / 2;
-	y1 += data->ply->ply_w / 2;
+	// x1 += data->ply->ply_w / 2;
+	// y1 += data->ply->ply_w / 2;
 	data->x1 = x1;
 	data->y1 = y1;
 	data->x2 = x1 + (90 * cos(data->ply->rotation_angle));
 	data->y2 = y1 + (90 * sin(data->ply->rotation_angle));
-	field_of_views(x1, y1, data);
+	ray_angle = data->ply->rotation_angle - (FOV / 2);
+	ray_caste(data);
+	// field_of_views(x1, y1, ray_angle,  data);
 	data->ply->color = WALL;
 		dda_function(
 		data
@@ -116,20 +115,22 @@ void    draw_ply(float x, float y, t_data *data, int color)
 	int unit;
 	int unity;
 
+	data->ply->ply_w = 0;
 	unit = data->unit / 5;
+	x -= (unit / 2);
+	y -= (unit / 2);
 	i = x + unit;
 	j = y + unit;
-	x -= unit / 2;
-	y -= unit / 2;
 	unity = y;
-	while (x <= i - unit / 2)
+	while (x <= i)
 	{
 		y = unity;
-		while (y <= j - unit / 2)
+		while (y <= j)
 		{
 			my_mlx_pixel_put(x, y, data, color);
 			y++;
 		}
 		x++;
+		data->ply->ply_w ++;
 	}
 }

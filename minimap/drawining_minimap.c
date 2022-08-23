@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 11:55:42 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/22 10:46:35 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/23 13:21:40 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ int	drawing_minimap(t_data	*data){
 	float unity;
 	int rect_color;
 	int i;
-	// printf("player Pos %f, %f\n", data->ply->x_pos, data->ply->y_pos);
-	data->unit = 36;
+	data->unit = 32;
 	data->ply->radius = data->unit  / 4 ;
     draw_ceilling_floor(data);
 	inc = 0.1;
@@ -68,22 +67,23 @@ int	drawing_minimap(t_data	*data){
 		jndex = 0;
 		while (data->map[index][jndex])
 		{
-			i = 0;
+			i = 2;
 			unitx = jndex * data->unit;
 			unity = index * data->unit;
 			if (data->map[index][jndex] != ' ')
 			{
 				if (data->map[index][jndex] == '1')
 				{
-					i = 2;
+					i = 0;
 					rect_color = WALL;
+					draw_rect(unitx , unity, data, rect_color, i);
+				}
+				else if (data->map[index][jndex] == '0' || ft_strchr("SNWE", data->map[index][jndex]) != NULL)
+				{
+					i = 2;
+					rect_color = EMPTY_SPACE;
 					draw_rect(unitx, unity, data, rect_color, i);
 				}
-				// else if (ft_strchr("SNWE", data->map[index][jndex]) != NULL)
-				// {
-				// 	data->ply->x_pos = jndex + data->ply->x_pos_o;
-				// 	data->ply->y_pos = index + data->ply->y_pos_o;
-				// }
 			}
 			jndex ++;
 		}

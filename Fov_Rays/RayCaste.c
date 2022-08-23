@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 21:38:03 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/23 18:50:44 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/23 20:19:53 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void normalize_angle(double *angle){
 		*angle =  *angle * (2 * M_PI);
 }
 void	casting(int colid, double ray_angle, t_data *data){
-	bool	is_ray_facing_down = ray_angle > 0 && ray_angle < M_PI;
+	bool	is_ray_facimng_down = ray_angle > 0 && ray_angle < M_PI;
 	bool	is_ray_facing_up = !is_ray_facing_down;
 	bool	is_ray_facing_right = ray_angle < M_PI_2 || ray_angle > 3 * M_PI_2;
 	bool	is_ray_facing_left = !is_ray_facing_right;

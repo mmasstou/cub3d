@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:24:12 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/22 10:38:00 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/25 18:20:58 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	check_minimap(char **minimap, t_data *data)
 				chech_direction(minimap, index + 1, jndex);
 				chech_direction(minimap, index, jndex - 1);
 				chech_direction(minimap, index, jndex + 1);
-				// get_player_pos(index, jndex, &data);
 			}
 			else
 				_error("Stranger Element");

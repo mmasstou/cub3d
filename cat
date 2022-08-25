@@ -1,0 +1,15 @@
+Hooks_and_Events.c
+Makefile
+_error.c
+cat
+checkargs.c
+cub3D
+cub3D.dSYM
+cub3d.h
+key.h
+main.c
+map.c
+minilibx_opengl
+parsing
+player.c
+utils

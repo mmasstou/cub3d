@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/05 11:25:05 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/23 18:35:40 by mmasstou         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -29,8 +17,8 @@
 # define ONE '1'
 # define SPACE ' '
 // mlx
-# define W 1080
-# define H 720
+# define W 1400
+# define H 1080
 # define WALL_STRIPE_WITH 1
 # define FOV ( 60 * (M_PI / 180))
 # define NBR_RAYS W / WALL_STRIPE_WITH
@@ -38,6 +26,8 @@
 # define WALL  7220224
 # define EMPTY_SPACE  13882833
 # define PLAYER  4539460
+# define FOV_COLOR  0, 96, 255  
+# define X__COLOR  253, 175, 3
 
 // claver Key
 # define STEP(x, y) (x > y) ? x:y
@@ -95,6 +85,7 @@ typedef struct s_player{
 //---------------------------------
 typedef struct data
 {
+	int mm;
 	float x1;
 	float y1;
 	float x2;
@@ -176,7 +167,7 @@ void	my_mlx_pixel_put(int x, int y, t_data *data, int color);
 void	draw_rec(int x, int y, t_data *data, int color, int type);
 int	esc(int keycode, t_data *data);
 int	close_cross(void *param);
-void    render_player(float x,float y, t_data *data, int color, int type);
+void    render_player(t_data *data, float x, float y, int color);
 
 int	move_player_release(int key, t_data *data);
 int	move_player_press(int key, t_data *data);
@@ -198,10 +189,21 @@ void    draw_ceilling_floor(t_data *data);
 void    draw_ply(float x, float y, t_data *data, int color);
 void	player_render(t_data *data);
 void	player_updata(t_data **data);
-double degreeto_radian(int angle);
+double degreeto_radian(float angle);
 void draw_line(t_data *data, int x, int y, int x1, int y1);
 void   field_of_views(float x1, float y1, double ray_angle, t_data *data);
 int	wall_collaction(float index, float jndex, t_data *data);
 int ray_caste(t_data *data);
 void    dda_function(t_data *vars);
+
+
+// 
+int	draw__map(t_data	*data);
+void	draw__player(t_data *data);
+int	kay_press(int key, t_data *data);
+int	kay_releass(int key, t_data *data);
+void	draw__(t_data *data);
+int looop__hooking(t_data *data);
+void	draw__fov(t_data *data);
+void	draw__pov(t_data *data);
 #endif

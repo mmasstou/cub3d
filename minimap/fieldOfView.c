@@ -1,6 +1,6 @@
 #include "../cub3d.h"
 
-void   field_of_views(t_data *data){
+void   field_of_views(float x1, float y1, t_data *data){
     double o;
 
 	o = 0.0;
@@ -8,17 +8,17 @@ void   field_of_views(t_data *data){
 	{
 		draw_line(
 		data,
-		data->ply->x_pos,
-		data->ply->y_pos,
-		data->ply->x_pos + (90 * cos(data->ply->rotation_angle + o)),
-		data->ply->y_pos + (90 * sin(data->ply->rotation_angle + o))
+		x1,
+		y1,
+		x1 + (90 * cos(data->ply->rotation_angle + o)),
+		y1 + (90 * sin(data->ply->rotation_angle + o))
 		);
 		draw_line(
 		data,
-		data->ply->x_pos,
-		data->ply->y_pos,
-		data->ply->x_pos + (90 * cos(data->ply->rotation_angle - o)),
-		data->ply->y_pos + (90 * sin(data->ply->rotation_angle - o))
+		x1,
+		y1,
+		x1 + (90 * cos(data->ply->rotation_angle - o)),
+		y1 + (90 * sin(data->ply->rotation_angle - o))
 		);
 		o += .00013;
 	}

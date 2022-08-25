@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:25:05 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/21 21:50:26 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/22 10:57:37 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,5 +189,5 @@ void	player_render(t_data *data);
 void	player_updata(t_data **data);
 double degreeto_radian(int angle);
 void draw_line(t_data *data, int x, int y, int x1, int y1);
-void   field_of_views(t_data *data);
+void   field_of_views(float x1, float y1, t_data *data);
 #endif

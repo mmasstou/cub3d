@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 11:55:42 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/22 14:34:38 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/24 14:23:21 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,9 @@ int	drawing_minimap(t_data	*data){
 	float unity;
 	int rect_color;
 	int i;
+	// printf("player Pos %f, %f\n", data->ply->x_pos, data->ply->y_pos);
 	data->unit = 10;
-	// data->ply->radius = data->unit  / 4 ; // later
+	data->ply->radius = data->unit  / 4 ;
     draw_ceilling_floor(data);
 	inc = 0.1;
 	while (data->map[index])
@@ -78,11 +79,11 @@ int	drawing_minimap(t_data	*data){
 					rect_color = WALL;
 					draw_rect(unitx, unity, data, rect_color, i);
 				}
-				else if (ft_strchr("SNWE", data->map[index][jndex]) != NULL)
-				{
-					data->ply->x_pos = jndex + data->ply->x_pos_o;
-					data->ply->y_pos = index + data->ply->y_pos_o;
-				}
+				// else if (ft_strchr("SNWE", data->map[index][jndex]) != NULL)
+				// {
+				// 	data->ply->x_pos = jndex + data->ply->x_pos_o;
+				// 	data->ply->y_pos = index + data->ply->y_pos_o;
+				// }
 			}
 			jndex ++;
 		}

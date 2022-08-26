@@ -54,10 +54,7 @@ int	kay_press(int key, t_data *data){
 	float step;
 	float newPlayerx;
 	float newPlayery;
-	bool	is_ray_facing_down = data->ply->rotation_angle > 0 && data->ply->rotation_angle < M_PI;
-	bool	is_ray_facing_up = !is_ray_facing_down;
-	bool	is_ray_facing_right = data->ply->rotation_angle < M_PI_2 || data->ply->rotation_angle > 3 * M_PI_2;
-	bool	is_ray_facing_left = !is_ray_facing_right;
+
 	if (key == 53)
 	{
 		mlx_destroy_image (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_image);

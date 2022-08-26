@@ -1,6 +1,6 @@
 NAME = cub3D
 CC = gcc
-CFLAGS = 
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 LIBFT_NAME = libft.a
 
 # directions : 

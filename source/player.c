@@ -55,7 +55,6 @@ void	draw__fov(t_data *data){
 	int index;
 	float p__y;
 	double	ray__angle;
-	float m;
 
 	p__x = data->ply->x_pos * data->unit;
 	p__y = data->ply->y_pos * data->unit;
@@ -93,9 +92,7 @@ void	draw__pov(t_data *data){
 	);
 }
 void	draw__player(t_data *data){
-	double ray_angle;
 	int x1, y1;
-	float player_unit;
 	player_updata(&data);
 	// printf(" OLD player Pos %f, %f\n", data->ply->x_pos, data->ply->y_pos);
 	x1 = data->ply->x_pos * data->unit;

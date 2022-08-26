@@ -33,6 +33,7 @@ void	casting(int colid, double ray_angle, t_data *data){
 	float y__step;
 	float next__horizontal_intx;
 	float next__horizontal_inty;
+	(void)colid;
 	printf("ray_angle %f\n",ray_angle);
 	printf("is_ray_facing_down %d\n",is_ray_facing_down);
 	return ;

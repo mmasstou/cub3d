@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 void	draw__(t_data *data){
 	data->mlx_vars = (t_mlx *)malloc(sizeof(t_mlx));
@@ -13,15 +13,15 @@ void	draw__(t_data *data){
 	draw_ceilling_floor(data);
 	draw__map(data);
 	draw__player(data);
-	// draw__fov(data);
-	draw__pov(data);
-	ray_caste(data);
+	draw__fov(data);
+	// draw__pov(data);
+	// ray_caste(data);
     mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->mlx_vars->mlx_image, 0, 0);
 	mlx_hook(data->mlx_vars->mlx_window, KeyPress, KeyPressMask, kay_press, data);
 	mlx_hook(data->mlx_vars->mlx_window, KeyRelease, KeyReleaseMask, kay_releass, data);
+	mlx_hook (data->mlx_vars->mlx_window, 17, 1L << 0, close_cross, data);
 	mlx_loop_hook(data->mlx_vars->mlx_ptr, looop__hooking, data);
     mlx_loop (data->mlx_vars->mlx_ptr);
-	// mlx_hook (data->mlx_vars->mlx_window, 17, 1L << 0, close_cross, data);
 }
 void	re_draw__(t_data *data){
 	mlx_clear_window(data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window);
@@ -31,9 +31,9 @@ void	re_draw__(t_data *data){
     draw_ceilling_floor(data);
 	draw__map(data);
 	draw__player(data);
-	// draw__fov(data);
-	draw__pov(data);
-	ray_caste(data);
+	draw__fov(data);
+	// draw__pov(data);
+	// ray_caste(data);
     mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->mlx_vars->mlx_image, 0, 0);
 }
 int looop__hooking(t_data *data){
@@ -42,6 +42,12 @@ int looop__hooking(t_data *data){
 	return (0);
 }
 // 
+
+int	close_cross(void *param)
+{
+	(void)param;
+	exit (0);
+}
 
 
 int	kay_press(int key, t_data *data){

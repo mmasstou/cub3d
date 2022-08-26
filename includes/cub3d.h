@@ -4,8 +4,8 @@
 //-------------------------------------- includes
 # include <libc.h>
 # include <stdbool.h>
-# include "utils/libft/libft.h"
-# include "minilibx_opengl/mlx.h"
+# include "../Resources/libft/libft.h"
+# include "../Resources/minilibx_opengl/mlx.h"
 # include <math.h>
 # include "key.h"
 //------------------------------------------------ macros

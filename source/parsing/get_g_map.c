@@ -1,36 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_map_size.c                                     :+:      :+:    :+:   */
+/*   get_g_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/05 11:24:18 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/05 11:57:59 by mmasstou         ###   ########.fr       */
+/*   Created: 2022/08/05 11:24:15 by mmasstou          #+#    #+#             */
+/*   Updated: 2022/08/26 15:34:26 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../includes/cub3d.h"
 
-int	get_map_size(char *file)
+char	**get_g_map(char *file)
 {
-	int		index;
 	int		fd;
+	char	**g_map;
 	char	*line;
+	int		index;
 
-	index = 1;
+	g_map = (char **)malloc(sizeof(char *) * get_map_size(file) + 1);
+	if (!g_map)
+		exit(1);
 	fd = open(file, O_RDONLY, 0777);
 	if (fd == -1)
 		exit (1);
 	line = get_next_line(fd);
-	if (line == NULL)
+	if (!line)
 		_error("Map Not found");
+	index = 0;
 	while (line)
 	{
-		index++;
+		g_map[index] = ft_strdup(line);
 		free(line);
 		line = get_next_line(fd);
+		index++;
 	}
+	g_map[index] = NULL;
 	close(fd);
-	return (index + 1);
+	return (g_map);
 }

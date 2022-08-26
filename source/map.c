@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 void	my_mlx_pixel_put(int x, int y, t_data *data, int color)
 {
@@ -93,7 +93,7 @@ int	wall_collaction(float index, float jndex, t_data *data){
 	x = (int)index;
 	y = (int)jndex;
 	if (data->map[y] != NULL){
-		if (data->map[y][x] == '1' || data->map[y][x] == ' '){
+		if (data->map[y][x] == '1'){
 			return (1);	
 		}
 	}

@@ -1,7 +1,7 @@
-NO utils/texture/no.xpm
-SO utils/texture/so.xpm
-WE utils/texture/we.xpm
-EA utils/texture/ea.xpm
+NO Resources/texture/no.xpm
+SO Resources/texture/so.xpm
+WE Resources/texture/we.xpm
+EA Resources/texture/ea.xpm
 C 52,152,219
 F 166,172,175
                     

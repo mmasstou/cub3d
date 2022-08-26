@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   _error.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:24:54 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/05 12:09:15 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:32:57 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 void	_error(char *msg)
 {

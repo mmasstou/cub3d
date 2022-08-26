@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   checkargs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:24:59 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/05 12:10:00 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:32:57 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 void	checkargs(int argc, char *argv[])
 {

@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 void    dda_func(t_data *vars)
 {
@@ -123,7 +123,7 @@ int ray_caste(t_data *data){
 	while (colid < NBR_RAYS){
 		// printf("col Id = %d\n", colid);
 		// printf("ray_angle = %f\n", ray_angle);
-		casting(colid, ray_angle, data);
+		// casting(colid, ray_angle, data);
 		// draw___ray(
 		// 	data,
 		// 	player__x,
@@ -131,7 +131,9 @@ int ray_caste(t_data *data){
 		// 	player__x  + (cos(ray_angle) * 60),
 		// 	player__y + (sin(ray_angle) * 60)
 		// );
-		ray_angle += FOV_INC; 
+		// get_intersetion_wall(data, ray_angle, &inter_x);
+		ray_angle += FOV_INC;
+		break;
 		colid ++;
 	}
 	return (0);

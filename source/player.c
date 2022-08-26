@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 double degreeto_radian(float angle){
 	return (angle *  (M_PI / 180));

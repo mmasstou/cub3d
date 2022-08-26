@@ -2,17 +2,24 @@ NAME = cub3D
 CC = gcc
 CFLAGS = 
 LIBFT_NAME = libft.a
-FRAMEWORKS =  minilibx_opengl/libmlx.a -framework AppKit -framework OpenGL
 
 # directions : 
-PARS_DIR = parsing/
-LIBFT_DIR = utils/libft
+SOURCE = source/
+RESOURCE = Resources/
+INCLUDES = includes/
+
+PARS_DIR = $(SOURCE)parsing/
+LIBFT_DIR = $(RESOURCE)libft
+MINILIBX_DIR = $(RESOURCE)minilibx_opengl/
+
+
 MINIMAP = minimap/
 FOV_RAYS = Fov_Rays/
 EVENTS = events/
 
+FRAMEWORKS =  $(MINILIBX_DIR)/libmlx.a -framework AppKit -framework OpenGL
 # Srcs
-SRCS = main.c  _error.c checkargs.c  player.c Hooks_and_Events.c map.c ray_cating.c
+SRCS = $(SOURCE)main.c  $(SOURCE)_error.c $(SOURCE)checkargs.c  $(SOURCE)player.c $(SOURCE)Hooks_and_Events.c $(SOURCE)map.c $(SOURCE)ray_cating.c
 PARS_SRCS = $(PARS_DIR)parsing.c $(PARS_DIR)stock_minimap.c $(PARS_DIR)is_player.c $(PARS_DIR)check_minimap.c $(PARS_DIR)get_map_size.c  $(PARS_DIR)chech_direction.c $(PARS_DIR)get_g_map.c $(PARS_DIR)parsing_minimap.c $(PARS_DIR)parsing_utils.c  $(PARS_DIR)parsing_params.c $(PARS_DIR)save_params.c  $(PARS_DIR)save_params2.c 
 
 
@@ -23,7 +30,7 @@ PARS_OBJS	= $(PARS_SRCS:.c=.o)
 # All Files 
 FILES =  $(SRCS) $(PARS_SRCS)   $(LIBFT_DIR)/$(LIBFT_NAME)  
 
-%.o:%.c  
+%.o:%.c
 	@${CC} $(CFLAGS)  -I . -o $@ -c $<
 	@printf "\x1b[36m   +>\033[0m compiling \033[38;5;42m$< \033[0m\n"
 
@@ -41,14 +48,14 @@ push:fclean
 	@read -p "Files To Add:" files; git add "$$files" 
 	@ read -p "Message:" message; \
 	git commit -m "$$message"; \
-	git push origin master
+	git push
 
 clean: 
 	@rm  -rf  $(OBJS)  $(PARS_OBJS)
 	@make fclean -C $(LIBFT_DIR)/
 
 fclean: clean 
-	@rm -rf $(NAME)
+	@rm -rf $(NAME) cub3D.dSYM
 	
 re : fclean all
 

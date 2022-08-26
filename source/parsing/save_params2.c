@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   save_params2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 07:22:41 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/04 18:59:33 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:34:26 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../includes/cub3d.h"
 
 //----------------------------------------------
 void	save_f(char **line, t_data *data)

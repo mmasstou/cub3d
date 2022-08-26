@@ -6,11 +6,11 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:24:12 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/25 18:20:58 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:34:26 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../includes/cub3d.h"
 void	get_player_pos(int x, int y, t_data **data)
 {
 	(*data)->ply->x_pos = x;

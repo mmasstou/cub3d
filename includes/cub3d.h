@@ -17,17 +17,17 @@
 # define ONE '1'
 # define SPACE ' '
 // mlx
-# define W 1400
-# define H 1080
+# define W 1080
+# define H 720
 # define WALL_STRIPE_WITH 1
-# define FOV ( 60 * (M_PI / 180))
+# define FOV  60
 # define NBR_RAYS W / WALL_STRIPE_WITH
-# define FOV_INC  FOV / NBR_RAYS
+# define FOV_INC  degreeto_radian(FOV) / NBR_RAYS
 # define WALL  7220224
 # define EMPTY_SPACE  13882833
 # define PLAYER  4539460
-# define FOV_COLOR  0, 96, 255  
-# define X__COLOR  253, 175, 3
+# define X__COLOR  0, 96, 255  
+# define FOV_COLOR  253, 175, 3
 
 // claver Key
 # define STEP(x, y) (x > y) ? x:y
@@ -45,7 +45,7 @@ typedef struct exist
 typedef struct s_pos{
 	float x;
 	float y;
-}	t_pos;
+}	t_pos; 
 //---------------------------- new by bellakrim
 typedef struct mlx
 {
@@ -176,7 +176,7 @@ int	dda(float x, float y, t_data *data);
 int	draw_rays(t_data *data);
 
 int	drawing_minimap(t_data	*data);
-t_player	*init_player(t_player **p);
+void	init_player(t_player **p);
 int	drawing_player(t_data	*data);
 void    draw_rect(float x, float y, t_data *data, int color, int type);
 int	row_dda(float x, float y, float next_x, float next_y, t_data *data);
@@ -188,7 +188,7 @@ void    draw_ceilling_floor(t_data *data);
 
 void    draw_ply(float x, float y, t_data *data, int color);
 void	player_render(t_data *data);
-void	player_updata(t_data **data);
+void	player_update(t_data **data);
 double degreeto_radian(float angle);
 void draw_line(t_data *data, int x, int y, int x1, int y1);
 void   field_of_views(float x1, float y1, double ray_angle, t_data *data);

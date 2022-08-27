@@ -10,25 +10,21 @@ void	my_mlx_pixel_put(int x, int y, t_data *data, int color)
 		*(unsigned int *)dst = color;
 	}
 }
+
 void    draw_rect(float x, float y, t_data *data, int color, int type)
 {
 	int index;
 	int jndex;
-	int i;
-	int j;
+	int old__y;
 	
 	index = (x + data->unit);
-	i = (y + data->unit); 
-	j = y;
+	jndex = (y + data->unit); 
+	old__y = y;
 	while (x <= index - type)
 	{
-		jndex = i;
-		y = j;
+		y = old__y;
 		while (y <= jndex - type)
-		{
-			my_mlx_pixel_put(x, y, data, color);
-			y++;
-		}
+			my_mlx_pixel_put(x, y++, data, color);
 		x++;
 	}
 }
@@ -56,7 +52,7 @@ void    draw_ceilling_floor(t_data *data)
 
 }
 
-int	draw__map(t_data	*data){
+int	draw__map(t_data *data){
 	
 	int index = 0;
 	int jndex = 0;
@@ -85,18 +81,35 @@ int	draw__map(t_data	*data){
 	}
 	return (0);
 }
+int	arraylen(char **array){
+	int index;
 
+	index = -1;
+	while (array[++index])
+		;
+	return (index);
+}
 int	wall_collaction(float index, float jndex, t_data *data){
+	
 	int x;
 	int y;
+	int	array_len = arraylen(data->map);
+	int k;
 
-	x = (int)index;
-	y = (int)jndex;
-	if (data->map[y] != NULL){
-		if (data->map[y][x] == '1'){
-			return (1);	
-		}
+	x = floor(index);
+	y = floor(jndex);
+	if(y > array_len)
+		return (1);
+	if (y >= 0 && data->map[y] != NULL)
+	{
+		k = ft_strlen(data->map[y]);
+		if (x > k && x >= 0)
+			return (1);
+		if (x <= k && (data->map[y][x] == '1' || data->map[y][x] == ' '))
+			return (1);
+		else if (data->map[y][x] == '0')
+			return (0);
 	}
-	return (0);
+	return (2);
 	
 }

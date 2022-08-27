@@ -109,33 +109,136 @@ void    draw___ray(t_data *vars, float x1, float y1, float x2, float y2)
         y1 += dy;
     }
 }
+void normalize_angle(double *angle){
+	int i,j;
 
+	i = floor(*angle);
+	j = floor(M_PI * 2);
+	*angle = i % j;
+	if (angle < 0)
+		*angle =  *angle * (2 * M_PI);
+}
+
+float	first_inter__x(t_data *data, double angle){
+
+	t_pos player;
+	t_pos H_inrecept; 
+	t_pos H_step;
+	t_pos V_inrecept; 
+	t_pos V_step;
+	t_pos horizontalDistance;
+	t_pos verticatDistance;
+	float index;
+	float jndex;
+
+	float horizontal;
+	float vertical;
+	/*
+	* 
+	*/
+	normalize_angle(&angle);
+	bool	is_ray_facing_down = (angle > 0 && angle < M_PI);
+	// bool	is_ray_facing_up = !is_ray_facing_down;
+	bool	is_ray_facing_left = (angle > M_PI_2 && angle < 3 * M_PI_2);
+	bool	is_ray_facing_right = !is_ray_facing_left;
+	//  init player pos
+	player.x = data->ply->x_pos * data->unit;
+	player.y = data->ply->y_pos * data->unit;
+	/* 
+	! --&-- Horizontal Intersection --&--
+	*/ 
+	//  first interception
+	H_inrecept.y = floor(player.y / data->unit) * data->unit;
+	H_inrecept.y += is_ray_facing_down ? data->unit: 0; // 
+	H_inrecept.x = player.x + ((H_inrecept.y - player.y) / tan(angle));
+	//  intersection steps
+	H_step.y = data->unit;
+	H_step.x = H_step.y / tan(angle);
+	H_step.x *= (is_ray_facing_left && H_step.x > 0)  ? -1 : 1;
+	H_step.x *= (is_ray_facing_right && H_step.x < 0)  ? -1 : 1;
+
+	index = player.x;
+	jndex = player.y;
+	while (true)
+	{
+		if (wall_collaction(index / data->unit, jndex / data->unit, data) == 1)
+		{
+			horizontalDistance.x = index; 
+			horizontalDistance.y = jndex; 
+			break;
+		}
+		index += H_step.x;
+		jndex += H_step.y;
+	}
+	/* 
+	! --&-- Vertical Intersection --&--
+	*/ 
+	//  first interception
+	V_inrecept.x = floor(player.x / data->unit) * data->unit;
+	V_inrecept.y = player.y + ((V_inrecept.x - player.x) / tan(angle));
+	//  intersection steps
+	V_step.x = data->unit;
+	V_step.y = V_step.x * tan(angle);
+	index = player.x;
+	jndex = player.y;
+	while (true)
+	{
+		if (wall_collaction(index / data->unit, jndex / data->unit, data) == 1)
+		{
+			verticatDistance.x = index; 
+			verticatDistance.y = jndex; 
+			break;
+		}
+		index += V_step.x;
+		jndex += V_step.y;
+	}
+
+	// printf("player(%f, %f)\ninrecept(%f, %f)\nstep(%f, %f)\n", player.x, player.y, inrecept.x, inrecept.y, step.x, step.y);
+	// draw ray
+	vertical = sqrt(pow((verticatDistance.x - player.x), 2) + pow((verticatDistance.y - player.y), 2));
+	horizontal = sqrt(pow((horizontalDistance.x - player.x), 2) + pow((horizontalDistance.y - player.y), 2));
+	if (vertical < horizontal)
+		horizontalDistance = verticatDistance;
+	// data->ply->color = ft_rgb(10, 0, 96, 255);
+	// draw___ray(
+	// 	data,
+	// 	player.x,
+	// 	player.y,
+	// 	verticatDistance.x,
+	// 	verticatDistance.y
+	// );
+	
+	data->ply->color = ft_rgb(10, 255, 0, 44);
+	draw___ray(
+		data,
+		player.x,
+		player.y,
+		horizontalDistance.x,
+		horizontalDistance.y
+	);
+	return (0);
+
+}
+int	get_intersetion_wall(t_data *data, double angle)
+{
+	return(first_inter__x(data, angle));
+	
+}
+//  intersections
 int ray_caste(t_data *data){
 	int colid;
 	double ray_angle;
-	float player__x;
-	float player__y;
 
-	player__x = data->ply->x_pos * data->unit;
-	player__y = data->ply->y_pos * data->unit;
-	ray_angle = data->ply->rotation_angle - FOV / 2;
+	ray_angle = data->ply->rotation_angle - (degreeto_radian(FOV) / 2);
 	// normalize_angle(&ray_angle);
 	colid = 0;
-	while (colid < NBR_RAYS){
-		// printf("col Id = %d\n", colid);
-		// printf("ray_angle = %f\n", ray_angle);
-		// casting(colid, ray_angle, data);
-		// draw___ray(
-		// 	data,
-		// 	player__x,
-		// 	player__y,
-		// 	player__x  + (cos(ray_angle) * 60),
-		// 	player__y + (sin(ray_angle) * 60)
-		// );
-		// get_intersetion_wall(data, ray_angle, &inter_x);
-		ray_angle += FOV_INC;
+	while (colid <= NBR_RAYS)
+	{
+		get_intersetion_wall(data, ray_angle);
+		// printf("ray %d\n", colid);
 		break;
-		colid ++;
+		colid++;
+		ray_angle += FOV_INC;
 	}
 	return (0);
 }

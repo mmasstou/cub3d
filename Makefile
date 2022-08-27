@@ -38,6 +38,7 @@ all: $(NAME)
 
 _libft :
 	@make bonus -C $(LIBFT_DIR)
+	@make -C $(MINILIBX_DIR)
 
 $(NAME): $(OBJS) $(PARS_OBJS)  _libft
 	@$(CC) $(CFLAGS) $(FRAMEWORKS) $(FILES) -o $(NAME) -g 

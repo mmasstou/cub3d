@@ -4,6 +4,7 @@
 //-------------------------------------- includes
 # include <libc.h>
 # include <stdbool.h>
+# include <limits.h>
 # include "../Resources/libft/libft.h"
 # include "../Resources/minilibx_opengl/mlx.h"
 # include <math.h>
@@ -66,6 +67,8 @@ typedef struct rays
 {
 	double	angle;
 	t_pos	wall_hit;
+	t_pos	vertical_wall_hit;
+	t_pos	horizontal_wall_hit;
 	double	distance;
 	bool	wasHitVertical;
 	bool	wasHithorizontal;

@@ -13,7 +13,7 @@ void	draw__(t_data *data){
 	draw_ceilling_floor(data);
 	draw__map(data);
 	draw__player(data);
-	// draw__fov(data);
+	draw__fov(data);
 	draw__pov(data);
 	ray_caste(data);
     mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->mlx_vars->mlx_image, 0, 0);
@@ -23,7 +23,7 @@ void	draw__(t_data *data){
 	mlx_loop_hook(data->mlx_vars->mlx_ptr, looop__hooking, data);
     mlx_loop (data->mlx_vars->mlx_ptr);
 }
-
+ 
 void	re_draw__(t_data *data){
 	mlx_clear_window(data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window);
 	mlx_destroy_image(data->mlx_vars->mlx_ptr,data->mlx_vars->mlx_image);

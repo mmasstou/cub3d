@@ -28,6 +28,8 @@
 # define PLAYER  4539460
 # define X__COLOR  0, 96, 255  
 # define FOV_COLOR  253, 175, 3
+# define HORIZO_TYPE 1
+# define VERTIC_TYPE 2
 
 // claver Key
 # define STEP(x, y) (x > y) ? x:y
@@ -43,8 +45,8 @@ typedef struct exist
 }   t_exist;
 
 typedef struct s_pos{
-	float x;
-	float y;
+	double x;
+	double y;
 }	t_pos; 
 //---------------------------- new by bellakrim
 typedef struct mlx
@@ -59,7 +61,17 @@ typedef struct mlx
 	int		endian;
 	//-------------------------
 }t_mlx;
-//-------------------------------- new by bellakrim
+
+typedef struct rays
+{
+	double	angle;
+	t_pos	wall_hit;
+	double	distance;
+	bool	wasHitVertical;
+	bool	wasHithorizontal;
+	struct rays *next;
+}	t_rays;
+
 typedef struct color
 {
 	int	r;
@@ -85,6 +97,19 @@ typedef struct s_player{
 //---------------------------------
 typedef struct data
 {
+	// ? this vas is to rayCasting 
+	t_pos	step; // ! calcul ths Delta 
+	t_pos	intercept;  // ! git first intercept
+	t_pos	Horizontal_hit; 
+	t_pos	Vertical_hit;
+	bool	was_hit_vertical;
+	bool	is_facing_down;
+	bool	is_facing_up;
+	bool	is_facing_right;
+	bool	is_facing_left;
+	double horizontal_distance;
+	double vertical_distance;
+	// ? end
 	int mm;
 	float x1;
 	float y1;
@@ -92,6 +117,7 @@ typedef struct data
 	float y2;
 	t_mlx	*mlx_vars;
 	t_player *ply;
+	t_rays	*rays;
 	int     params;
 	t_exist exit;
 	char	*no;
@@ -206,4 +232,5 @@ void	draw__(t_data *data);
 int looop__hooking(t_data *data);
 void	draw__fov(t_data *data);
 void	draw__pov(t_data *data);
+void normalize_angle(double *angle);
 #endif

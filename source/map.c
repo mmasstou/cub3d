@@ -49,7 +49,6 @@ void    draw_ceilling_floor(t_data *data)
         }
         index++;
     }
-
 }
 
 int	draw__map(t_data *data){
@@ -64,14 +63,14 @@ int	draw__map(t_data *data){
 		jndex = 0;
 		while (data->map[index][jndex])
 		{
-			i = 2;
+			i = 0;
 			if (data->map[index][jndex] == '1')
-			{
-				i = 0;
 				rect_color = WALL;
-			}
 			else if (data->map[index][jndex] == '0' || ft_strchr("SNWE", data->map[index][jndex]) != NULL)
-				rect_color = EMPTY_SPACE;
+			{
+				jndex ++;
+				continue;
+			}
 			else if (data->map[index][jndex++] == ' ')
 				continue;
 			draw_rect(jndex * data->unit, index * data->unit, data, rect_color, i);

@@ -22,8 +22,8 @@
 # define H 720
 # define WALL_STRIPE_WITH 1
 # define FOV  60
-# define NBR_RAYS W / WALL_STRIPE_WITH
-# define FOV_INC  degreeto_radian(FOV) / NBR_RAYS
+# define NBR_RAYS (W / WALL_STRIPE_WITH)
+# define FOV_INC  (degreeto_radian(FOV) / NBR_RAYS)
 # define WALL  7220224
 # define EMPTY_SPACE  13882833
 # define PLAYER  4539460
@@ -236,4 +236,5 @@ int looop__hooking(t_data *data);
 void	draw__fov(t_data *data);
 void	draw__pov(t_data *data);
 void normalize_angle(double *angle);
+void	rendering_wall(t_data *data, t_rays *rays);
 #endif

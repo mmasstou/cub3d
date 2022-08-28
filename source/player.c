@@ -23,8 +23,8 @@ void	init_player(t_player **p){
 		(*p)->rotation_angle = 0;
 	else if ((*p)->spawning_orientation == 'W')
 		(*p)->rotation_angle = M_PI;
-	(*p)->move_speed = 0.05;
-	(*p)->rotation_speed = degreeto_radian(1.5);
+	(*p)->move_speed = 0.03;
+	(*p)->rotation_speed = degreeto_radian(1.3);
 }
 void    draw__ray(t_data *vars)
 {
@@ -49,32 +49,34 @@ void    draw__ray(t_data *vars)
 			break;
     }
 }
+
+void	draw__raycast(t_data *data, double x1, double y1,  double x2, double y2){
+	data->x1 = x1;
+	data->y1 = y1;
+	data->x2 = x2;
+	data->y2 = y2;
+	dda_function(
+		data
+	);
+}
+
 void	draw__fov(t_data *data){
-	float win_palyer__x;
-	int index;
-	float win_palyer__y;
-	double	ray__angle;
+	t_rays *tmp;
+	
+	tmp = data->rays;
+	while (tmp)
+	{
 
-	win_palyer__x = data->ply->x_pos * data->unit;
-	win_palyer__y = data->ply->y_pos * data->unit;
-	ray__angle = data->ply->rotation_angle - degreeto_radian(FOV) / 2;
-	index = 0;
-	while (index < NBR_RAYS){
-		// start
-		data->x1 = win_palyer__x;
-		data->y1 = win_palyer__y;
-		data->x2 = win_palyer__x + (90 * cos(ray__angle));
-		data->y2 = win_palyer__y + (90 * sin(ray__angle));
-		data->ply->color = ft_rgb(15, FOV_COLOR);
-		// end
-		draw__ray(
-			data
+		data->ply->color = ft_rgb(30, FOV_COLOR);
+		draw__raycast(
+			data,
+			data->ply->x_pos * data->unit,
+			data->ply->y_pos * data->unit,
+			tmp->wall_hit.x,
+			tmp->wall_hit.y
 		);
-		ray__angle += degreeto_radian(FOV) / NBR_RAYS;
-		index ++;
+		tmp = tmp->next;
 	}
-
-
 }
 void	draw__pov(t_data *data){
 	int x1, y1;

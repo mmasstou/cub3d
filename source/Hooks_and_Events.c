@@ -11,11 +11,12 @@ void	draw__(t_data *data){
     data->mlx_vars->mlx_image = mlx_new_image(data->mlx_vars->mlx_ptr, W, H);
     data->mlx_vars->buffer = mlx_get_data_addr (data->mlx_vars->mlx_image, &data->mlx_vars->bpp, &data->mlx_vars->line_lenght, &data->mlx_vars->endian);
 	draw_ceilling_floor(data);
+	ray_caste(data);
+	// rendering_wall(data, data->rays);
 	draw__map(data);
 	draw__player(data);
 	draw__fov(data);
-	draw__pov(data);
-	ray_caste(data);
+	// draw__pov(data);
     mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->mlx_vars->mlx_image, 0, 0);
 	mlx_hook(data->mlx_vars->mlx_window, KeyPress, KeyPressMask, kay_press, data);
 	mlx_hook(data->mlx_vars->mlx_window, KeyRelease, KeyReleaseMask, kay_releass, data);
@@ -30,11 +31,12 @@ void	re_draw__(t_data *data){
     data->mlx_vars->mlx_image = mlx_new_image(data->mlx_vars->mlx_ptr, W, H);
     data->mlx_vars->buffer = mlx_get_data_addr (data->mlx_vars->mlx_image, &data->mlx_vars->bpp, &data->mlx_vars->line_lenght, &data->mlx_vars->endian);
     draw_ceilling_floor(data);
+	ray_caste(data);
+	// rendering_wall(data, data->rays);
 	draw__map(data);
 	draw__player(data);
-	// draw__fov(data);
-	draw__pov(data);
-	ray_caste(data);
+	draw__fov(data);
+	// draw__pov(data);
     mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->mlx_vars->mlx_image, 0, 0);
 }
 

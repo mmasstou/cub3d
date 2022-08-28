@@ -32,16 +32,7 @@ t_rays	*init_ray(t_data *data, double angle){
 	return (ray);
 }
 
-void	draw__raycast(t_data *data, double x1, double y1,  double x2, double y2){
-	data->x1 = x1;
-	data->y1 = y1;
-	data->x2 = x2;
-	data->y2 = y2;
-	data->ply->color = ft_rgb(30, FOV_COLOR);
-	dda_function(
-		data
-	);
-}
+
 /*
 TODO :
 *
@@ -215,7 +206,6 @@ void	adding_ray(t_rays **lst, t_rays *new)
 int ray_caste(t_data *data){
 	int colid;
 	double ray_angle;
-	t_rays	*tmp;
 
 	data->rays = NULL;
 	ray_angle = data->ply->rotation_angle - (degreeto_radian(FOV) / 2);
@@ -226,18 +216,5 @@ int ray_caste(t_data *data){
 		colid++;
 		ray_angle += FOV_INC;
 	}
-	tmp = data->rays;
-	while (tmp)
-	{
-		draw__raycast(
-			data,
-			data->ply->x_pos * data->unit,
-			data->ply->y_pos * data->unit,
-			tmp->wall_hit.x,
-			tmp->wall_hit.y
-		);
-		tmp = tmp->next;
-	}
-	
 	return (0);
 }

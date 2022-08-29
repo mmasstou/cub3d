@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 20:00:18 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/29 07:52:58 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/29 09:48:32 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	draw_all(t_data *data)
 	DrawCircle(RADIUS, data);
 	draw__map(data);
 	draw__player(data);
-	draw__fov(data);
+	// draw__fov(data);
 	draw__pov(data);
 	// ray_caste(data);
 }

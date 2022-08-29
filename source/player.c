@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 19:51:57 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/29 08:35:13 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/29 08:45:51 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ void    draw__ray(t_data *vars)
         my_mlx_pixel_put(vars->x1 , vars->y1 , vars, vars->ply->color);
         vars->x1 += dx;
         vars->y1 += dy;
-		// if (wall_collaction(vars->x1 / vars->unit, vars->y1 / vars->unit, vars) == 1)
-		// 	break;
+		if (wall_collaction(vars->x1 / vars->unit, vars->y1 / vars->unit, vars) == 1)
+			break;
     }
 }
 //---------------------------------------------------- draw fieald of view 
@@ -91,8 +91,8 @@ void	draw__fov(t_data *data){
 	float win_palyer__y;
 	double	ray__angle;
 
-	win_palyer__x = data->x_translation;
-	win_palyer__y = data->y_translation;
+	win_palyer__x = data->ply->x_pos * data->unit;
+	win_palyer__y = data->ply->y_pos * data->unit;
 	ray__angle = data->ply->rotation_angle - degreeto_radian(FOV) / 2;
 	index = 0;
 	while (index < NBR_RAYS){

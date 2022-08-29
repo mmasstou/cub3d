@@ -53,6 +53,8 @@ int	main(int argc, char *argv[])
 		}
 		i++;
 	}
+	data.map_size.x = j;
+	data.map_size.x = i;
 	init_player(&(data.ply));
 	draw__(&data);
 	atexit(checkleaks);

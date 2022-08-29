@@ -21,6 +21,8 @@ void	draw__(t_data *data){
 	mlx_hook(data->mlx_vars->mlx_window, KeyPress, KeyPressMask, kay_press, data);
 	mlx_hook(data->mlx_vars->mlx_window, KeyRelease, KeyReleaseMask, kay_releass, data);
 	mlx_hook (data->mlx_vars->mlx_window, 17, 1L << 0, close_cross, data);
+	// mlx_hook (data->mlx_vars->mlx_window, 6, 1L << 0, mouse_move, data);
+	// mlx_mouse_hook (data->mlx_vars->mlx_window,mouse_move_clik, data);
 	mlx_loop_hook(data->mlx_vars->mlx_ptr, looop__hooking, data);
     mlx_loop (data->mlx_vars->mlx_ptr);
 }
@@ -51,6 +53,37 @@ int	close_cross(void *param)
 {
 	(void)param;
 	exit (0);
+}
+
+int mouse_move(int x, int y, t_data *param)
+{
+	int diff;
+
+	if (x > 0 && x < W && y> 0 &&  y < H)
+	{
+		diff = param->ply->win_middle_width - x;
+		printf("diff +|%d\n", diff);
+		if (diff < 0 && param->ply->mouse_clik == 1)
+			param->ply->turn_direction_mouse = -1;
+		if (diff > 0 && param->ply->mouse_clik == 1)
+			param->ply->turn_direction_mouse = 1;
+	}
+	else
+	{
+		param->ply->turn_direction_mouse = 0;
+	}
+	return (0);
+}
+
+int mouse_move_clik(int x, int y, t_data *param)
+{
+	(void)param;
+	if (x == 1)
+	{
+		param->ply->mouse_clik = true;
+		printf("mouse (%d, %d)\n", x, y);
+	}
+	return (0);
 }
 
 int	kay_press(int key, t_data *data){

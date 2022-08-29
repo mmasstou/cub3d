@@ -1,6 +1,6 @@
 NAME = cub3D
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 LIBFT_NAME = libft.a
 
 # directions : 
@@ -31,7 +31,7 @@ PARS_OBJS	= $(PARS_SRCS:.c=.o)
 FILES =  $(SRCS) $(PARS_SRCS)   $(LIBFT_DIR)/$(LIBFT_NAME)  
 
 %.o:%.c
-	@${CC} $(CFLAGS)  -I . -o $@ -c $<
+	@${CC} $(CFLAGS) -o $@ -c $<
 	@printf "\x1b[36m   +>\033[0m compiling \033[38;5;42m$< \033[0m\n"
 
 all: $(NAME)

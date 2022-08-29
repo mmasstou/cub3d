@@ -17,6 +17,7 @@ void    draw_rect(float x, float y, t_data *data, int color, int type)
 	int jndex;
 	int old__y;
 	
+	// y += H  - (data->map_size.x * data->unit);
 	index = (x + data->unit);
 	jndex = (y + data->unit); 
 	old__y = y;
@@ -58,6 +59,7 @@ int	draw__map(t_data *data){
 	int rect_color;
 	int i;
 	data->unit = 20;
+	// data->map_size.x = H  - (data->map_size.x * data->unit);
 	while (data->map[index])
 	{
 		jndex = 0;
@@ -65,12 +67,12 @@ int	draw__map(t_data *data){
 		{
 			i = 0;
 			if (data->map[index][jndex] == '1')
-				rect_color = WALL;
-			else if (data->map[index][jndex] == '0' || ft_strchr("SNWE", data->map[index][jndex]) != NULL)
 			{
-				jndex ++;
-				continue;
+				rect_color = WALL;
+				i = 2;
 			}
+			else if (data->map[index][jndex] == '0' || ft_strchr("SNWE", data->map[index][jndex]) != NULL)
+				rect_color = EMPTY_SPACE;
 			else if (data->map[index][jndex++] == ' ')
 				continue;
 			draw_rect(jndex * data->unit, index * data->unit, data, rect_color, i);

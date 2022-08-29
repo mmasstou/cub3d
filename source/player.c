@@ -9,6 +9,8 @@ int ft_rgb(int t, int r, int g, int b)
 }
 
 void	init_player(t_player **p){
+	(*p)->win_middle_width = W / 2;
+	(*p)->mouse_clik = 0;
 	(*p)->x_pos_o = 0;
 	(*p)->y_pos_o = 0;
 	(*p)->radius = 0;
@@ -23,8 +25,8 @@ void	init_player(t_player **p){
 		(*p)->rotation_angle = 0;
 	else if ((*p)->spawning_orientation == 'W')
 		(*p)->rotation_angle = M_PI;
-	(*p)->move_speed = 0.03;
-	(*p)->rotation_speed = degreeto_radian(1.3);
+	(*p)->move_speed = 0.05;
+	(*p)->rotation_speed = degreeto_radian(1.5);
 }
 void    draw__ray(t_data *vars)
 {
@@ -68,13 +70,13 @@ void	draw__fov(t_data *data){
 	{
 
 		data->ply->color = ft_rgb(30, FOV_COLOR);
-		draw__raycast(
-			data,
-			data->ply->x_pos * data->unit,
-			data->ply->y_pos * data->unit,
-			tmp->wall_hit.x,
-			tmp->wall_hit.y
-		);
+		// draw__raycast(
+		// 	data,
+		// 	data->ply->x_pos * data->unit,
+		// 	data->ply->y_pos * data->unit,
+		// 	data->ply->x_pos * data->unit * cos(tmp->angle),
+		// 	data->ply->y_pos * data->unit * sin(tmp->angle)
+		// );
 		tmp = tmp->next;
 	}
 }
@@ -85,9 +87,9 @@ void	draw__pov(t_data *data){
 	y1 = data->ply->y_pos * data->unit;
 	data->x1 = x1;
 	data->y1 = y1;
-	data->x2 = x1 + (20 * cos(data->ply->rotation_angle));
-	data->y2 = y1 + (20 * sin(data->ply->rotation_angle));
-	data->ply->color = ft_rgb(30, FOV_COLOR);
+	data->x2 = x1 + (50 * cos(data->ply->rotation_angle));
+	data->y2 = y1 + (50 * sin(data->ply->rotation_angle));
+	data->ply->color = ft_rgb(30, 255,0,0);
 	dda_function(
 		data
 	);
@@ -113,6 +115,7 @@ void	render_player(t_data *data, float x, float y, int color){
 	int unity;
 
 	unit = 1;
+	y += H  - (data->map_size.x * data->unit);
 	i = x + unit;
 	j = y + unit;
 	unity = y;
@@ -145,6 +148,7 @@ void	player_update(t_data **data){
 	// move up and down
 	step = (*data)->ply->walk_direction * (*data)->ply->move_speed;
 	(*data)->ply->rotation_angle += ((*data)->ply->turn_direction * (*data)->ply->rotation_speed);
+	// (*data)->ply->rotation_angle += ((*data)->ply->turn_direction_mouse * (*data)->ply->rotation_speed);
 	normalize_angle(&((*data)->ply->rotation_angle));
 	newPlayerx = (*data)->ply->x_pos + (cos((*data)->ply->rotation_angle) * step);
 	newPlayery = (*data)->ply->y_pos + (sin((*data)->ply->rotation_angle) * step);

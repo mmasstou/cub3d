@@ -18,12 +18,12 @@
 # define ONE '1'
 # define SPACE ' '
 // mlx
-# define W 1080
-# define H 720
+# define W 1400
+# define H 920
 # define WALL_STRIPE_WITH 1
-# define FOV  60
+# define FOV  60 * (M_PI / 180)
 # define NBR_RAYS (W / WALL_STRIPE_WITH)
-# define FOV_INC  (degreeto_radian(FOV) / NBR_RAYS)
+# define FOV_INC  (FOV / NBR_RAYS)
 # define WALL  7220224
 # define EMPTY_SPACE  13882833
 # define PLAYER  4539460
@@ -48,7 +48,7 @@ typedef struct exist
 typedef struct s_pos{
 	double x;
 	double y;
-}	t_pos; 
+}	t_position; 
 //---------------------------- new by bellakrim
 typedef struct mlx
 {
@@ -66,9 +66,9 @@ typedef struct mlx
 typedef struct rays
 {
 	double	angle;
-	t_pos	wall_hit;
-	t_pos	vertical_wall_hit;
-	t_pos	horizontal_wall_hit;
+	t_position	wall_hit;
+	t_position	vertical_wall_hit;
+	t_position	horizontal_wall_hit;
 	double	distance;
 	bool	wasHitVertical;
 	bool	wasHithorizontal;
@@ -83,6 +83,7 @@ typedef struct color
 }	t_color;
 
 typedef struct s_player{
+	int win_middle_width;
 	char spawning_orientation;
 	int color;
 	float ply_w;
@@ -92,6 +93,8 @@ typedef struct s_player{
 	float y_pos_o;
 	int radius;
 	int turn_direction; // -1 if left , +1 if right
+	int turn_direction_mouse; // -1 if left , +1 if right
+	int mouse_clik; // -1 if left , +1 if right
 	int walk_direction; // -1 if back , +1 if front
 	double rotation_angle;
 	double move_speed;
@@ -101,10 +104,10 @@ typedef struct s_player{
 typedef struct data
 {
 	// ? this vas is to rayCasting 
-	t_pos	step; // ! calcul ths Delta 
-	t_pos	intercept;  // ! git first intercept
-	t_pos	Horizontal_hit; 
-	t_pos	Vertical_hit;
+	t_position	step; // ! calcul ths Delta 
+	t_position	intercept;  // ! git first intercept
+	t_position	Horizontal_hit; 
+	t_position	Vertical_hit;
 	bool	was_hit_vertical;
 	bool	is_facing_down;
 	bool	is_facing_up;
@@ -118,6 +121,7 @@ typedef struct data
 	float y1;
 	float x2;
 	float y2;
+
 	t_mlx	*mlx_vars;
 	t_player *ply;
 	t_rays	*rays;
@@ -131,6 +135,7 @@ typedef struct data
 	t_color	f;
 	t_color	c;
 	char	**map;
+	t_position	map_size;
 	int		start_map;
 	// ++++
 	int		h;
@@ -237,4 +242,7 @@ void	draw__fov(t_data *data);
 void	draw__pov(t_data *data);
 void normalize_angle(double *angle);
 void	rendering_wall(t_data *data, t_rays *rays);
+void	rendering_walll(t_data *data, t_rays *rays, int col_id);
+int mouse_move(int x, int y, t_data *param);
+int mouse_move_clik(int x, int y, t_data *param);
 #endif

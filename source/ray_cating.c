@@ -1,8 +1,9 @@
 #include "../includes/cub3d.h"
 
-double distance_between_points(double x, double y, double x1, double y1)
+double distance_between_points(double x, double y, double angle)
 {
-	return (sqrt(((x1 - x) * (x1 - x)) + ((y1 - y) * (y1 - y))));
+	// return (sqrt(((x1 - x) * (x1 - x)) + ((y1 - y) * (y1 - y))));
+	return ((y - x) / sin(angle));
 }
 
 void normalize_angle(double *angle){
@@ -58,12 +59,11 @@ TODO :
 t_rays	*cating_rays(t_data *data, double angle)
 {
 	t_rays *ray;
-	t_pos intercept;
-	t_pos step;
-	t_pos player;
+	t_position intercept;
+	t_position step;
+	t_position player;
 	bool	found_horizontal_wall = false;
 	bool	found_vertical_wall = false;
-	t_pos index;
 	double nbr;
 	double horizontall_distance;
 	double vertical_distance;
@@ -78,36 +78,36 @@ t_rays	*cating_rays(t_data *data, double angle)
 		intercept.y += data->unit;
 	//? intercept x
 	intercept.x = player.x + (intercept.y - player.y) / tan(ray->angle);
-	// * Steps
-	//? step y
+	//*Steps
+	//	?step y
 	step.y = data->unit;
 	if (data->is_facing_up)
 		step.y *= -1;
-	// ? step x
+	//	?step x
 	step.x = data->unit / tan(ray->angle);
-	if ((data->is_facing_left && step.x > 0) || (data->is_facing_right && step.x < 0))
+	if ((data->is_facing_left && step.x > 0))
+		step.x *= -1;
+	if ((data->is_facing_right && step.x < 0))
 		step.x *= -1;
 	//  finding wall hit
-	index.x = intercept.x; 
-	index.y = intercept.y;
 	while (
-		index.x >= 0 && index.x <= W && index.y >= 0 && index.y <= H
+		intercept.x > 0 && intercept.x < W && intercept.y > 0 && intercept.y < H
 	)
 	{
-		nbr = index.y;
+		nbr = intercept.y;
 		if (data->is_facing_up)
 			nbr --;
-		if (wall_collaction(index.x / data->unit, nbr / data->unit, data) == 1)
+		if (wall_collaction(intercept.x / data->unit, nbr / data->unit, data) == 1)
 		{
 			found_horizontal_wall = true;
-			ray->horizontal_wall_hit.x = index.x;
-			ray->horizontal_wall_hit.y = index.y;
+			ray->horizontal_wall_hit.x = intercept.x;
+			ray->horizontal_wall_hit.y = intercept.y;
 			break;
 		}
 		else
 		{
-			index.x += step.x;
-			index.y += step.y;
+			intercept.x += step.x;
+			intercept.y += step.y;
 		}
 	}
 	//! VERTICAL RAY GRID
@@ -126,51 +126,59 @@ t_rays	*cating_rays(t_data *data, double angle)
 	if ((data->is_facing_up && step.y > 0) || (data->is_facing_down && step.y < 0))
 		step.y *= -1;
 	//  finding wall hit
-	index.x = intercept.x; 
-	index.y = intercept.y;
 	while (
-		index.x >= 0 && index.x <= W && index.y >= 0 && index.y <= H
+		intercept.x  > 0 && intercept.x  < W && intercept.y > 0 && intercept.y < H
 	)
 	{
-		nbr = index.x;
+		nbr = intercept.x ;
 		if (data->is_facing_left)
 			nbr -= 1;
-		if (wall_collaction(nbr / data->unit, index.y / data->unit, data) == 1)
+		if (wall_collaction(nbr / data->unit, intercept.y / data->unit, data) == 1)
 		{
 			found_vertical_wall = true;
-			ray->vertical_wall_hit.x = index.x;
-			ray->vertical_wall_hit.y = index.y;
+			ray->vertical_wall_hit.x = intercept.x ;
+			ray->vertical_wall_hit.y = intercept.y;
 			break;
 		}
 		else
 		{
-			index.x += step.x;
-			index.y += step.y;
+			intercept.x  += step.x;
+			intercept.y += step.y;
 		}	
 	}
 	//  calculate both horizontal and vertical distance
 	if (found_horizontal_wall)
 	{
+		// horizontall_distance = distance_between_points(
+		// 	player.x,
+		// 	player.y,
+		// 	ray->horizontal_wall_hit.x,
+		// 	ray->horizontal_wall_hit.y
+		// );
 		horizontall_distance = distance_between_points(
-			player.x,
 			player.y,
-			ray->horizontal_wall_hit.x,
-			ray->horizontal_wall_hit.y
+			ray->horizontal_wall_hit.y,
+			ray->angle
 		);
 	}
 	else
-		horizontall_distance = INT_MAX;
+		horizontall_distance = 1.e19;
 	if (found_vertical_wall)
 	{
+		// vertical_distance = distance_between_points(
+		// 	player.x,
+		// 	player.y,
+		// 	ray->vertical_wall_hit.x,
+		// 	ray->vertical_wall_hit.y
+		// );
 		vertical_distance = distance_between_points(
-			player.x,
 			player.y,
-			ray->vertical_wall_hit.x,
-			ray->vertical_wall_hit.y
+			ray->vertical_wall_hit.y,
+			ray->angle
 		);
 	}
 	else
-		vertical_distance = INT_MAX;
+		vertical_distance = 1.e19;
 	// get min distance
 	if (horizontall_distance <= vertical_distance)
 	{
@@ -203,16 +211,21 @@ void	adding_ray(t_rays **lst, t_rays *new)
 		n->next = new;
 	}
 }
-int ray_caste(t_data *data){
+int ray_caste(t_data *data)
+{
 	int colid;
 	double ray_angle;
+	t_rays *ray;
 
 	data->rays = NULL;
-	ray_angle = data->ply->rotation_angle - (degreeto_radian(FOV) / 2);
+	ray_angle = data->ply->rotation_angle - FOV / 2;
 	colid = 0;
 	while (colid <= NBR_RAYS)
 	{
-		adding_ray(&(data->rays), cating_rays(data, ray_angle));
+		ray = cating_rays(data, ray_angle);
+		adding_ray(&(data->rays), ray);
+		rendering_walll(data, ray, colid);
+		// data->rays = data->rays->next;
 		colid++;
 		ray_angle += FOV_INC;
 	}

@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 17:32:25 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/28 20:55:05 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/29 11:15:31 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,28 @@ void    draw_wall(t_data *data, double x, double y,int wall_strip_width, double 
 		x++;
 	}
 }
+
+void	rendering_walll(t_data *data, t_rays *rays, int col_id)
+{
+	double ray_distance;
+	double distance_project_plane;
+	double wall_strip_height;
+
+	ray_distance = rays->distance * cos(rays->angle - data->ply->rotation_angle);
+	distance_project_plane = ((W / 2) / tan(FOV / 2));
+	wall_strip_height = (data->unit / ray_distance) * distance_project_plane;
+	data->ply->color = ft_rgb(50, 255, 255, 255);
+	if (rays->wasHitVertical)
+		data->ply->color = ft_rgb(10, 238, 238, 238);
+	draw_wall(
+		data,
+		col_id * WALL_STRIPE_WITH,
+		(H / 2) - (wall_strip_height / 2),
+		WALL_STRIPE_WITH,
+		wall_strip_height
+	);
+}
+
 void	rendering_wall(t_data *data, t_rays *rays)
 {
 	t_rays	*tmp;
@@ -38,12 +60,13 @@ void	rendering_wall(t_data *data, t_rays *rays)
 	double distance_project_plane;
 	double wall_strip_height;
 
+
 	tmp = rays;
 	index = 0;
 	while (tmp)
 	{
 		ray_distance = tmp->distance * cos(tmp->angle - data->ply->rotation_angle);
-		distance_project_plane = (W / 2) / tan(degreeto_radian(FOV) / 2);
+		distance_project_plane = (W / 2) / tan(FOV / 2);
 		wall_strip_height = (data->unit / ray_distance) * distance_project_plane;
 		data->ply->color = ft_rgb(50, 255, 255, 255);
 		if (tmp->wasHitVertical)

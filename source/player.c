@@ -1,31 +1,66 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/28 19:51:57 by abellakr          #+#    #+#             */
+/*   Updated: 2022/08/29 08:35:13 by abellakr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
+//----------------------------------------- degree to radian function
 double degreeto_radian(float angle){
 	return (angle *  (M_PI / 180));
 }
+//-------------------------------------------- rgb function
 int ft_rgb(int t, int r, int g, int b)
 {
     return ((((t * 255) / 100) << 24) + (r << 16) + (g << 8) + b);
 }
-
-void	init_player(t_player **p){
-	(*p)->x_pos_o = 0;
-	(*p)->y_pos_o = 0;
-	(*p)->radius = 0;
-	(*p)->turn_direction = 0;
-	(*p)->walk_direction = 0;
-	printf("player orientation +> %c\n", (*p)->spawning_orientation);
-	if ((*p)->spawning_orientation == 'N')
-		(*p)->rotation_angle = 3 * M_PI_2;
-	else if ((*p)->spawning_orientation == 'S')
-		(*p)->rotation_angle = M_PI_2;
-	else if ((*p)->spawning_orientation == 'E')
-		(*p)->rotation_angle = 0;
-	else if ((*p)->spawning_orientation == 'W')
-		(*p)->rotation_angle = M_PI;
-	(*p)->move_speed = 0.05;
-	(*p)->rotation_speed = degreeto_radian(1.5);
+//-------------------------------------------------- init player
+void	init_player(t_data *data)
+{
+	int i = 0,j = 0;
+	data->ply = (t_player *)malloc(sizeof(t_player));
+	if (!data->ply)
+		_error("can't malloc");
+	while (data->map[i])
+	{
+		j = 0;
+		while (data->map[i][j])
+		{
+			if (ft_strchr("SNWE", data->map[i][j]) != NULL)
+			{
+				data->ply->x_pos = j;
+				data->ply->y_pos = i;
+				data->ply->spawning_orientation = data->map[i][j];
+			}
+			j++;
+		}
+		i++;
+	}
+	data->ply->x_pos_o = 0;
+	data->ply->y_pos_o = 0;
+	data->ply->radius = 0;
+	data->ply->turn_direction = 0;
+	data->ply->walk_direction = 0;
+	// printf("player orientation +> %c\n", data->ply->spawning_orientation);
+	if (data->ply->spawning_orientation == 'N')
+		data->ply->rotation_angle = 3 * M_PI_2;
+	else if (data->ply->spawning_orientation == 'S')
+		data->ply->rotation_angle = M_PI_2;
+	else if (data->ply->spawning_orientation == 'E')
+		data->ply->rotation_angle = 0;
+	else if (data->ply->spawning_orientation == 'W')
+		data->ply->rotation_angle = M_PI;
+	data->ply->move_speed = 0.05;
+	data->ply->rotation_speed = degreeto_radian(1.5);
 }
+//-------------------------------------------- dda
 void    draw__ray(t_data *vars)
 {
     float    steps;
@@ -45,18 +80,19 @@ void    draw__ray(t_data *vars)
         my_mlx_pixel_put(vars->x1 , vars->y1 , vars, vars->ply->color);
         vars->x1 += dx;
         vars->y1 += dy;
-		if (wall_collaction(vars->x1 / vars->unit , vars->y1 / vars->unit, vars) == 1)
-			break;
+		// if (wall_collaction(vars->x1 / vars->unit, vars->y1 / vars->unit, vars) == 1)
+		// 	break;
     }
 }
+//---------------------------------------------------- draw fieald of view 
 void	draw__fov(t_data *data){
 	float win_palyer__x;
 	int index;
 	float win_palyer__y;
 	double	ray__angle;
 
-	win_palyer__x = data->ply->x_pos * data->unit;
-	win_palyer__y = data->ply->y_pos * data->unit;
+	win_palyer__x = data->x_translation;
+	win_palyer__y = data->y_translation;
 	ray__angle = data->ply->rotation_angle - degreeto_radian(FOV) / 2;
 	index = 0;
 	while (index < NBR_RAYS){
@@ -67,50 +103,40 @@ void	draw__fov(t_data *data){
 		data->y2 = win_palyer__y + (90 * sin(ray__angle));
 		data->ply->color = ft_rgb(15, FOV_COLOR);
 		// end
-		draw__ray(
-			data
-		);
+		draw__ray(data);
 		ray__angle += degreeto_radian(FOV) / NBR_RAYS;
 		index ++;
 	}
 
 
 }
+//----------------------------------------------
 void	draw__pov(t_data *data){
 	int x1, y1;
 
-	x1 = data->ply->x_pos * data->unit;
-	y1 = data->ply->y_pos * data->unit;
+	x1 = data->x_translation;
+	y1 = data->y_translation;
 	data->x1 = x1;
 	data->y1 = y1;
 	data->x2 = x1 + (20 * cos(data->ply->rotation_angle));
 	data->y2 = y1 + (20 * sin(data->ply->rotation_angle));
 	data->ply->color = ft_rgb(30, FOV_COLOR);
-	dda_function(
-		data
-	);
+	dda_function(data);
 }
-
+//------------------------------------------------
 void	draw__player(t_data *data){
-	int x1, y1;
 	player_update(&data);
-	x1 = data->ply->x_pos * data->unit;
-	y1 = data->ply->y_pos * data->unit;
-	render_player(
-		data, 
-		x1,
-		y1, 
-		WALL
-		);
+	translation_player(data);
+	render_player(data, data->x_translation,data->y_translation, PURPLE);
 }
-
+//--------------------------------------------------------------------------------------
 void	render_player(t_data *data, float x, float y, int color){
 	float i;
 	float j;
 	int unit;
 	int unity;
 
-	unit = 1;
+	unit = 2;
 	i = x + unit;
 	j = y + unit;
 	unity = y;
@@ -119,13 +145,14 @@ void	render_player(t_data *data, float x, float y, int color){
 		y = unity;
 		while (y <= j)
 		{
-			my_mlx_pixel_put(x, y, data, color);
+            if(sqrt(pow(x - data->centre, 2) + pow(y - data->centre, 2)) < RADIUS)	
+				my_mlx_pixel_put(x, y, data, color);
 			y++;
 		}
 		x++;
 	}
 }
-
+//----------------------------------------------------------------------------
 void	player_update(t_data **data){
 	float step;
 	float newPlayerx;
@@ -151,7 +178,7 @@ void	player_update(t_data **data){
 		(*data)->ply->y_pos = newPlayery;
 	}
 }
-
+//--------------------------------------------------------------------------------------------------
 void    dda_function(t_data *vars)
 {
     float    steps;
@@ -174,4 +201,20 @@ void    dda_function(t_data *vars)
 		if (wall_collaction(vars->x1 / vars->unit , vars->y1 / vars->unit, vars) == 1)
 			break;
     }
+}
+//------------------------------------------- translation player 
+void	translation_player(t_data *data)
+{
+	if(data->k_x == 0)
+		data->x_translation = data->ply->x_pos * data->unit;
+	else if(data->k_x > 0)
+		data->x_translation = data->ply->x_pos * data->unit - fabs(data->k_x);
+	else if(data->k_x < 0)
+		data->x_translation = data->ply->x_pos * data->unit + fabs(data->k_x);
+	if(data->k_y == 0)
+		data->y_translation = data->ply->y_pos * data->unit;
+	else if(data->k_y < 0)
+		data->y_translation = (data->ply->y_pos * data->unit) + fabs(data->k_y);
+	else if(data->k_y > 0)
+		data->y_translation = (data->ply->y_pos * data->unit) - fabs(data->k_y);
 }

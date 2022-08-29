@@ -1,5 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Hooks_and_Events.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/28 20:00:18 by abellakr          #+#    #+#             */
+/*   Updated: 2022/08/29 07:52:58 by abellakr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
+//----------------------------------------------- graphic function
 void	draw__(t_data *data){
 	data->mlx_vars = (t_mlx *)malloc(sizeof(t_mlx));
     if(!data->mlx_vars)
@@ -10,12 +23,7 @@ void	draw__(t_data *data){
     data->mlx_vars->mlx_window = mlx_new_window ( data->mlx_vars->mlx_ptr, W, H,"cub3d");
     data->mlx_vars->mlx_image = mlx_new_image(data->mlx_vars->mlx_ptr, W, H);
     data->mlx_vars->buffer = mlx_get_data_addr (data->mlx_vars->mlx_image, &data->mlx_vars->bpp, &data->mlx_vars->line_lenght, &data->mlx_vars->endian);
-	draw_ceilling_floor(data);
-	draw__map(data);
-	draw__player(data);
-	// draw__fov(data);
-	draw__pov(data);
-	// ray_caste(data);
+	draw_all(data);
     mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->mlx_vars->mlx_image, 0, 0);
 	mlx_hook(data->mlx_vars->mlx_window, KeyPress, KeyPressMask, kay_press, data);
 	mlx_hook(data->mlx_vars->mlx_window, KeyRelease, KeyReleaseMask, kay_releass, data);
@@ -23,34 +31,28 @@ void	draw__(t_data *data){
 	mlx_loop_hook(data->mlx_vars->mlx_ptr, looop__hooking, data);
     mlx_loop (data->mlx_vars->mlx_ptr);
 }
-
+//----------------------------------------------------------------------------------- redraw function
 void	re_draw__(t_data *data){
 	mlx_clear_window(data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window);
 	mlx_destroy_image(data->mlx_vars->mlx_ptr,data->mlx_vars->mlx_image);
     data->mlx_vars->mlx_image = mlx_new_image(data->mlx_vars->mlx_ptr, W, H);
     data->mlx_vars->buffer = mlx_get_data_addr (data->mlx_vars->mlx_image, &data->mlx_vars->bpp, &data->mlx_vars->line_lenght, &data->mlx_vars->endian);
-    draw_ceilling_floor(data);
-	draw__map(data);
-	draw__player(data);
-	// draw__fov(data);
-	draw__pov(data);
-	// ray_caste(data);
+	draw_all(data);
     mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->mlx_vars->mlx_image, 0, 0);
 }
-
+//------------------------------------------------------ loop hooking 
 int looop__hooking(t_data *data){
 	player_update(&data);
 	re_draw__(data);
 	return (0);
 }
-//
-
+//----------------------------------------------------- close cross
 int	close_cross(void *param)
 {
 	(void)param;
 	exit (0);
 }
-
+//----------------------------------------------------------- key press
 int	kay_press(int key, t_data *data){
 
 	if (key == 53)
@@ -73,7 +75,7 @@ int	kay_press(int key, t_data *data){
 		data->mm = +1;
 	return (0);
 }
-
+//----------------------------------------------------------- key release
 int	kay_releass(int key, t_data *data){
 	if (key == S_KEY || key == W_KEY)
 			data->ply->walk_direction = 0;
@@ -84,4 +86,15 @@ int	kay_releass(int key, t_data *data){
 	else if (key == D_KEY)
 		data->mm = 0;
 	return (0);
+}
+//--------------------------------------------------- draw all
+void	draw_all(t_data *data)
+{
+	draw_ceilling_floor(data);
+	DrawCircle(RADIUS, data);
+	draw__map(data);
+	draw__player(data);
+	draw__fov(data);
+	draw__pov(data);
+	// ray_caste(data);
 }

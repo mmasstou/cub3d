@@ -13,9 +13,6 @@ LIBFT_DIR = $(RESOURCE)libft
 MINILIBX_DIR = $(RESOURCE)minilibx_opengl/
 
 
-MINIMAP = minimap/
-FOV_RAYS = Fov_Rays/
-EVENTS = events/
 
 FRAMEWORKS =  $(MINILIBX_DIR)/libmlx.a -framework AppKit -framework OpenGL
 # Srcs
@@ -59,6 +56,5 @@ fclean: clean
 	@rm -rf $(NAME) cub3D.dSYM
 	
 re : fclean all
-
 # -fsanitize=address
 # SANIT = -static-libsan -fsanitize=address

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/28 20:43:43 by abellakr          #+#    #+#             */
+/*   Updated: 2022/08/29 07:56:31 by abellakr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -24,11 +36,15 @@
 # define NBR_RAYS W / WALL_STRIPE_WITH
 # define FOV_INC  degreeto_radian(FOV) / NBR_RAYS
 # define WALL  7220224
-# define EMPTY_SPACE  13882833
+# define EMPTY_SPACE 4511276
 # define PLAYER  4539460
 # define X__COLOR  0, 96, 255  
 # define FOV_COLOR  253, 175, 3
-
+# define WHITE 	16777215
+# define GREEN	4511276
+# define PURPLE	13051057
+# define BORDER 10
+# define RADIUS 100
 // claver Key
 # define STEP(x, y) (x > y) ? x:y
 //------------------------------------- structs
@@ -119,6 +135,15 @@ typedef struct data
 	int		nexty;
 	int		deltax;
 	int		deltay;
+	// minimap circle
+	int	color_circle;
+	int	centre;
+	float k_x;
+	float k_y;
+	float x_translation;
+	float y_translation;
+	float unit_x;
+	float unit_y;
 }	t_data;
 
 
@@ -160,44 +185,18 @@ void    free_params(t_data *data);
 void	check_files(char *filename);
 void    ft_error(void);
 void	ft_check(t_data *data);
-//---------------------------------------- new by bellakrim
-void    graphic(t_data *data);
-void	draw_minimap(t_data *data);
+//---------------------------------------- mohamed changes
 void	my_mlx_pixel_put(int x, int y, t_data *data, int color);
-void	draw_rec(int x, int y, t_data *data, int color, int type);
-int	esc(int keycode, t_data *data);
 int	close_cross(void *param);
 void    render_player(t_data *data, float x, float y, int color);
-
-int	move_player_release(int key, t_data *data);
-int	move_player_press(int key, t_data *data);
-void	re_draw(t_data *data);
-int	dda(float x, float y, t_data *data);
-int	draw_rays(t_data *data);
-
-int	drawing_minimap(t_data	*data);
-void	init_player(t_player **p);
-int	drawing_player(t_data	*data);
+void	init_player(t_data *data);
 void    draw_rect(float x, float y, t_data *data, int color, int type);
-int	row_dda(float x, float y, float next_x, float next_y, t_data *data);
-int	row_ddaa(float x, float y, float next_x, float next_y, t_data *data);
-void    updata_data(t_data **data);
 int ft_rgb(int t, int r, int g, int b);
 void    draw_ceilling_floor(t_data *data);
-
-
-void    draw_ply(float x, float y, t_data *data, int color);
-void	player_render(t_data *data);
 void	player_update(t_data **data);
 double degreeto_radian(float angle);
-void draw_line(t_data *data, int x, int y, int x1, int y1);
-void   field_of_views(float x1, float y1, double ray_angle, t_data *data);
 int	wall_collaction(float index, float jndex, t_data *data);
 int ray_caste(t_data *data);
-void    dda_function(t_data *vars);
-
-
-// 
 int	draw__map(t_data	*data);
 void	draw__player(t_data *data);
 int	kay_press(int key, t_data *data);
@@ -206,4 +205,11 @@ void	draw__(t_data *data);
 int looop__hooking(t_data *data);
 void	draw__fov(t_data *data);
 void	draw__pov(t_data *data);
+void    dda_function(t_data *vars);
+//--------------------------------new by bellakrim
+void	draw_all(t_data *data);
+void 	DrawCircle(int r, t_data *data);
+void    dda_circle(double x1, double y1,double x2, double y2,t_data *vars);
+void	translation_map(t_data *data);
+void	translation_player(t_data *data);
 #endif

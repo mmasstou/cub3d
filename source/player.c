@@ -182,6 +182,7 @@ void	player_update(t_data **data){
 	// move up and down
 	step = (*data)->ply->walk_direction * (*data)->ply->move_speed;
 	(*data)->ply->rotation_angle += ((*data)->ply->turn_direction * (*data)->ply->rotation_speed);
+	normalize_angle(&((*data)->ply->rotation_angle));
 	newPlayerx = (*data)->ply->x_pos + (cos((*data)->ply->rotation_angle) * step);
 	newPlayery = (*data)->ply->y_pos + (sin((*data)->ply->rotation_angle) * step);
 	if (wall_collaction(newPlayerx, newPlayery, *data) != 1)
@@ -189,6 +190,21 @@ void	player_update(t_data **data){
 		(*data)->ply->x_pos = newPlayerx;
 		(*data)->ply->y_pos = newPlayery;
 	}
+	/*
+	? test derictions 
+	*/
+	// bool	is_ray_facing_down = ((*data)->ply->rotation_angle > 0 && (*data)->ply->rotation_angle < M_PI);
+	// bool	is_ray_facing_up = !is_ray_facing_down;
+	// bool	is_ray_facing_left = ((*data)->ply->rotation_angle > M_PI_2 && (*data)->ply->rotation_angle < 3 * M_PI_2);
+	// bool	is_ray_facing_right = !is_ray_facing_left;
+	// if (is_ray_facing_down)
+	// 	printf("ray_facing_down\n");
+	// if (is_ray_facing_up)
+	// 	printf("ray_facing_up\n");
+	// if (is_ray_facing_left)
+	// 	printf("ray_facing_left\n");
+	// if (is_ray_facing_right)
+	// 	printf("ray_facing_right\n");
 }
 //--------------------------------------------------------------------------------------------------
 void    dda_function(t_data *vars)

@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 20:43:43 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/30 18:40:00 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/30 19:08:23 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # define BLUE	11699
 # define PURPLE	13051057
 # define BORDER 10
-# define RADIUS 120
+# define RADIUS 80
 // claver Key
 # define STEP(x, y) (x > y) ? x:y
 //------------------------------------- structs

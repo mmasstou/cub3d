@@ -62,7 +62,7 @@ int	draw__map(t_data *data){
 	int index = 0;
 	int jndex = 0;
 	int rect_color;
-	int i;
+	int i = 0;
 	data->unit = 20;
 	while (data->map[index])
 	{

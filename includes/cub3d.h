@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 20:43:43 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/29 07:56:31 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/30 13:58:43 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define H 720
 # define WALL_STRIPE_WITH 1
 # define FOV  60
-# define NBR_RAYS W / WALL_STRIPE_WITH
+# define NBR_RAYS W / WALL_STRIPE_WITH 
 # define FOV_INC  degreeto_radian(FOV) / NBR_RAYS
 # define WALL  7220224
 # define EMPTY_SPACE 4511276
@@ -42,9 +42,10 @@
 # define FOV_COLOR  253, 175, 3
 # define WHITE 	16777215
 # define GREEN	4511276
+# define BLUE	11699
 # define PURPLE	13051057
 # define BORDER 10
-# define RADIUS 100
+# define RADIUS 90
 // claver Key
 # define STEP(x, y) (x > y) ? x:y
 //------------------------------------- structs
@@ -144,6 +145,8 @@ typedef struct data
 	float y_translation;
 	float unit_x;
 	float unit_y;
+	float x1_map;
+	float y1_map;
 }	t_data;
 
 

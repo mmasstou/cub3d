@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 19:51:57 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/30 14:24:23 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/30 18:45:00 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	draw__pov(t_data *data){
 void	draw__player(t_data *data){
 	player_update(&data);
 	translation_player(data);
-	render_player(data, data->x_translation,data->y_translation, PURPLE);
+	// render_player(data, data->x_translation,data->y_translation, PURPLE);
 }
 //--------------------------------------------------------------------------------------
 void	render_player(t_data *data, float x, float y, int color){

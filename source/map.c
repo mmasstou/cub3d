@@ -63,7 +63,7 @@ int	draw__map(t_data *data){
 	int jndex = 0;
 	int rect_color;
 	int i = 0;
-	data->unit = 20;
+	data->unit = 30;
 	while (data->map[index])
 	{
 		jndex = 0;
@@ -75,7 +75,7 @@ int	draw__map(t_data *data){
 			translation_map(data);
 			if (data->map[index][jndex] == '1')
 			{
-				i = 0;
+				i = 2;
 				rect_color = WALL;
 			}
 			else if (data->map[index][jndex] == '0' || ft_strchr("SNWE", data->map[index][jndex]) != NULL)

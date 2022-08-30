@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/30 18:35:42 by mmasstou          #+#    #+#             */
+/*   Updated: 2022/08/30 18:35:43 by mmasstou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
 double degreeto_radian(float angle){
@@ -68,7 +80,6 @@ void	draw__fov(t_data *data){
 	tmp = data->rays;
 	while (tmp)
 	{
-
 		data->ply->color = ft_rgb(30, FOV_COLOR);
 		draw__raycast(
 			data,
@@ -176,16 +187,16 @@ void	player_update(t_data **data){
 
 void    dda_function(t_data *vars)
 {
-    float    steps;
-    float    dx;
-    float    dy;
+    double    steps;
+    double    dx;
+    double    dy;
 
     dx = vars->x2 - vars->x1;
     dy = vars->y2 - vars->y1;
-    if (fabsf(dx) > fabsf(dy))
-        steps = fabsf(dx);
+    if (fabs(dx) > fabs(dy))
+        steps = fabs(dx);
     else
-        steps = fabsf(dy);
+        steps = fabs(dy);
     dx /= steps;
     dy /= steps;
     while ((int)(vars->x1 - vars->x2) || (int)(vars->y1 - vars->y2))
@@ -193,7 +204,7 @@ void    dda_function(t_data *vars)
         my_mlx_pixel_put(vars->x1 , vars->y1 , vars, vars->ply->color);
         vars->x1 += dx;
         vars->y1 += dy;
-		if (wall_collaction(vars->x1 / vars->unit , vars->y1 / vars->unit, vars) == 1)
-			break;
+		// if (wall_collaction(vars->x1 / vars->unit , vars->y1 / vars->unit, vars) == 1)
+		// 	break;
     }
 }

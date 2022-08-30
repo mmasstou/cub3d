@@ -24,7 +24,7 @@ PARS_SRCS = $(PARS_DIR)parsing.c $(PARS_DIR)stock_minimap.c $(PARS_DIR)is_player
 
 
 # Objs
-OBJS	= $(SRC:.c=.o)
+OBJS	= $(SRCS:.c=.o)
 PARS_OBJS	= $(PARS_SRCS:.c=.o)
 
 # All Files 

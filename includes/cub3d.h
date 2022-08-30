@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/30 18:35:04 by mmasstou          #+#    #+#             */
+/*   Updated: 2022/08/30 18:35:05 by mmasstou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
 //-------------------------------------- includes
 # include <libc.h>
 # include <stdbool.h>
+# include <stdlib.h>
 # include <limits.h>
 # include "../Resources/libft/libft.h"
 # include "../Resources/minilibx_opengl/mlx.h"

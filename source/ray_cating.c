@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray_cating.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/30 18:35:47 by mmasstou          #+#    #+#             */
+/*   Updated: 2022/08/30 18:35:48 by mmasstou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
 double distance_between_points(double x, double y, double angle)
@@ -91,12 +103,12 @@ t_rays	*cating_rays(t_data *data, double angle)
 		step.x *= -1;
 	//  finding wall hit
 	while (
-		intercept.x >= 0 && intercept.x <= W && intercept.y >= 0 && intercept.y <= H
+		intercept.x > 0 && intercept.x < W && intercept.y > 0 && intercept.y < H
 	)
 	{
 		nbr = intercept.y;
 		if (data->is_facing_up)
-			nbr -= 1;
+			nbr --;
 		if (wall_collaction(intercept.x / data->unit, nbr / data->unit, data) == 1)
 		{
 			found_horizontal_wall = true;
@@ -123,13 +135,11 @@ t_rays	*cating_rays(t_data *data, double angle)
 		step.x *= -1;
 	//? step y
 	step.y = data->unit * tan(ray->angle);
-	if (data->is_facing_up && step.y > 0)
-		step.y *= -1;
-	if (data->is_facing_down && step.y < 0)
+	if ((data->is_facing_up && step.y > 0) || (data->is_facing_down && step.y < 0))
 		step.y *= -1;
 	//  finding wall hit
 	while (
-		intercept.x  >= 0 && intercept.x  <= W && intercept.y >= 0 && intercept.y <= H
+		intercept.x  > 0 && intercept.x  < W && intercept.y > 0 && intercept.y < H
 	)
 	{
 		nbr = intercept.x ;

@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 17:32:25 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/29 11:15:31 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/30 14:04:30 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void    draw_wall(t_data *data, double x, double y,int wall_strip_width, double 
 	index = (x + wall_strip_width);
 	jndex = (y + wall_strip_height); 
 	old__y = y;
-	
 	while (x <= index)
 	{
 		y = old__y;
@@ -40,6 +39,8 @@ void	rendering_walll(t_data *data, t_rays *rays, int col_id)
 	ray_distance = rays->distance * cos(rays->angle - data->ply->rotation_angle);
 	distance_project_plane = ((W / 2) / tan(FOV / 2));
 	wall_strip_height = (data->unit / ray_distance) * distance_project_plane;
+	if (wall_strip_height > H)
+		wall_strip_height = H;
 	data->ply->color = ft_rgb(50, 255, 255, 255);
 	if (rays->wasHitVertical)
 		data->ply->color = ft_rgb(10, 238, 238, 238);

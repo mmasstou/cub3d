@@ -70,13 +70,13 @@ void	draw__fov(t_data *data){
 	{
 
 		data->ply->color = ft_rgb(30, FOV_COLOR);
-		// draw__raycast(
-		// 	data,
-		// 	data->ply->x_pos * data->unit,
-		// 	data->ply->y_pos * data->unit,
-		// 	data->ply->x_pos * data->unit * cos(tmp->angle),
-		// 	data->ply->y_pos * data->unit * sin(tmp->angle)
-		// );
+		draw__raycast(
+			data,
+			data->ply->x_pos * data->unit,
+			data->ply->y_pos * data->unit,
+			tmp->wall_hit.x,
+			tmp->wall_hit.y
+		);
 		tmp = tmp->next;
 	}
 }
@@ -140,7 +140,7 @@ void	player_update(t_data **data){
 	step = (*data)->mm * (*data)->ply->move_speed;
 	newPlayerx = (*data)->ply->x_pos - (sin((*data)->ply->rotation_angle) * step);
 	newPlayery = (*data)->ply->y_pos + (cos((*data)->ply->rotation_angle) * step);
-	if (wall_collaction(newPlayerx, newPlayery, *data) != 1)
+	if (wall_collaction(newPlayerx, newPlayery, *data) == 0)
 	{
 		(*data)->ply->x_pos = newPlayerx;
 		(*data)->ply->y_pos = newPlayery;
@@ -152,7 +152,7 @@ void	player_update(t_data **data){
 	normalize_angle(&((*data)->ply->rotation_angle));
 	newPlayerx = (*data)->ply->x_pos + (cos((*data)->ply->rotation_angle) * step);
 	newPlayery = (*data)->ply->y_pos + (sin((*data)->ply->rotation_angle) * step);
-	if (wall_collaction(newPlayerx, newPlayery, *data) != 1)
+	if (wall_collaction(newPlayerx, newPlayery, *data) == 0)
 	{
 		(*data)->ply->x_pos = newPlayerx;
 		(*data)->ply->y_pos = newPlayery;

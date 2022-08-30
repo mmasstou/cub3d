@@ -41,7 +41,7 @@ void    draw_ceilling_floor(t_data *data)
     while (index <= H)
     {
         if (index == H / 2)
-            color = ft_rgb(12, data->f.r,data->f.g, data->f.b);
+            color = ft_rgb(0, data->f.r,data->f.g, data->f.b);
         jndex = 0;
         while (jndex <= W)
         {
@@ -63,13 +63,13 @@ int	draw__map(t_data *data){
 	while (data->map[index])
 	{
 		jndex = 0;
-		while (data->map[index][jndex])
+		while (data->map[index][jndex] && data->map[index][jndex] != '\n')
 		{
 			i = 0;
 			if (data->map[index][jndex] == '1')
 			{
 				rect_color = WALL;
-				i = 2;
+				i = 0;
 			}
 			else if (data->map[index][jndex] == '0' || ft_strchr("SNWE", data->map[index][jndex]) != NULL)
 				rect_color = EMPTY_SPACE;
@@ -94,23 +94,25 @@ int	wall_collaction(float index, float jndex, t_data *data){
 	
 	int x;
 	int y;
-	int	array_len = arraylen(data->map);
-	int k;
+	int	array_len;
+	int str_len;
 
+	array_len = arraylen(data->map);
 	x = floor(index);
 	y = floor(jndex);
-	if(y > array_len)
+
+	if(y > array_len || y < 0)
 		return (1);
 	if (y >= 0 && data->map[y] != NULL)
 	{
-		k = ft_strlen(data->map[y]);
-		if (x > k && x >= 0)
+		str_len = ft_strlen(data->map[y]);
+		if (x > str_len || x < 0)
 			return (1);
-		if (x <= k && (data->map[y][x] == '1' || data->map[y][x] == ' '))
+		if (data->map[y][x] == '1' || data->map[y][x] == ' ')
 			return (1);
-		else if (data->map[y][x] == '0')
+		else if (data->map[y][x] == '0' || ft_strchr("SWNE", data->map[y][x]) != NULL)
 			return (0);
 	}
-	return (2);
+	return (1);
 	
 }

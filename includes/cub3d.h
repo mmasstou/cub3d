@@ -245,4 +245,5 @@ void	rendering_wall(t_data *data, t_rays *rays);
 void	rendering_walll(t_data *data, t_rays *rays, int col_id);
 int mouse_move(int x, int y, t_data *param);
 int mouse_move_clik(int x, int y, t_data *param);
+void	*ft_reassign(void *oldptr, void *newptr);
 #endif

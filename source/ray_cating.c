@@ -91,12 +91,12 @@ t_rays	*cating_rays(t_data *data, double angle)
 		step.x *= -1;
 	//  finding wall hit
 	while (
-		intercept.x > 0 && intercept.x < W && intercept.y > 0 && intercept.y < H
+		intercept.x >= 0 && intercept.x <= W && intercept.y >= 0 && intercept.y <= H
 	)
 	{
 		nbr = intercept.y;
 		if (data->is_facing_up)
-			nbr --;
+			nbr -= 1;
 		if (wall_collaction(intercept.x / data->unit, nbr / data->unit, data) == 1)
 		{
 			found_horizontal_wall = true;
@@ -123,11 +123,13 @@ t_rays	*cating_rays(t_data *data, double angle)
 		step.x *= -1;
 	//? step y
 	step.y = data->unit * tan(ray->angle);
-	if ((data->is_facing_up && step.y > 0) || (data->is_facing_down && step.y < 0))
+	if (data->is_facing_up && step.y > 0)
+		step.y *= -1;
+	if (data->is_facing_down && step.y < 0)
 		step.y *= -1;
 	//  finding wall hit
 	while (
-		intercept.x  > 0 && intercept.x  < W && intercept.y > 0 && intercept.y < H
+		intercept.x  >= 0 && intercept.x  <= W && intercept.y >= 0 && intercept.y <= H
 	)
 	{
 		nbr = intercept.x ;
@@ -162,7 +164,7 @@ t_rays	*cating_rays(t_data *data, double angle)
 		);
 	}
 	else
-		horizontall_distance = 1.e19;
+		horizontall_distance = W / cos(M_PI_4);
 	if (found_vertical_wall)
 	{
 		// vertical_distance = distance_between_points(
@@ -178,7 +180,7 @@ t_rays	*cating_rays(t_data *data, double angle)
 		);
 	}
 	else
-		vertical_distance = 1.e19;
+		vertical_distance = W / cos(M_PI_4);
 	// get min distance
 	if (horizontall_distance <= vertical_distance)
 	{

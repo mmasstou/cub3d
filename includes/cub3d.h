@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 20:43:43 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/30 19:08:23 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/30 19:17:23 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 //-------------------------------------- includes
 # include <libc.h>
 # include <stdbool.h>
+# include <stdlib.h>
+# include <limits.h>
 # include "../Resources/libft/libft.h"
 # include "../Resources/minilibx_opengl/mlx.h"
 # include <math.h>
@@ -29,12 +31,12 @@
 # define ONE '1'
 # define SPACE ' '
 // mlx
-# define W 1080
-# define H 720
+# define W 1400
+# define H 920
 # define WALL_STRIPE_WITH 1
-# define FOV  60
-# define NBR_RAYS W / WALL_STRIPE_WITH 
-# define FOV_INC  degreeto_radian(FOV) / NBR_RAYS
+# define FOV  60 * (M_PI / 180)
+# define NBR_RAYS (W / WALL_STRIPE_WITH)
+# define FOV_INC  (FOV / NBR_RAYS)
 # define WALL  7220224
 # define EMPTY_SPACE 4511276
 # define PLAYER  4539460
@@ -60,9 +62,9 @@ typedef struct exist
 }   t_exist;
 
 typedef struct s_pos{
-	float x;
-	float y;
-}	t_pos; 
+	double x;
+	double y;
+}	t_position; 
 //---------------------------- new by bellakrim
 typedef struct mlx
 {
@@ -76,7 +78,19 @@ typedef struct mlx
 	int		endian;
 	//-------------------------
 }t_mlx;
-//-------------------------------- new by bellakrim
+
+typedef struct rays
+{
+	double	angle;
+	t_position	wall_hit;
+	t_position	vertical_wall_hit;
+	t_position	horizontal_wall_hit;
+	double	distance;
+	bool	wasHitVertical;
+	bool	wasHithorizontal;
+	struct rays *next;
+}	t_rays;
+
 typedef struct color
 {
 	int	r;
@@ -85,6 +99,7 @@ typedef struct color
 }	t_color;
 
 typedef struct s_player{
+	int win_middle_width;
 	char spawning_orientation;
 	int color;
 	float ply_w;
@@ -94,6 +109,8 @@ typedef struct s_player{
 	float y_pos_o;
 	int radius;
 	int turn_direction; // -1 if left , +1 if right
+	int turn_direction_mouse; // -1 if left , +1 if right
+	int mouse_clik; // -1 if left , +1 if right
 	int walk_direction; // -1 if back , +1 if front
 	double rotation_angle;
 	double move_speed;
@@ -102,11 +119,25 @@ typedef struct s_player{
 //---------------------------------
 typedef struct data
 {
+	// ? this vas is to rayCasting 
+	t_position	step; // ! calcul ths Delta 
+	t_position	intercept;  // ! git first intercept
+	t_position	Horizontal_hit; 
+	t_position	Vertical_hit;
+	bool	was_hit_vertical;
+	bool	is_facing_down;
+	bool	is_facing_up;
+	bool	is_facing_right;
+	bool	is_facing_left;
+	double horizontal_distance;
+	double vertical_distance;
+	// ? end
 	int mm;
 	float x1;
 	float y1;
 	float x2;
 	float y2;
+	t_rays *rays;
 	t_mlx	*mlx_vars;
 	t_player *ply;
 	int     params;
@@ -119,6 +150,7 @@ typedef struct data
 	t_color	f;
 	t_color	c;
 	char	**map;
+	t_position	map_size;
 	int		start_map;
 	// ++++
 	int		h;
@@ -215,4 +247,10 @@ void 	DrawCircle(int r, t_data *data);
 void    dda_circle(double x1, double y1,double x2, double y2,t_data *vars);
 void	translation_map(t_data *data);
 void	translation_player(t_data *data);
+void normalize_angle(double *angle);
+void	rendering_wall(t_data *data, t_rays *rays);
+void	rendering_walll(t_data *data, t_rays *rays, int col_id);
+int mouse_move(int x, int y, t_data *param);
+int mouse_move_clik(int x, int y, t_data *param);
+void	*ft_reassign(void *oldptr, void *newptr);
 #endif

@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 19:51:57 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/30 18:45:00 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/30 19:16:01 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,6 @@ void	draw__fov(t_data *data){
 		ray__angle += degreeto_radian(FOV) / NBR_RAYS;
 		index ++;
 	}
-
-
 }
 //----------------------------------------------
 void	draw__pov(t_data *data){
@@ -174,7 +172,7 @@ void	player_update(t_data **data){
 	step = (*data)->mm * (*data)->ply->move_speed;
 	newPlayerx = (*data)->ply->x_pos - (sin((*data)->ply->rotation_angle) * step);
 	newPlayery = (*data)->ply->y_pos + (cos((*data)->ply->rotation_angle) * step);
-	if (wall_collaction(newPlayerx, newPlayery, *data) != 1)
+	if (wall_collaction(newPlayerx, newPlayery, *data) == 0)
 	{
 		(*data)->ply->x_pos = newPlayerx;
 		(*data)->ply->y_pos = newPlayery;
@@ -182,10 +180,11 @@ void	player_update(t_data **data){
 	// move up and down
 	step = (*data)->ply->walk_direction * (*data)->ply->move_speed;
 	(*data)->ply->rotation_angle += ((*data)->ply->turn_direction * (*data)->ply->rotation_speed);
+	// (*data)->ply->rotation_angle += ((*data)->ply->turn_direction_mouse * (*data)->ply->rotation_speed);
 	normalize_angle(&((*data)->ply->rotation_angle));
 	newPlayerx = (*data)->ply->x_pos + (cos((*data)->ply->rotation_angle) * step);
 	newPlayery = (*data)->ply->y_pos + (sin((*data)->ply->rotation_angle) * step);
-	if (wall_collaction(newPlayerx, newPlayery, *data) != 1)
+	if (wall_collaction(newPlayerx, newPlayery, *data) == 0)
 	{
 		(*data)->ply->x_pos = newPlayerx;
 		(*data)->ply->y_pos = newPlayery;
@@ -209,16 +208,16 @@ void	player_update(t_data **data){
 //--------------------------------------------------------------------------------------------------
 void    dda_function(t_data *vars)
 {
-    float    steps;
-    float    dx;
-    float    dy;
+    double    steps;
+    double    dx;
+    double    dy;
 
     dx = vars->x2 - vars->x1;
     dy = vars->y2 - vars->y1;
-    if (fabsf(dx) > fabsf(dy))
-        steps = fabsf(dx);
+    if (fabs(dx) > fabs(dy))
+        steps = fabs(dx);
     else
-        steps = fabsf(dy);
+        steps = fabs(dy);
     dx /= steps;
     dy /= steps;
     while ((int)(vars->x1 - vars->x2) || (int)(vars->y1 - vars->y2))
@@ -226,8 +225,8 @@ void    dda_function(t_data *vars)
         my_mlx_pixel_put(vars->x1 , vars->y1 , vars, vars->ply->color);
         vars->x1 += dx;
         vars->y1 += dy;
-		if (wall_collaction(vars->x1 / vars->unit , vars->y1 / vars->unit, vars) == 1)
-			break;
+		// if (wall_collaction(vars->x1 / vars->unit , vars->y1 / vars->unit, vars) == 1)
+		// 	break;
     }
 }
 //------------------------------------------- translation player 

@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:24:12 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/26 15:34:26 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/08/30 12:03:39 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	check_minimap(char **minimap, t_data *data)
 	while (minimap[++index])
 	{
 		jndex = -1;
-		while (minimap[index][++jndex] != '\0' && minimap[index][jndex] != '\n')
+		minimap[index] = ft_reassign(minimap[index], ft_strtrim(minimap[index], "\n"));
+		while (minimap[index][++jndex] != '\0')
 		{
 			if (minimap[index][jndex] == SPACE || minimap[index][jndex] == ONE)
 				continue ;

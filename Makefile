@@ -16,19 +16,19 @@ MINILIBX_DIR = $(RESOURCE)minilibx_opengl/
 
 FRAMEWORKS =  $(MINILIBX_DIR)/libmlx.a -framework AppKit -framework OpenGL
 # Srcs
-SRCS = $(SOURCE)main.c  $(SOURCE)_error.c $(SOURCE)checkargs.c  $(SOURCE)player.c $(SOURCE)Hooks_and_Events.c $(SOURCE)map.c $(SOURCE)ray_cating.c
+SRCS = $(SOURCE)main.c  $(SOURCE)_error.c $(SOURCE)checkargs.c  $(SOURCE)player.c $(SOURCE)Hooks_and_Events.c $(SOURCE)map.c $(SOURCE)ray_cating.c $(SOURCE)render_wall.c $(SOURCE)ft_reassign.c
 PARS_SRCS = $(PARS_DIR)parsing.c $(PARS_DIR)stock_minimap.c $(PARS_DIR)is_player.c $(PARS_DIR)check_minimap.c $(PARS_DIR)get_map_size.c  $(PARS_DIR)chech_direction.c $(PARS_DIR)get_g_map.c $(PARS_DIR)parsing_minimap.c $(PARS_DIR)parsing_utils.c  $(PARS_DIR)parsing_params.c $(PARS_DIR)save_params.c  $(PARS_DIR)save_params2.c 
 
 
 # Objs
-OBJS	= $(SRC:.c=.o)
+OBJS	= $(SRCS:.c=.o)
 PARS_OBJS	= $(PARS_SRCS:.c=.o)
 
 # All Files 
 FILES =  $(SRCS) $(PARS_SRCS)   $(LIBFT_DIR)/$(LIBFT_NAME)  
 
 %.o:%.c
-	@${CC} $(CFLAGS)  -I . -o $@ -c $<
+	@${CC} $(CFLAGS) -o $@ -c $<
 	@printf "\x1b[36m   +>\033[0m compiling \033[38;5;42m$< \033[0m\n"
 
 all: $(NAME)

@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:37 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/30 19:14:37 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/31 18:43:06 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,23 @@ void	my_mlx_pixel_put(int x, int y, t_data *data, int color)
 	}
 }
 //--------------------------------------------------------------------------------
-void    draw_rect(float x, float y, t_data *data, int color, int type)
+void    draw_rect(double x, double y, t_data *data, int color, int type)
 {
 	int index;
 	int jndex;
-	int old__y;
-	
-	// y += H  - (data->map_size.x * data->unit);
+	int i;
+	int j;
+
 	index = (x + data->unit);
-	jndex = (y + data->unit); 
-	old__y = y;
+	i = (y + data->unit); 
+	j = y;
 	while (x <= index - type)
 	{
-		y = old__y;
+		jndex = i;
+		y = j;
 		while (y <= jndex - type)
 		{
-            if(sqrt(pow(x - data->centre, 2) + pow(y - data->centre, 2)) < RADIUS)	
+            if(sqrt(pow(x - data->centre, 2) + pow(y - data->centre, 2)) < RADIUS)
 				my_mlx_pixel_put(x, y, data, color);
 			y++;
 		}
@@ -72,30 +73,20 @@ void    draw_ceilling_floor(t_data *data)
 int	draw__map(t_data *data){
 	
 	int index = 0;
-	int jndex = 0;
-	int rect_color;
-	int i = 0;
+	int jndex;
 	data->unit = 30;
 	while (data->map[index])
 	{
 		jndex = 0;
 		while (data->map[index][jndex] && data->map[index][jndex] != '\n')
 		{
-			i = 0;
 			data->unit_x = jndex * data->unit;
 			data->unit_y = index * data->unit;
 			translation_map(data);
-			if (data->map[index][jndex] == '1')
-			{
-				i = 2;
-				rect_color = WALL;
-				i = 0;
-			}
-			else if (data->map[index][jndex] == '0' || ft_strchr("SNWE", data->map[index][jndex]) != NULL)
-				rect_color = EMPTY_SPACE;
-			else if (data->map[index][jndex++] == ' ')
-				continue;
-			draw_rect(data->x_translation, data->y_translation, data, rect_color, i);
+			if (data->map[index][jndex] == '0' || ft_strchr("SNWE", data->map[index][jndex]) != NULL)
+				draw_rect(data->x_translation, data->y_translation, data, EMPTY_SPACE, 0);
+			else if (data->map[index][jndex] == '1')
+				draw_rect(data->x_translation, data->y_translation, data, WALL, 0);
 			jndex ++;
 		}
 		index ++;
@@ -121,8 +112,8 @@ int	wall_collaction(float index, float jndex, t_data *data)
 	int str_len;
 
 	array_len = arraylen(data->map);
-	x = floor(index);
-	y = floor(jndex);
+	x = (int)index;
+	y = (int)jndex;
 
 	if(y > array_len || y < 0)
 		return (1);
@@ -131,7 +122,7 @@ int	wall_collaction(float index, float jndex, t_data *data)
 		str_len = ft_strlen(data->map[y]);
 		if (x > str_len || x < 0)
 			return (1);
-		if (data->map[y][x] == '1' || data->map[y][x] == ' ')
+		else if (data->map[y][x] == '1' || data->map[y][x] == ' ')
 			return (1);
 		else if (data->map[y][x] == '0' || ft_strchr("SWNE", data->map[y][x]) != NULL)
 			return (0);
@@ -142,16 +133,16 @@ int	wall_collaction(float index, float jndex, t_data *data)
 //----------------- draw line function  for circle
 void    dda_circle(double x1, double y1,double x2, double y2,t_data *vars)
 {
-    float    steps;
-    float    dx;
-    float    dy;
+    double    steps;
+    double    dx;
+    double    dy;
 
     dx = x2 - x1;
     dy = y2 - y1;
-    if (fabsf(dx) > fabsf(dy))
-        steps = fabsf(dx);
+    if (fabs(dx) > fabs(dy))
+        steps = fabs(dx);
     else
-        steps = fabsf(dy);
+        steps = fabs(dy);
     dx /= steps;
     dy /= steps;
     while ((int)(x1 - x2) || (int)(y1 - y2))
@@ -169,7 +160,7 @@ void	translation_map(t_data *data)
 	//-----------------------------------------
 	if(data->k_x == 0)
 		data->x_translation = data->unit_x;
-	else if(data->k_x > 0)
+	if(data->k_x > 0)
 		data->x_translation = data->unit_x - fabs(data->k_x);
 	else if(data->k_x < 0)
 		data->x_translation = data->unit_x + fabs(data->k_x);
@@ -199,5 +190,36 @@ void DrawCircle(int r, t_data *data)
         y1 = r * sin(angle * M_PI / 180) + r;
         dda_circle(r + BORDER, r + BORDER, x1 + BORDER, y1 + BORDER, data);
 		i+=0.01;
+    }
+}
+//-----------------------------------------------------------------------------
+void draw_line(t_data *data, int x, int y, int x1, int y1)
+{
+    int dx, dy, err, sx,sy,e2;
+
+    dx = abs(x1 - x);
+    dy = -abs(y1 - y);
+    sx = x < x1 ? 1 : -1;
+    sy = y < y1 ? 1 : -1;
+    err = dx + dy;
+    while (1)
+    {
+        if(sqrt(pow(x - data->centre, 2) + pow(y - data->centre, 2)) < RADIUS)	
+        	my_mlx_pixel_put(x,y,data,data->ply->color);
+        e2 = 2*err;
+        if (e2 >= dy) 
+        { /* e_xy+e_x > 0 */
+            if (x == x1)
+                break;
+            err += dy;
+            x += sx;
+         }
+         if (e2 <= dx) 
+        { /* e_xy+e_y < 0 */
+            if (y == y1) 
+                 break;
+            err += dx;
+            y += sy;
+         }
     }
 }

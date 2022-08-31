@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 20:43:43 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/30 19:17:23 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/31 18:38:23 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@
 # define ONE '1'
 # define SPACE ' '
 // mlx
-# define W 1400
+# define W 2480
 # define H 920
 # define WALL_STRIPE_WITH 1
 # define FOV  60 * (M_PI / 180)
-# define NBR_RAYS (W / WALL_STRIPE_WITH)
+# define FOV_A  60 
+# define NBR_RAYS W / WALL_STRIPE_WITH
 # define FOV_INC  (FOV / NBR_RAYS)
 # define WALL  7220224
 # define EMPTY_SPACE 4511276
@@ -47,7 +48,7 @@
 # define BLUE	11699
 # define PURPLE	13051057
 # define BORDER 10
-# define RADIUS 80
+# define RADIUS 120
 // claver Key
 # define STEP(x, y) (x > y) ? x:y
 //------------------------------------- structs
@@ -170,15 +171,17 @@ typedef struct data
 	int		deltay;
 	// minimap circle
 	int	color_circle;
-	int	centre;
-	float k_x;
-	float k_y;
-	float x_translation;
-	float y_translation;
-	float unit_x;
-	float unit_y;
-	float x1_map;
-	float y1_map;
+	double	centre;
+	double k_x;
+	double k_y;
+	double x_translation;
+	double y_translation;
+	double unit_x;
+	double unit_y;
+	double x1_map;
+	double y1_map;
+	double x_fov;
+	double y_fov;
 }	t_data;
 
 
@@ -223,9 +226,8 @@ void	ft_check(t_data *data);
 //---------------------------------------- mohamed changes
 void	my_mlx_pixel_put(int x, int y, t_data *data, int color);
 int	close_cross(void *param);
-void    render_player(t_data *data, float x, float y, int color);
 void	init_player(t_data *data);
-void    draw_rect(float x, float y, t_data *data, int color, int type);
+void    draw_rect(double x, double y, t_data *data, int color, int type);
 int ft_rgb(int t, int r, int g, int b);
 void    draw_ceilling_floor(t_data *data);
 void	player_update(t_data **data);
@@ -233,18 +235,14 @@ double degreeto_radian(float angle);
 int	wall_collaction(float index, float jndex, t_data *data);
 int ray_caste(t_data *data);
 int	draw__map(t_data	*data);
-void	draw__player(t_data *data);
 int	kay_press(int key, t_data *data);
 int	kay_releass(int key, t_data *data);
 void	draw__(t_data *data);
 int looop__hooking(t_data *data);
 void	draw__fov(t_data *data);
-void	draw__pov(t_data *data);
-void    dda_function(t_data *vars);
 //--------------------------------new by bellakrim
 void	draw_all(t_data *data);
 void 	DrawCircle(int r, t_data *data);
-void    dda_circle(double x1, double y1,double x2, double y2,t_data *vars);
 void	translation_map(t_data *data);
 void	translation_player(t_data *data);
 void normalize_angle(double *angle);
@@ -253,4 +251,9 @@ void	rendering_walll(t_data *data, t_rays *rays, int col_id);
 int mouse_move(int x, int y, t_data *param);
 int mouse_move_clik(int x, int y, t_data *param);
 void	*ft_reassign(void *oldptr, void *newptr);
+void translation_fov(t_data *data, float x, float y);
+//-----------------------------------------------------------------------------
+void 	draw_line(t_data *data, int x, int y, int x1, int y1);
+void    dda_circle(double x1, double y1,double x2, double y2,t_data *vars);
+void    dda_function(t_data *vars);
 #endif

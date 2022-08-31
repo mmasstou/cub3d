@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:33 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/30 19:14:08 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/31 17:55:26 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	init_data(t_data *data)
 	data->params = 0;
 	data->p = 0;
 	data->mm = 0;
+	data->unit = 10;
 	data->exit.no = 0;
 	data->exit.so = 0;
 	data->exit.we = 0;

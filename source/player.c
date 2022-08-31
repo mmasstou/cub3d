@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 19:51:57 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/30 19:16:01 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/31 18:30:04 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,109 +57,28 @@ void	init_player(t_data *data)
 		data->ply->rotation_angle = 0;
 	else if (data->ply->spawning_orientation == 'W')
 		data->ply->rotation_angle = M_PI;
-	data->ply->move_speed = 0.05;
-	data->ply->rotation_speed = degreeto_radian(1.5);
-}
-//-------------------------------------------- dda
-void    draw__ray(t_data *vars)
-{
-    float    steps;
-    float    dx;
-    float    dy;
-
-    dx = vars->x2 - vars->x1;
-    dy = vars->y2 - vars->y1;
-    if (fabsf(dx) > fabsf(dy))
-        steps = fabsf(dx);
-    else
-        steps = fabsf(dy);
-    dx /= steps;
-    dy /= steps;
-    while ((int)(vars->x1 - vars->x2) || (int)(vars->y1 - vars->y2))
-    {
-        my_mlx_pixel_put(vars->x1 , vars->y1 , vars, vars->ply->color);
-        vars->x1_map += dx;
-        vars->y1_map += dy;
-        vars->x1 += dx;
-        vars->y1 += dy;
-		if (wall_collaction(vars->x1_map / vars->unit, vars->y1_map / vars->unit, vars) == 1)
-			break;
-    }
+	data->ply->move_speed = 0.1;
+	data->ply->rotation_speed = degreeto_radian(3);
 }
 //---------------------------------------------------- draw fieald of view 
-void	draw__fov(t_data *data){
-	int index;
-	float win_palyer__x;
-	float win_palyer__y;
-	double	ray__angle;
-	float win_palyer__x_map;
-	float win_palyer__y_map;
-
-	win_palyer__x = data->x_translation;
-	win_palyer__y = data->y_translation;
-	//---------------------------
-	win_palyer__x_map = data->ply->x_pos * data->unit;
-	win_palyer__y_map = data->ply->y_pos * data->unit;
-	//---------------------------------------
-	ray__angle = data->ply->rotation_angle - degreeto_radian(FOV) / 2;
-	index = 0;
-	while (index < NBR_RAYS){
-		// start
-		data->x1 = win_palyer__x;
-		data->y1 = win_palyer__y;
-		data->x1_map = win_palyer__x_map;
-		data->y1_map = win_palyer__y_map;
-		// end 
-		data->x2 = win_palyer__x + (80 * cos(ray__angle));
-		data->y2 = win_palyer__y + (80 * sin(ray__angle));
-		//color
-		data->ply->color = ft_rgb(15, FOV_COLOR);
-		// translation fov
-		draw__ray(data);
-		ray__angle += degreeto_radian(FOV) / NBR_RAYS;
-		index ++;
-	}
-}
-//----------------------------------------------
-void	draw__pov(t_data *data){
-	int x1, y1;
-
-	x1 = data->x_translation;
-	y1 = data->y_translation;
-	data->x1 = x1;
-	data->y1 = y1;
-	data->x2 = x1 + (20 * cos(data->ply->rotation_angle));
-	data->y2 = y1 + (20 * sin(data->ply->rotation_angle));
-	data->ply->color = ft_rgb(30, FOV_COLOR);
-	dda_function(data);
-}
-//------------------------------------------------
-void	draw__player(t_data *data){
-	player_update(&data);
+void	draw__fov(t_data *data)
+{
+	t_rays *tmp;
+	
+	tmp = data->rays;
 	translation_player(data);
-	// render_player(data, data->x_translation,data->y_translation, PURPLE);
-}
-//--------------------------------------------------------------------------------------
-void	render_player(t_data *data, float x, float y, int color){
-	float i;
-	float j;
-	int unit;
-	int unity;
-
-	unit = 2;
-	i = x + unit;
-	j = y + unit;
-	unity = y;
-	while (x <= i)
+	while(tmp)
 	{
-		y = unity;
-		while (y <= j)
-		{
-            if(sqrt(pow(x - data->centre, 2) + pow(y - data->centre, 2)) < RADIUS)	
-				my_mlx_pixel_put(x, y, data, color);
-			y++;
-		}
-		x++;
+		data->x1 = data->x_translation;
+		data->y1 = data->y_translation;
+		translation_fov(data, tmp->wall_hit.x, tmp->wall_hit.y);
+		data->x2 = data->x_fov;
+		data->y2 = data->y_fov;
+		//color
+		data->ply->color = PURPLE;
+		draw_line(data, data->x_translation, data->y_translation, data->x_fov, data->y_fov);
+		// dda_function(data);
+		tmp = tmp->next;
 	}
 }
 //----------------------------------------------------------------------------
@@ -184,29 +103,14 @@ void	player_update(t_data **data){
 	normalize_angle(&((*data)->ply->rotation_angle));
 	newPlayerx = (*data)->ply->x_pos + (cos((*data)->ply->rotation_angle) * step);
 	newPlayery = (*data)->ply->y_pos + (sin((*data)->ply->rotation_angle) * step);
-	if (wall_collaction(newPlayerx, newPlayery, *data) == 0)
+	if(wall_collaction(newPlayerx, newPlayery, *data) == 0)
 	{
 		(*data)->ply->x_pos = newPlayerx;
 		(*data)->ply->y_pos = newPlayery;
 	}
-	/*
-	? test derictions 
-	*/
-	// bool	is_ray_facing_down = ((*data)->ply->rotation_angle > 0 && (*data)->ply->rotation_angle < M_PI);
-	// bool	is_ray_facing_up = !is_ray_facing_down;
-	// bool	is_ray_facing_left = ((*data)->ply->rotation_angle > M_PI_2 && (*data)->ply->rotation_angle < 3 * M_PI_2);
-	// bool	is_ray_facing_right = !is_ray_facing_left;
-	// if (is_ray_facing_down)
-	// 	printf("ray_facing_down\n");
-	// if (is_ray_facing_up)
-	// 	printf("ray_facing_up\n");
-	// if (is_ray_facing_left)
-	// 	printf("ray_facing_left\n");
-	// if (is_ray_facing_right)
-	// 	printf("ray_facing_right\n");
 }
 //--------------------------------------------------------------------------------------------------
-void    dda_function(t_data *vars)
+void    dda_function(t_data *vars) // not used for now use it later
 {
     double    steps;
     double    dx;
@@ -222,11 +126,10 @@ void    dda_function(t_data *vars)
     dy /= steps;
     while ((int)(vars->x1 - vars->x2) || (int)(vars->y1 - vars->y2))
     {
-        my_mlx_pixel_put(vars->x1 , vars->y1 , vars, vars->ply->color);
+        if(sqrt(pow(vars->x1 - vars->centre, 2) + pow(vars->y1 - vars->centre, 2)) < RADIUS)
+			my_mlx_pixel_put(vars->x1 , vars->y1 , vars, vars->ply->color);
         vars->x1 += dx;
         vars->y1 += dy;
-		// if (wall_collaction(vars->x1 / vars->unit , vars->y1 / vars->unit, vars) == 1)
-		// 	break;
     }
 }
 //------------------------------------------- translation player 
@@ -246,4 +149,22 @@ void	translation_player(t_data *data)
 		data->y_translation = (data->ply->y_pos * data->unit) + fabs(data->k_y);
 	else if(data->k_y > 0)
 		data->y_translation = (data->ply->y_pos * data->unit) - fabs(data->k_y);
+}
+//------------------------------------------- translation fov
+void translation_fov(t_data *data, float x, float y)
+{
+	data->k_x = data->ply->x_pos * data->unit - data->centre;
+	data->k_y = data->ply->y_pos * data->unit - data->centre;
+	if(data->k_x == 0)
+		data->x_fov = x;
+	else if(data->k_x > 0)
+		data->x_fov = x - fabs(data->k_x);
+	else if(data->k_x < 0)
+		data->x_fov = x + fabs(data->k_x);
+	if(data->k_y == 0)
+		data->y_fov = y;
+	else if(data->k_y < 0)
+		data->y_fov = y + fabs(data->k_y);
+	else if(data->k_y > 0)
+		data->y_fov = y - fabs(data->k_y);
 }

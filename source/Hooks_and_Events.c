@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:28 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/30 19:18:36 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/08/31 18:35:52 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,10 +124,8 @@ int	kay_releass(int key, t_data *data){
 void	draw_all(t_data *data)
 {
 	draw_ceilling_floor(data);
-	DrawCircle(RADIUS, data);
 	ray_caste(data);
+	DrawCircle(RADIUS, data);
 	draw__map(data);
-	draw__player(data);
 	draw__fov(data);
-	// draw__pov(data);
 }

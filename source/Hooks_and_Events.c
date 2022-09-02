@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:28 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/30 18:35:29 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/02 12:59:15 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void	draw__(t_data *data){
     data->mlx_vars->buffer = mlx_get_data_addr (data->mlx_vars->mlx_image, &data->mlx_vars->bpp, &data->mlx_vars->line_lenght, &data->mlx_vars->endian);
 	draw_ceilling_floor(data);
 	ray_caste(data);
-	// rendering_wall(data, data->rays);
+	rendering_wall(data, data->rays);
 	draw__map(data);
-	draw__player(data);
 	draw__fov(data);
-	draw__pov(data);
+	draw__player(data);
+	// draw__pov(data);
     mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->mlx_vars->mlx_image, 0, 0);
 	mlx_hook(data->mlx_vars->mlx_window, KeyPress, KeyPressMask, kay_press, data);
 	mlx_hook(data->mlx_vars->mlx_window, KeyRelease, KeyReleaseMask, kay_releass, data);
@@ -46,11 +46,11 @@ void	re_draw__(t_data *data){
     data->mlx_vars->buffer = mlx_get_data_addr (data->mlx_vars->mlx_image, &data->mlx_vars->bpp, &data->mlx_vars->line_lenght, &data->mlx_vars->endian);
     draw_ceilling_floor(data);
 	ray_caste(data);
-	// rendering_wall(data, data->rays);
+	rendering_wall(data, data->rays);
 	draw__map(data);
-	draw__player(data);
 	draw__fov(data);
-	draw__pov(data);
+	draw__player(data);
+	// draw__pov(data);
     mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->mlx_vars->mlx_image, 0, 0);
 }
 
@@ -69,21 +69,23 @@ int	close_cross(void *param)
 
 int mouse_move(int x, int y, t_data *param)
 {
-	int diff;
+	// int diff;
 
-	if (x > 0 && x < W && y> 0 &&  y < H)
-	{
-		diff = param->ply->win_middle_width - x;
-		printf("diff +|%d\n", diff);
-		if (diff < 0 && param->ply->mouse_clik == 1)
-			param->ply->turn_direction_mouse = -1;
-		if (diff > 0 && param->ply->mouse_clik == 1)
-			param->ply->turn_direction_mouse = 1;
-	}
-	else
-	{
-		param->ply->turn_direction_mouse = 0;
-	}
+	// if (x > 0 && x < W && y> 0 &&  y < H)
+	// {
+	// 	diff = param->ply->win_middle_width - x;
+	// 	printf("diff +|%d\n", diff);
+	// 	if (diff < 0 && param->ply->mouse_clik == 1)
+	// 		param->ply->turn_direction_mouse = -1;
+	// 	if (diff > 0 && param->ply->mouse_clik == 1)
+	// 		param->ply->turn_direction_mouse = 1;
+	// }
+	// else
+	// {
+	// 	param->ply->turn_direction_mouse = 0;
+	// }
+	printf("%d, %d\n", x, y);
+	printf("%s\n", param->ea);
 	return (0);
 }
 
@@ -92,8 +94,9 @@ int mouse_move_clik(int x, int y, t_data *param)
 	(void)param;
 	if (x == 1)
 	{
-		param->ply->mouse_clik = true;
+		// param->ply->mouse_clik = true;
 		printf("mouse (%d, %d)\n", x, y);
+		// printf("%s\n", param->ea);
 	}
 	return (0);
 }

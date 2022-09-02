@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 17:32:25 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/30 14:04:30 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/02 12:34:47 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	rendering_walll(t_data *data, t_rays *rays, int col_id)
 	ray_distance = rays->distance * cos(rays->angle - data->ply->rotation_angle);
 	distance_project_plane = ((W / 2) / tan(FOV / 2));
 	wall_strip_height = (data->unit / ray_distance) * distance_project_plane;
-	if (wall_strip_height > H)
-		wall_strip_height = H;
+	// if (wall_strip_height > H)
+	// 	wall_strip_height = H;
 	data->ply->color = ft_rgb(50, 255, 255, 255);
 	if (rays->wasHitVertical)
 		data->ply->color = ft_rgb(10, 238, 238, 238);
@@ -69,6 +69,8 @@ void	rendering_wall(t_data *data, t_rays *rays)
 		ray_distance = tmp->distance * cos(tmp->angle - data->ply->rotation_angle);
 		distance_project_plane = (W / 2) / tan(FOV / 2);
 		wall_strip_height = (data->unit / ray_distance) * distance_project_plane;
+		if (wall_strip_height > H)
+			wall_strip_height = H;
 		data->ply->color = ft_rgb(50, 255, 255, 255);
 		if (tmp->wasHitVertical)
 			data->ply->color = ft_rgb(10, 238, 238, 238);

@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:42 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/30 18:35:43 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/02 12:30:24 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 double degreeto_radian(float angle){
 	return (angle *  (M_PI / 180));
 }
+
 int ft_rgb(int t, int r, int g, int b)
 {
-    return ((((t * 255) / 100) << 24) + (r << 16) + (g << 8) + b);
+    return ((t << 24) | (r << 16) | (g << 8) | b);
 }
 
 void	init_player(t_player **p){
@@ -28,7 +29,6 @@ void	init_player(t_player **p){
 	(*p)->radius = 0;
 	(*p)->turn_direction = 0;
 	(*p)->walk_direction = 0;
-	printf("player orientation +> %c\n", (*p)->spawning_orientation);
 	if ((*p)->spawning_orientation == 'N')
 		(*p)->rotation_angle = 3 * M_PI_2;
 	else if ((*p)->spawning_orientation == 'S')
@@ -37,7 +37,8 @@ void	init_player(t_player **p){
 		(*p)->rotation_angle = 0;
 	else if ((*p)->spawning_orientation == 'W')
 		(*p)->rotation_angle = M_PI;
-	(*p)->move_speed = 0.05;
+	(*p)->move_speed = (W / cos(M_PI_4)) / 60000;
+	printf("(*p)->move_speed %f\n", (*p)->move_speed);
 	(*p)->rotation_speed = degreeto_radian(1.5);
 }
 void    draw__ray(t_data *vars)
@@ -74,23 +75,6 @@ void	draw__raycast(t_data *data, double x1, double y1,  double x2, double y2){
 	);
 }
 
-void	draw__fov(t_data *data){
-	t_rays *tmp;
-	
-	tmp = data->rays;
-	while (tmp)
-	{
-		data->ply->color = ft_rgb(30, FOV_COLOR);
-		draw__raycast(
-			data,
-			data->ply->x_pos * data->unit,
-			data->ply->y_pos * data->unit,
-			tmp->wall_hit.x,
-			tmp->wall_hit.y
-		);
-		tmp = tmp->next;
-	}
-}
 void	draw__pov(t_data *data){
 	int x1, y1;
 
@@ -126,7 +110,7 @@ void	render_player(t_data *data, float x, float y, int color){
 	int unity;
 
 	unit = 1;
-	y += H  - (data->map_size.x * data->unit);
+	// y += H  - (data->map_size.x * data->unit);
 	i = x + unit;
 	j = y + unit;
 	unity = y;

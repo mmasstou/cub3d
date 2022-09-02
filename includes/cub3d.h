@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:04 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/30 18:35:05 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/02 12:28:52 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # define ONE '1'
 # define SPACE ' '
 // mlx
-# define W 1400
-# define H 920
+# define W 2600 / 2
+# define H 1400 / 2
 # define WALL_STRIPE_WITH 1
 # define FOV  60 * (M_PI / 180)
 # define NBR_RAYS (W / WALL_STRIPE_WITH)
@@ -44,6 +44,7 @@
 # define FOV_COLOR  253, 175, 3
 # define HORIZO_TYPE 1
 # define VERTIC_TYPE 2
+# define FACTO 1
 
 // claver Key
 # define STEP(x, y) (x > y) ? x:y
@@ -74,14 +75,17 @@ typedef struct mlx
 	int		line_lenght;
 	int		endian;
 	//-------------------------
-}t_mlx;
+}	t_mlx;
 
 typedef struct rays
 {
 	double	angle;
+	t_position	player;
 	t_position	wall_hit;
 	t_position	vertical_wall_hit;
 	t_position	horizontal_wall_hit;
+	bool	found_horizontal_wall;
+	bool	found_vertical_wall;
 	double	distance;
 	bool	wasHitVertical;
 	bool	wasHithorizontal;
@@ -121,6 +125,8 @@ typedef struct data
 	t_position	intercept;  // ! git first intercept
 	t_position	Horizontal_hit; 
 	t_position	Vertical_hit;
+	t_position  map_coords;
+	t_position win_unit;
 	bool	was_hit_vertical;
 	bool	is_facing_down;
 	bool	is_facing_up;
@@ -225,7 +231,7 @@ int	draw_rays(t_data *data);
 int	drawing_minimap(t_data	*data);
 void	init_player(t_player **p);
 int	drawing_player(t_data	*data);
-void    draw_rect(float x, float y, t_data *data, int color, int type);
+void    draw_rect(float x, float y, t_data *data, int color);
 int	row_dda(float x, float y, float next_x, float next_y, t_data *data);
 int	row_ddaa(float x, float y, float next_x, float next_y, t_data *data);
 void    updata_data(t_data **data);

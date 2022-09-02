@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:24:12 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/30 12:03:39 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/02 10:20:22 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,13 @@ void	check_minimap(char **minimap, t_data *data)
 			else
 				_error("Stranger Element");
 		}
+		if (data->map_coords.x < jndex)
+			data->map_coords.x = jndex;
 	}
 	if (data->p == 0)
 		_error("No player in Map");
+	data->map_coords.y = index;
+	printf("data->map_coords.x %f\n", data->map_coords.x);
+	printf("data->map_coords.y %f\n", data->map_coords.y);
 	stock_minimap(minimap, &data, index + 1);
 }

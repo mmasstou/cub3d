@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:33 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/30 18:35:34 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/02 10:32:13 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ int	main(int argc, char *argv[])
 		{
 			if (ft_strchr("SNWE", data.map[i][j]) != NULL)
 			{
-				data.ply->x_pos = j;
-				data.ply->y_pos = i;
+				data.ply->x_pos = j + 0.5;
+				data.ply->y_pos = i + 0.5;
 			}
 			j++;
 		}

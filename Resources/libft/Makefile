@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+         #
+#    By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/06 15:54:55 by mmasstou          #+#    #+#              #
-#    Updated: 2022/08/04 16:49:44 by abellakr         ###   ########.fr        #
+#    Updated: 2022/09/02 09:29:43 by mmasstou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ CFLAGS 		= -Wall -Wextra -Werror
 CC = cc
 SRCS =	ft_isalnum.c \
 		ft_swap.c \
+		ft_arraylen.c \
 		ft_strrejoin.c \
 		ft_si_in.c \
 		ft_isalpha.c \
@@ -83,6 +84,7 @@ bonus: $(B_OBJS) $(OBJS)
 	
 %.o:%.c libft.h 
 		@${CC} ${CFLAGS} -I . -o $@ -c $<
+		@printf "\x1b[36m   +>\033[0m compiling \033[38;5;42m$< \033[0m\n"
 
 clean:
 	@rm -f *.o

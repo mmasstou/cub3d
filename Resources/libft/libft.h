@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 15:38:29 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/05 12:08:52 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/02 09:28:46 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int		cheak_buffer(char *str);
 // ft_printf
 int		ft_printf(const char *format, ...);
 /***************Libc functions***********/
+int		ft_arraylen(char **array);
 // ft_is
 
 int		ft_isalnum(int a);

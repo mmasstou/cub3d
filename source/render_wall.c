@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 17:32:25 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/02 12:34:47 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/02 16:53:50 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@ void	rendering_walll(t_data *data, t_rays *rays, int col_id)
 	wall_strip_height = (data->unit / ray_distance) * distance_project_plane;
 	// if (wall_strip_height > H)
 	// 	wall_strip_height = H;
+	
 	data->ply->color = ft_rgb(50, 255, 255, 255);
 	if (rays->wasHitVertical)
-		data->ply->color = ft_rgb(10, 238, 238, 238);
+		data->ply->color = ft_rgb(12, 238, 238, 238);
 	draw_wall(
 		data,
 		col_id * WALL_STRIPE_WITH,

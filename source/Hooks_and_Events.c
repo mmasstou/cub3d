@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:28 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/02 12:59:15 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/02 18:23:50 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ void	draw__(t_data *data){
     data->mlx_vars->mlx_image = mlx_new_image(data->mlx_vars->mlx_ptr, W, H);
     data->mlx_vars->buffer = mlx_get_data_addr (data->mlx_vars->mlx_image, &data->mlx_vars->bpp, &data->mlx_vars->line_lenght, &data->mlx_vars->endian);
 	draw_ceilling_floor(data);
+	init_textures(data);
 	ray_caste(data);
 	rendering_wall(data, data->rays);
 	draw__map(data);
 	draw__fov(data);
 	draw__player(data);
 	// draw__pov(data);
-    mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->mlx_vars->mlx_image, 0, 0);
+    // mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->mlx_vars->mlx_image, 0, 0);
 	mlx_hook(data->mlx_vars->mlx_window, KeyPress, KeyPressMask, kay_press, data);
 	mlx_hook(data->mlx_vars->mlx_window, KeyRelease, KeyReleaseMask, kay_releass, data);
 	mlx_hook (data->mlx_vars->mlx_window, 17, 1L << 0, close_cross, data);
@@ -51,7 +52,7 @@ void	re_draw__(t_data *data){
 	draw__fov(data);
 	draw__player(data);
 	// draw__pov(data);
-    mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->mlx_vars->mlx_image, 0, 0);
+    // mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->mlx_vars->mlx_image, 0, 0);
 }
 
 int looop__hooking(t_data *data){

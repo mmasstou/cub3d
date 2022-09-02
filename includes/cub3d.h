@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:04 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/02 12:28:52 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/02 18:25:09 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,17 @@ typedef struct color
 	int	b;
 }	t_color;
 
+typedef struct s_texture
+{
+	char	*buff;
+	int		width;
+	int		height;
+	int 	bits_per_pixel;
+	int 	size_line;
+	int 	endian;
+	struct s_texture	*next;
+}	t_texture;
+
 typedef struct s_player{
 	int win_middle_width;
 	char spawning_orientation;
@@ -141,9 +152,10 @@ typedef struct data
 	float x2;
 	float y2;
 
-	t_mlx	*mlx_vars;
-	t_player *ply;
-	t_rays	*rays;
+	t_mlx		*mlx_vars;
+	t_player	*ply;
+	t_rays		*rays;
+	t_texture	*tex;
 	int     params;
 	t_exist exit;
 	char	*no;
@@ -265,4 +277,7 @@ void	rendering_walll(t_data *data, t_rays *rays, int col_id);
 int mouse_move(int x, int y, t_data *param);
 int mouse_move_clik(int x, int y, t_data *param);
 void	*ft_reassign(void *oldptr, void *newptr);
+
+// 
+void init_textures(t_data *data);
 #endif

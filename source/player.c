@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:42 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/02 12:30:24 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/02 15:53:35 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ double degreeto_radian(float angle){
 
 int ft_rgb(int t, int r, int g, int b)
 {
-    return ((t << 24) | (r << 16) | (g << 8) | b);
+    return ((((t * 255) / 100) << 24) | (r << 16) | (g << 8) | b);
 }
 
 void	init_player(t_player **p){

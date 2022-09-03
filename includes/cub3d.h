@@ -107,6 +107,7 @@ typedef struct s_texture
 	int 	bits_per_pixel;
 	int 	size_line;
 	int 	endian;
+	void	*mlx_image;
 	struct s_texture	*next;
 }	t_texture;
 

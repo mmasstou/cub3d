@@ -30,7 +30,8 @@ void	draw__(t_data *data){
 	draw__fov(data);
 	draw__player(data);
 	// draw__pov(data);
-    // mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->mlx_vars->mlx_image, 0, 0);
+    // mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->tex->mlx_image, 0, 0);
+    mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->mlx_vars->mlx_image, 0, 0);
 	mlx_hook(data->mlx_vars->mlx_window, KeyPress, KeyPressMask, kay_press, data);
 	mlx_hook(data->mlx_vars->mlx_window, KeyRelease, KeyReleaseMask, kay_releass, data);
 	mlx_hook (data->mlx_vars->mlx_window, 17, 1L << 0, close_cross, data);
@@ -52,7 +53,8 @@ void	re_draw__(t_data *data){
 	draw__fov(data);
 	draw__player(data);
 	// draw__pov(data);
-    // mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->mlx_vars->mlx_image, 0, 0);
+    // mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->tex->mlx_image, 0, 0);
+    mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->mlx_vars->mlx_image, 0, 0);
 }
 
 int looop__hooking(t_data *data){

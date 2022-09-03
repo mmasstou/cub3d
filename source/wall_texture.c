@@ -30,7 +30,6 @@ void	adding_texture(t_texture **lst, t_texture *new)
 void init_textures(t_data *data)
 {
 	t_texture *tmp;
-	void *mlx_image ;
 	
 	data->tex = NULL;
 	tmp = (t_texture *)malloc(sizeof(t_texture));
@@ -39,14 +38,14 @@ void init_textures(t_data *data)
 	tmp->endian = 0;
 	tmp->width = 0;
 	tmp->height = 0;
-	mlx_image = mlx_xpm_file_to_image(data->mlx_vars->mlx_ptr, data->ea, &(tmp->width), &(tmp->height));
-	if (mlx_image == NULL)
+	tmp->mlx_image = mlx_xpm_file_to_image(data->mlx_vars->mlx_ptr, data->ea, &(tmp->width), &(tmp->height));
+	if (tmp->mlx_image == NULL)
 		return;
+	tmp->buff = mlx_get_data_addr(tmp->mlx_image, &(tmp->bits_per_pixel),  &(tmp->size_line),  &(tmp->endian));
 	// data->tex->buff = NULL;
 	// printf("buff |%s\n", (char *)mlx_image);
-	// data->tex->buff = mlx_get_data_addr(mlx_image, &(tmp->bits_per_pixel),  &(tmp->size_line),  &(tmp->endian));
-	// adding_texture(&data->tex, tmp);
+	adding_texture(&data->tex, tmp);
 	// mlx_put_image_to_window(data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, mlx_image, tmp->width, tmp->height);
-	printf("%s %d, %d\n", data->ea, tmp->width, tmp->height);
+	printf("%s %d, %d\n", tmp->buff, tmp->width, tmp->height);
 	// printf("buff |%s\n", data->tex->buff);
 }

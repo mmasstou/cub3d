@@ -6,24 +6,25 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:47 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/30 19:16:42 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/03 14:26:27 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
+//--------------------------------------------------------------------------------
 double distance_between_points(double x, double y, double angle)
 {
 	// return (sqrt(((x1 - x) * (x1 - x)) + ((y1 - y) * (y1 - y))));
 	return ((y - x) / sin(angle));
-}
-
+} 
+//-------------------------------------------------- function for normalizing angle 
 void normalize_angle(double *angle){
 	*angle = fmod(*angle, (2 * M_PI));
 	if (*angle < 0)
 		*angle += (2 * M_PI);
 }
 
+//---------------------------------------------------------- init ray data
 t_rays	*init_ray(t_data *data, double angle){
 	t_rays *ray;
 
@@ -67,7 +68,7 @@ TODO :
 */
 /* 
 */
-
+//---------------------------------------------------------------- casting rays function 
 t_rays	*cating_rays(t_data *data, double angle)
 {
 	t_rays *ray;
@@ -102,9 +103,7 @@ t_rays	*cating_rays(t_data *data, double angle)
 	if ((data->is_facing_right && step.x < 0))
 		step.x *= -1;
 	//  finding wall hit
-	while (
-		intercept.x > 0 && intercept.x < W && intercept.y > 0 && intercept.y < H
-	)
+	while(intercept.x > 0 && intercept.x < W && intercept.y > 0 && intercept.y < H)
 	{
 		nbr = intercept.y;
 		if (data->is_facing_up)
@@ -138,9 +137,7 @@ t_rays	*cating_rays(t_data *data, double angle)
 	if ((data->is_facing_up && step.y > 0) || (data->is_facing_down && step.y < 0))
 		step.y *= -1;
 	//  finding wall hit
-	while (
-		intercept.x  > 0 && intercept.x  < W && intercept.y > 0 && intercept.y < H
-	)
+	while (intercept.x  > 0 && intercept.x  < W && intercept.y > 0 && intercept.y < H)
 	{
 		nbr = intercept.x ;
 		if (data->is_facing_left)
@@ -208,6 +205,7 @@ t_rays	*cating_rays(t_data *data, double angle)
 	}
 	return (ray);
 }
+//--------------------------------------------------------
 //  intersections
 void	adding_ray(t_rays **lst, t_rays *new)
 {
@@ -223,6 +221,7 @@ void	adding_ray(t_rays **lst, t_rays *new)
 		n->next = new;
 	}
 }
+//-----------------------------------------------------
 int ray_caste(t_data *data)
 {
 	int colid;
@@ -236,23 +235,11 @@ int ray_caste(t_data *data)
 	{
 		ray = cating_rays(data, ray_angle);
 		adding_ray(&(data->rays), ray);
+		//----------------------------------------
 		rendering_walll(data, ray, colid);
 		// data->rays = data->rays->next;
 		colid++;
 		ray_angle += FOV_INC;
 	}
-	// tmp = data->rays;
-	// while (tmp)
-	// {
-	// 	draw__raycast(
-	// 		data,
-	// 		data->ply->x_pos * data->unit,
-	// 		data->ply->y_pos * data->unit,
-	// 		tmp->wall_hit.x,
-	// 		tmp->wall_hit.y
-	// 	);
-	// 	tmp = tmp->next;
-	// }
-	
 	return (0);
 }

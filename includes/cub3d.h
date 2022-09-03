@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 20:43:43 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/31 18:38:23 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/03 19:14:20 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,10 @@
 # define ONE '1'
 # define SPACE ' '
 // mlx
-# define W 2480
-# define H 920
+# define W 1870
+# define H 970
 # define WALL_STRIPE_WITH 1
-# define FOV  60 * (M_PI / 180)
-# define FOV_A  60 
+# define FOV  60  * (M_PI / 180)
 # define NBR_RAYS W / WALL_STRIPE_WITH
 # define FOV_INC  (FOV / NBR_RAYS)
 # define WALL  7220224
@@ -46,6 +45,7 @@
 # define WHITE 	16777215
 # define GREEN	4511276
 # define BLUE	11699
+# define BLACK	0
 # define PURPLE	13051057
 # define BORDER 10
 # define RADIUS 120
@@ -182,6 +182,9 @@ typedef struct data
 	double y1_map;
 	double x_fov;
 	double y_fov;
+	//---------------------------mouse data;
+	bool pressed;
+	int init_x_mouse;
 }	t_data;
 
 
@@ -248,12 +251,14 @@ void	translation_player(t_data *data);
 void normalize_angle(double *angle);
 void	rendering_wall(t_data *data, t_rays *rays);
 void	rendering_walll(t_data *data, t_rays *rays, int col_id);
-int mouse_move(int x, int y, t_data *param);
-int mouse_move_clik(int x, int y, t_data *param);
 void	*ft_reassign(void *oldptr, void *newptr);
 void translation_fov(t_data *data, float x, float y);
 //-----------------------------------------------------------------------------
 void 	draw_line(t_data *data, int x, int y, int x1, int y1);
 void    dda_circle(double x1, double y1,double x2, double y2,t_data *vars);
 void    dda_function(t_data *vars);
+//---------------------------------mouse hooks
+int mouse_move(int x, int y, void *param);
+int mouse_press(int button, int x, int y, void *param);
+int mouse_release(int button, int x, int y, void *param);
 #endif

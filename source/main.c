@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:33 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/31 17:55:26 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/03 18:06:06 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	init_data(t_data *data)
 	data->last_y = 0;
 	data->bita = 0;
 	data->p_up = 0;
+	data->pressed = FALSE;
 	return (0);
 }
 

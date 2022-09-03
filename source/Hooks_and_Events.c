@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:28 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/08/31 18:35:52 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/03 19:22:07 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ void	draw__(t_data *data){
 	mlx_hook(data->mlx_vars->mlx_window, KeyPress, KeyPressMask, kay_press, data);
 	mlx_hook(data->mlx_vars->mlx_window, KeyRelease, KeyReleaseMask, kay_releass, data);
 	mlx_hook (data->mlx_vars->mlx_window, 17, 1L << 0, close_cross, data);
-	// mlx_hook (data->mlx_vars->mlx_window, 6, 1L << 0, mouse_move, data);
-	// mlx_mouse_hook (data->mlx_vars->mlx_window,mouse_move_clik, data);
+	//---- add function to handle mouse hooks ;
+	mlx_hook (data->mlx_vars->mlx_window, 4, 1L << 0, mouse_press, data);
+	mlx_hook (data->mlx_vars->mlx_window, 5, 1L << 0, mouse_release, data);	
+	mlx_hook (data->mlx_vars->mlx_window, 6, 1L << 0, mouse_move, data);
 	mlx_loop_hook(data->mlx_vars->mlx_ptr, looop__hooking, data);
     mlx_loop (data->mlx_vars->mlx_ptr);
 }
@@ -43,7 +45,8 @@ void	re_draw__(t_data *data){
     mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->mlx_vars->mlx_image, 0, 0);
 }
 //------------------------------------------------------ loop hooking 
-int looop__hooking(t_data *data){
+int looop__hooking(t_data *data)
+{
 	player_update(&data);
 	re_draw__(data);
 	return (0);
@@ -54,38 +57,7 @@ int	close_cross(void *param)
 	(void)param;
 	exit (0);
 }
-
-int mouse_move(int x, int y, t_data *param)
-{
-	int diff;
-
-	if (x > 0 && x < W && y> 0 &&  y < H)
-	{
-		diff = param->ply->win_middle_width - x;
-		printf("diff +|%d\n", diff);
-		if (diff < 0 && param->ply->mouse_clik == 1)
-			param->ply->turn_direction_mouse = -1;
-		if (diff > 0 && param->ply->mouse_clik == 1)
-			param->ply->turn_direction_mouse = 1;
-	}
-	else
-	{
-		param->ply->turn_direction_mouse = 0;
-	}
-	return (0);
-}
-
-int mouse_move_clik(int x, int y, t_data *param)
-{
-	(void)param;
-	if (x == 1)
-	{
-		param->ply->mouse_clik = true;
-		printf("mouse (%d, %d)\n", x, y);
-	}
-	return (0);
-}
-
+//----------------------------------------------------------------------
 int	kay_press(int key, t_data *data){
 
 	if (key == 53)
@@ -128,4 +100,39 @@ void	draw_all(t_data *data)
 	DrawCircle(RADIUS, data);
 	draw__map(data);
 	draw__fov(data);
+}
+//-----------------------------------------------------
+int mouse_move(int x, int y, void *param)
+{
+	t_data *data = (t_data *)param;
+	if(data->pressed == TRUE && x < W && x >= 0 && y < H && y >= 0)
+	{
+		if(data->init_x_mouse - x < 0)
+			data->ply->turn_direction = -1;
+		else if(data->init_x_mouse - x > 0)
+			data->ply->turn_direction = 1;
+	}
+	return(0);
+}
+//-----------------------------------------
+int mouse_press(int button, int x, int y, void *param)
+{
+	t_data *data = (t_data *)param;
+	if(button == 1 && x < W && x >= 0 && y < H && y >= 0)
+	{
+		data->pressed = TRUE;
+		data->init_x_mouse = x;
+	}
+	return(0);
+}
+//----------------------------
+int mouse_release(int button, int x, int y, void *param)
+{
+	t_data *data = (t_data *)param;
+	if(button == 1 && x < W && x >= 0 && y < H && y >= 0 )
+	{
+		data->pressed = FALSE;
+		data->ply->turn_direction = 0;
+	}
+	return(0);
 }

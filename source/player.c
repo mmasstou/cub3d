@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 19:51:57 by abellakr          #+#    #+#             */
-/*   Updated: 2022/09/03 20:15:18 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/03 21:15:57 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	init_player(t_data *data)
 	else if (data->ply->spawning_orientation == 'W')
 		data->ply->rotation_angle = M_PI;
 	data->ply->move_speed = 0.1;
-	data->ply->rotation_speed = degreeto_radian(1.5);
+	data->ply->rotation_speed = degreeto_radian(4);
 }
 //---------------------------------------------------- draw fieald of view 
 void	draw__fov(t_data *data)

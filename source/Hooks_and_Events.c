@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:28 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/03 19:22:07 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/03 21:59:55 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,15 @@ int	kay_press(int key, t_data *data){
 	else if (key == W_KEY)
 		data->ply->walk_direction = 1;
 	else if (key == AROW_LEFT)
+	{
+		data->ply->rotation_speed = degreeto_radian(3.5);
 		data->ply->turn_direction = -1;
+	}
 	else if (key == AROW_RIGHT)
+	{
+		data->ply->rotation_speed = degreeto_radian(3.5);
 		data->ply->turn_direction = 1;
+	}
 	else if (key == A_KEY)
 		data->mm = -1;
 	else if (key == D_KEY)
@@ -107,6 +113,7 @@ int mouse_move(int x, int y, void *param)
 	t_data *data = (t_data *)param;
 	if(data->pressed == TRUE && x < W && x >= 0 && y < H && y >= 0)
 	{
+		data->ply->rotation_speed = degreeto_radian(2.5);
 		if(data->init_x_mouse - x < 0)
 			data->ply->turn_direction = -1;
 		else if(data->init_x_mouse - x > 0)
@@ -135,4 +142,28 @@ int mouse_release(int button, int x, int y, void *param)
 		data->ply->turn_direction = 0;
 	}
 	return(0);
+}
+//-------------------------------------------------
+double	percent_function(double value, double max_value)
+{
+	double percent = 100 / (max_value / value);
+	return(percent);
+}
+//----------------------------------------------
+int shadowing_function(int color, double percent)
+{
+	int red;
+	int green;
+	int blue;
+
+	red = color >> 16;
+	red &= 255;
+	green = color >> 8;
+	green &= 255;
+	blue = color >> 0;
+	blue &= 255;
+	red /= (100 + percent) / 100;
+	green /= (100 + percent) / 100;
+	blue /= (100 + percent) / 100;
+	return(red << 16 | green << 8 | blue << 0);
 }

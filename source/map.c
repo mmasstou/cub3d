@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:37 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/03 18:35:43 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/03 22:13:51 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,32 @@ void    draw_ceilling_floor(t_data *data)
     int index;
     int jndex;
     int color;
+	double percent;
 
-    index = 0;
-    color = ft_rgb(0, data->c.r,data->c.g, data->c.b);
-    while (index <= H)
+    index = H;
+	int i = 0;
+    while (index)
     {
-        if (index == H / 2)
-            color = ft_rgb(0, data->f.r,data->f.g, data->f.b);
+		if (index < H / 2)
+		{
+			color = ft_rgb(0, data->c.r,data->c.g, data->c.b);	
+			percent = percent_function(i , H / 2);
+			color = shadowing_function(color, percent);
+		}
+		else if(index >= H / 2)
+		{
+    		color = ft_rgb(0, data->f.r,data->f.g, data->f.b);
+			percent = percent_function(i , H / 2);
+			color = shadowing_function(color, percent);
+		}
         jndex = 0;
-        while (jndex <= W)
-        {
-            my_mlx_pixel_put(jndex, index, data, color);
-            jndex++;
-        }
-        index++;
+        while (jndex < W)
+		{
+        	my_mlx_pixel_put(jndex, index, data, color);
+			jndex++;
+		}
+		index--;
+		i+=2;
     }
 }
 //------------------------------------------------------------------------

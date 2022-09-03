@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 20:43:43 by abellakr          #+#    #+#             */
-/*   Updated: 2022/09/03 19:14:20 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/03 21:01:05 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,4 +261,6 @@ void    dda_function(t_data *vars);
 int mouse_move(int x, int y, void *param);
 int mouse_press(int button, int x, int y, void *param);
 int mouse_release(int button, int x, int y, void *param);
+double	percent_function(double value, double max_value);
+int shadowing_function(int color, double percent);
 #endif

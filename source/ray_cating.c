@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:47 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/03 14:26:27 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/04 14:28:50 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,9 +235,7 @@ int ray_caste(t_data *data)
 	{
 		ray = cating_rays(data, ray_angle);
 		adding_ray(&(data->rays), ray);
-		//----------------------------------------
 		rendering_walll(data, ray, colid);
-		// data->rays = data->rays->next;
 		colid++;
 		ray_angle += FOV_INC;
 	}

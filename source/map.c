@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:37 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/03 22:13:51 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/04 18:36:01 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,29 +57,28 @@ void    draw_ceilling_floor(t_data *data)
 
     index = H;
 	int i = 0;
-    while (index)
+    while (--index >= H / 2)
     {
-		if (index < H / 2)
-		{
-			color = ft_rgb(0, data->c.r,data->c.g, data->c.b);	
-			percent = percent_function(i , H / 2);
-			color = shadowing_function(color, percent);
-		}
-		else if(index >= H / 2)
-		{
-    		color = ft_rgb(0, data->f.r,data->f.g, data->f.b);
-			percent = percent_function(i , H / 2);
-			color = shadowing_function(color, percent);
-		}
-        jndex = 0;
+		color = ft_rgb(0, data->f.r,data->f.g, data->f.b);
+		percent = percent_function(i , H / 2);
+		color = shadowing_function(color, percent);
+		i+=3;
+		jndex = 0;
         while (jndex < W)
-		{
-        	my_mlx_pixel_put(jndex, index, data, color);
-			jndex++;
-		}
-		index--;
-		i+=2;
+        	my_mlx_pixel_put(jndex++, index, data, color);
     }
+	index = -1;
+	i = 0;
+	while(++index <= H / 2)
+	{
+		color = ft_rgb(0, data->c.r,data->c.g, data->c.b);	
+		percent = percent_function(i, H / 2);
+		color = shadowing_function(color, percent);
+		i+=3;
+		jndex = 0;
+		while (jndex < W)
+        	my_mlx_pixel_put(jndex++, index, data, color);
+	}
 }
 //------------------------------------------------------------------------
 int	draw__map(t_data *data){

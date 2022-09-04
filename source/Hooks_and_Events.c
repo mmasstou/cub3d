@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:28 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/03 21:59:55 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/04 18:26:43 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,9 @@ int mouse_move(int x, int y, void *param)
 	{
 		data->ply->rotation_speed = degreeto_radian(2.5);
 		if(data->init_x_mouse - x < 0)
-			data->ply->turn_direction = -1;
-		else if(data->init_x_mouse - x > 0)
 			data->ply->turn_direction = 1;
+		else if(data->init_x_mouse - x > 0)
+			data->ply->turn_direction = -1;
 	}
 	return(0);
 }

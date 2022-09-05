@@ -62,6 +62,7 @@ int get_texture_color(t_rays *ray, t_data *data, int y, int wall_strip_height)
 		x = 0;
 	tex_offset.y = (y - x) * ((double)data->tex->height / ray->wall_strip_height) ;
 	tex_offset.y = floor(tex_offset.y);
+	// tex_offset.y += (ray->wall_strip_height - wall_strip_height) / 2;
 	tex_offset.y *= data->tex->width;
 	// printf("tex_offset.x :%f, tex_offset.y :%f **> %d\n",tex_offset.x, tex_offset.y, data->tex->buff[(int)(tex_offset.y + tex_offset.x)]);
 	return(data->tex->buff[((int)tex_offset.y + (int)tex_offset.x)]);

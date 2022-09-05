@@ -1,5 +1,5 @@
-#include "../includes/cub3d.h"
 
+#include "../includes/cub3d.h"
 void    dda_circle(double x1, double y1,double x2, double y2,t_data *vars)
 {
     double    steps;
@@ -22,6 +22,25 @@ void    dda_circle(double x1, double y1,double x2, double y2,t_data *vars)
     }
 }
 
+void	draw__fov_redi(t_data *data, int x, int y, double angle)
+{
+	t_rays *tmp;
+	
+	tmp = data->rays;
+	while (tmp)
+	{
+		data->ply->color = ft_rgb(40, FOV_COLOR);
+		draw_line(
+			data,
+			x,
+			y,
+			x + cos(angle) * 50,
+			y + sin(angle) * 50
+		);
+		tmp = tmp->next;
+	}
+}
+
 void plotCircle(int xm, int ym, int r, t_data *data)
 {
 	int x = -r, y = 0, err = 2-2*r; /* bottom left to top right */
@@ -36,4 +55,6 @@ void plotCircle(int xm, int ym, int r, t_data *data)
 		if (r > x || err > y) /* e_xy+e_x > 0 or no 2nd y-step */
 		err += ++x*2+1; /* -> x-step now */
 	} while (x < 0);
+	my_mlx_pixel_put(xm, ym, data, 0);
+	draw__fov_redi(data, xm, ym, data->ply->rotation_angle);
 }

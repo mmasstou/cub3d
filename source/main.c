@@ -35,7 +35,6 @@ int	init_data(t_data *data)
 	data->exit.ea = 0;
 	data->exit.f = 0;
 	data->exit.c = 0;
-	data->unit = 34;
 	data->last_x = 0;
 	data->last_y = 0;
 	data->bita = 0;
@@ -68,6 +67,11 @@ int	main(int argc, char *argv[])
 	data.map_size.x = j;
 	data.map_size.x = i;
 	init_player(&(data.ply));
+	j = (W > H) ? H: W;
+	i = (data.map_coords.x > data.map_coords.y) ? data.map_coords.x: data.map_coords.y;
+	j /= i;
+	// data.unit = j > 20 ? 22 : j;
+	data.unit = 22;
 	draw__(&data);
 	atexit(checkleaks);
 	return (0);

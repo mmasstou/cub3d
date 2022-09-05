@@ -31,8 +31,9 @@
 # define ONE '1'
 # define SPACE ' '
 // mlx
-# define W 2600 / 2
-# define H 1400 / 2
+# define MN 2
+# define W 2600 / MN
+# define H 1400 / MN
 # define WALL_STRIPE_WITH 1
 # define FOV  60 * (M_PI / 180)
 # define NBR_RAYS (W / WALL_STRIPE_WITH)
@@ -45,6 +46,18 @@
 # define HORIZO_TYPE 1
 # define VERTIC_TYPE 2
 # define FACTO 1
+# define TEX_NO 1215
+# define TEX_EA 1216
+# define TEX_SO 1217
+# define TEX_WE 1218
+# define WHITE 	16777215
+# define GREEN	4511276
+# define BLUE	11699
+# define BLACK	0
+# define PURPLE	13051057
+# define BORDER 10
+# define RADIUS 120
+
 
 // claver Key
 # define STEP(x, y) (x > y) ? x:y
@@ -80,6 +93,7 @@ typedef struct mlx
 typedef struct rays
 {
 	double	angle;
+	double	wall_strip_height;
 	t_position	player;
 	t_position	wall_hit;
 	t_position	vertical_wall_hit;
@@ -101,13 +115,13 @@ typedef struct color
 
 typedef struct s_texture
 {
-	char	*buff;
+	int		type;
+	int		*buff;
 	int		width;
 	int		height;
 	int 	bits_per_pixel;
 	int 	size_line;
 	int 	endian;
-	void	*mlx_image;
 	struct s_texture	*next;
 }	t_texture;
 
@@ -185,6 +199,8 @@ typedef struct data
 	int		nexty;
 	int		deltax;
 	int		deltay;
+	int	color_circle;
+	double	centre;
 }	t_data;
 
 
@@ -281,4 +297,7 @@ void	*ft_reassign(void *oldptr, void *newptr);
 
 // 
 void init_textures(t_data *data);
+int get_texture_color(t_rays *ray, t_data *data, int y, int wall_strip_height);
+void DrawCircle(int r, t_data *data);
+void plotCircle(int xm, int ym, int r, t_data *data);
 #endif

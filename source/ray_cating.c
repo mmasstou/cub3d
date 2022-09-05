@@ -84,8 +84,8 @@ t_rays	*cating_rays(t_data *data, double angle)
 	t_position intercept;
 	t_position step;
 	double nbr;
-	double horizontall_distance;
-	double vertical_distance;
+	double horizontall_distance = 0;
+	double vertical_distance = 0;
 
 	ray = init_ray(data, angle);
 	
@@ -113,9 +113,7 @@ t_rays	*cating_rays(t_data *data, double angle)
 
 		
 	//  finding wall hit
-	while (
-		intercept.x >= 0 && intercept.x <= H && intercept.y >= 0 && intercept.y <= W
-	)
+	while (true)
 	{
 		nbr = intercept.y;
 		if (data->is_facing_up)
@@ -151,11 +149,8 @@ t_rays	*cating_rays(t_data *data, double angle)
 		step.y *= -1;
 	if ((data->is_facing_down && step.y < 0))
 		step.y *= -1;
-		
-	//  finding wall hit
-	while (
-		intercept.x >= 0 && intercept.x <= H && intercept.y >= 0 && intercept.y <= W
-	)
+	//  finding wall hit > (intercept.x >= 0 && intercept.x <= H) && (intercept.y >= 0 && intercept.y <= W)
+	while (true)
 	{
 		nbr = intercept.x ;
 		if (data->is_facing_left)
@@ -188,8 +183,6 @@ t_rays	*cating_rays(t_data *data, double angle)
 		// 	ray->angle
 		// );
 	}
-	else
-		horizontall_distance = W / cos(M_PI_4);
 	if (ray->found_vertical_wall)
 	{
 		vertical_distance = distance_between_points1(
@@ -204,8 +197,6 @@ t_rays	*cating_rays(t_data *data, double angle)
 		// 	ray->angle
 		// );
 	}
-	else
-		vertical_distance = W / cos(M_PI_4);
 	// get min distance
 	if (horizontall_distance <= vertical_distance)
 	{
@@ -250,6 +241,7 @@ int ray_caste(t_data *data)
 	while (colid <= NBR_RAYS)
 	{
 		ray = cating_rays(data, ray_angle);
+		rendering_walll(data, ray, colid);
 		adding_ray(&(data->rays), ray);
 		colid++;
 		ray_angle += FOV_INC;

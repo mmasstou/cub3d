@@ -33,10 +33,10 @@ void    draw_rect(float x, float y, t_data *data, int color)
 	index = (x + data->unit);
 	jndex = (y + data->unit); 
 	old__y = y;
-	while (x <= index)
+	while (x < index)
 	{
 		y = old__y;
-		while (y <= jndex)
+		while (y < jndex)
 			my_mlx_pixel_put(x, y++, data, color);
 		x++;
 	}
@@ -47,25 +47,19 @@ int	draw__map(t_data *data){
 	int index = 0;
 	int jndex = 0;
 	int rect_color;
-	int j;
-	int i;
-	
-	j = (W > H) ? H: W;
-	i = (data->map_coords.x > data->map_coords.y) ? data->map_coords.x: data->map_coords.y;
-	j /= i;
-	data->unit = (j) > 20 ? 20 : j;
+
 	// printf("data->unit %d\n", data->unit);
 	while (data->map[index])
 	{
 		jndex = 0;
-		while (data->map[index][jndex] && data->map[index][jndex] != '\n')
+		while (data->map[index][jndex])
 		{
 			if (data->map[index][jndex] == '1')
 				rect_color = WALL;
 			else if (data->map[index][jndex] == '0' || ft_strchr("SNWE", data->map[index][jndex]) != NULL)
 				rect_color = EMPTY_SPACE;
-			else if (data->map[index][jndex] == ' ')
-				rect_color = ft_rgb(0, X__COLOR);
+			else if (data->map[index][jndex++] == ' ')
+				continue;
 			draw_rect(jndex * data->unit * FACTO, index * data->unit * FACTO, data, rect_color);
 			jndex ++;
 		}

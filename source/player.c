@@ -37,8 +37,9 @@ void	init_player(t_player **p){
 		(*p)->rotation_angle = 0;
 	else if ((*p)->spawning_orientation == 'W')
 		(*p)->rotation_angle = M_PI;
-	(*p)->move_speed = (W / cos(M_PI_4)) / 60000;
-	printf("(*p)->move_speed %f\n", (*p)->move_speed);
+	(*p)->move_speed = .030641;
+	// (*p)->move_speed = 0.030641;
+	printf("(*p)->player %c\n", (*p)->spawning_orientation);
 	(*p)->rotation_speed = degreeto_radian(1.5);
 }
 void    draw__ray(t_data *vars)

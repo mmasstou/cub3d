@@ -149,6 +149,8 @@ typedef struct s_player{
 typedef struct data
 {
 	// ? this vas is to rayCasting 
+	double	angle_ea;
+	double	angle_no;
 	t_position	step; // ! calcul ths Delta 
 	t_position	intercept;  // ! git first intercept
 	t_position	Horizontal_hit; 
@@ -168,7 +170,7 @@ typedef struct data
 	float y1;
 	float x2;
 	float y2;
-
+	
 	t_mlx		*mlx_vars;
 	t_player	*ply;
 	t_rays		*rays;

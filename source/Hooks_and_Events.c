@@ -26,9 +26,9 @@ void	draw__(t_data *data){
 	init_textures(data);
 	ray_caste(data);
 	// rendering_wall(data, data->rays);
-	draw__map(data);
-	draw__fov(data);
-	draw__player(data);
+	// draw__map(data);
+	// draw__fov(data);
+	// draw__player(data);
 	// plotCircle(W - 120,H - 90,50, data);
 	// draw__pov(data);
     // mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->tex->mlx_image, 0, 0);
@@ -50,9 +50,9 @@ void	re_draw__(t_data *data){
     draw_ceilling_floor(data);
 	ray_caste(data);
 	// rendering_wall(data, data->rays);
-	draw__map(data);
-	draw__fov(data);
-	draw__player(data);
+	// draw__map(data);
+	// draw__fov(data);
+	// draw__player(data);
 	// plotCircle(W - 120,H - 90,50, data);
 	// draw__pov(data);
     // mlx_put_image_to_window (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_window, data->tex->mlx_image, 0, 0);

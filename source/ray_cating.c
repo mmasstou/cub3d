@@ -205,6 +205,7 @@ t_rays	*cating_rays(t_data *data, double angle)
 		ray->wall_hit.x = ray->horizontal_wall_hit.x;
 		ray->wall_hit.y = ray->horizontal_wall_hit.y;
 		ray->wasHithorizontal = true;
+		ray->wasHitVertical = false;
 	}
 	else
 	{
@@ -212,6 +213,7 @@ t_rays	*cating_rays(t_data *data, double angle)
 		ray->wall_hit.x = ray->vertical_wall_hit.x;
 		ray->wall_hit.y = ray->vertical_wall_hit.y;
 		ray->wasHitVertical = true;
+		ray->wasHithorizontal = false;
 	}
 	if (ray->distance < DISTANCE_OF_VIEW)
 		ray->hit = true;

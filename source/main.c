@@ -39,6 +39,8 @@ int	init_data(t_data *data)
 	data->last_y = 0;
 	data->bita = 0;
 	data->p_up = 0;
+	data->angle_ea = 0;
+	data->angle_no = 3 * M_PI_2;
 	return (0);
 }
 

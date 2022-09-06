@@ -12,7 +12,7 @@
 
 #include "../../includes/cub3d.h"
 
-void	stock_minimap(char **minimap, t_data **data, int minimap_size)
+void	stock_minimap(char **map, t_data **data, int minimap_size)
 {
 	int	index;
 
@@ -20,14 +20,11 @@ void	stock_minimap(char **minimap, t_data **data, int minimap_size)
 	if (!(*data)->map)
 		_error("malloc");
 	index = 0;
-	while (minimap[index])
+	while (map[index])
 	{
-		// str = ft_strtrim(minimap[index], "\n");
-		minimap[index] = ft_reassign(minimap[index], ft_strjoin(minimap[index], " "));
-		(*data)->map[index] = ft_strdup(minimap[index]);
-		// free(str);
+		map[index] = ft_reassign(map[index], ft_strjoin(map[index], " "));
+		(*data)->map[index] = ft_strdup(map[index]);
 		index++;
 	}
 	(*data)->map[index] = NULL;
-	(*data)->h = index;
 }

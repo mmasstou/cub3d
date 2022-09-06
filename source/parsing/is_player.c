@@ -14,18 +14,11 @@
 
 bool	is_player(char c, t_data *data)
 {
-	if (data->p == 0)
-		data->p = c;
+	if (data->player->orientation == 0)
+		data->player->orientation = c;
 	else
 		_error("multiple player ");
-	if (c == 'W')
-		return (data->ply->spawning_orientation = c,true);
-	else if (c == 'N')
-		return (data->ply->spawning_orientation = c,true);
-	else if (c == 'S')
-		return (data->ply->spawning_orientation = c,true);
-	else if (c == 'E')
-		return (data->ply->spawning_orientation = c,true);
-	
+	if (ft_strchr("SWEN", c))
+		return (true);
 	return (false);
 }

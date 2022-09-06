@@ -16,7 +16,7 @@ void	parsing_minimap(char **minimap, t_data *data)
 {
 	char	*tmp;
 
-	data->p = 0;
+	data->player->orientation = 0;
 	while (minimap[data->start_map])
 	{
 		tmp = ft_strtrim(minimap[data->start_map], " ");

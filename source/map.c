@@ -60,7 +60,9 @@ int	draw__map(t_data *data){
 				rect_color = EMPTY_SPACE;
 			else if (data->map[index][jndex++] == ' ')
 				continue;
-			draw_rect(jndex * data->unit * FACTO, index * data->unit * FACTO, data, rect_color);
+			// if (jndex <= data->ply->x_pos + 4 && jndex >= data->ply->x_pos - 4)
+			// 	if (index <= data->ply->y_pos + 4 && index >= data->ply->y_pos - 4)
+					draw_rect(jndex * data->unit * FACTO, index * data->unit * FACTO, data, rect_color);
 			jndex ++;
 		}
 		index ++;

@@ -36,6 +36,7 @@
 # define H 1400 / MN
 # define WALL_STRIPE_WITH 1
 # define FOV  60 * (M_PI / 180)
+# define DISTANCE_OF_VIEW 200
 # define NBR_RAYS (W / WALL_STRIPE_WITH)
 # define FOV_INC  (FOV / NBR_RAYS)
 # define WALL  7220224
@@ -103,6 +104,7 @@ typedef struct rays
 	double	distance;
 	bool	wasHitVertical;
 	bool	wasHithorizontal;
+	bool	hit;
 	struct rays *next;
 }	t_rays;
 

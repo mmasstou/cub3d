@@ -45,6 +45,7 @@ t_rays	*init_ray(t_data *data, double angle){
 	ray->distance = 0;
 	ray->wall_hit.x = 0;
 	ray->wall_hit.y = 0;
+	ray->hit = false;
 	ray->wasHithorizontal = false;
 	ray->wasHitVertical = false;
 	ray->found_horizontal_wall = false;
@@ -212,6 +213,8 @@ t_rays	*cating_rays(t_data *data, double angle)
 		ray->wall_hit.y = ray->vertical_wall_hit.y;
 		ray->wasHitVertical = true;
 	}
+	if (ray->distance < DISTANCE_OF_VIEW)
+		ray->hit = true;
 	return (ray);
 }
 //  intersections

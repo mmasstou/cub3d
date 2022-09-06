@@ -38,10 +38,10 @@ t_rays	*init_ray(t_data *data, double angle){
 		_error("can't malloc ray");
 	ray->angle = angle;
 	normalize_angle(&(ray->angle));
-	data->is_facing_down = (ray->angle >= 0 && ray->angle <= M_PI);
-	data->is_facing_up = !data->is_facing_down;
-	data->is_facing_right = (ray->angle < (0.5 * M_PI) || ray->angle > (1.5 * M_PI));
-	data->is_facing_left = !data->is_facing_right;
+	data->player->is_facing_down = (ray->angle >= 0 && ray->angle <= M_PI);
+	data->player->is_facing_up = !data->player->is_facing_down;
+	data->player->is_facing_right = (ray->angle < (0.5 * M_PI) || ray->angle > (1.5 * M_PI));
+	data->player->is_facing_left = !data->player->is_facing_right;
 	ray->distance = 0;
 	ray->wall_hit.x = 0;
 	ray->wall_hit.y = 0;
@@ -50,8 +50,8 @@ t_rays	*init_ray(t_data *data, double angle){
 	ray->wasHitVertical = false;
 	ray->found_horizontal_wall = false;
 	ray->found_vertical_wall = false;
-	ray->player.x = data->ply->x_pos * data->unit;
-	ray->player.y = data->ply->y_pos * data->unit;
+	ray->player.x = data->player->pos.x * data->unit;
+	ray->player.y = data->player->pos.y * data->unit;
 	ray->next = NULL;
 	return (ray);
 }
@@ -94,7 +94,7 @@ t_rays	*cating_rays(t_data *data, double angle)
 	//? intercept y
 	
 	intercept.y = floor(ray->player.y / data->unit) * data->unit;
-	if (data->is_facing_down)
+	if (data->player->is_facing_down)
 		intercept.y += data->unit;
 	//? intercept x
 	intercept.x = ray->player.x + (intercept.y - ray->player.y) / tan(ray->angle);
@@ -103,13 +103,13 @@ t_rays	*cating_rays(t_data *data, double angle)
 	//*Steps
 	//	?step y
 	step.y = data->unit;
-	if (data->is_facing_up)
+	if (data->player->is_facing_up)
 		step.y *= -1;
 	//	?step x
 	step.x = data->unit / tan(ray->angle);
-	if ((data->is_facing_left && step.x > 0))
+	if ((data->player->is_facing_left && step.x > 0))
 		step.x *= -1;
-	if ((data->is_facing_right && step.x < 0))
+	if ((data->player->is_facing_right && step.x < 0))
 		step.x *= -1;
 
 		
@@ -117,7 +117,7 @@ t_rays	*cating_rays(t_data *data, double angle)
 	while (true)
 	{
 		nbr = intercept.y;
-		if (data->is_facing_up)
+		if (data->player->is_facing_up)
 			nbr --;
 		if (wall_collaction(intercept.x / data->unit, nbr / data->unit, data) == 1)
 		{
@@ -135,26 +135,26 @@ t_rays	*cating_rays(t_data *data, double angle)
 	//! VERTICAL RAY GRID
 	//? intercept x
 	intercept.x = floor(ray->player.x / data->unit) * data->unit;
-	if (data->is_facing_right)
+	if (data->player->is_facing_right)
 		intercept.x += data->unit;
 	//? intercept y
 	intercept.y = ray->player.y + (intercept.x - ray->player.x) * tan(ray->angle);
 
 	//? step x
 	step.x = data->unit;
-	if (data->is_facing_left)
+	if (data->player->is_facing_left)
 		step.x *= -1;
 	//? step y
 	step.y = data->unit * tan(ray->angle);
-	if ((data->is_facing_up && step.y > 0))
+	if ((data->player->is_facing_up && step.y > 0))
 		step.y *= -1;
-	if ((data->is_facing_down && step.y < 0))
+	if ((data->player->is_facing_down && step.y < 0))
 		step.y *= -1;
 	//  finding wall hit > (intercept.x >= 0 && intercept.x <= H) && (intercept.y >= 0 && intercept.y <= W)
 	while (true)
 	{
 		nbr = intercept.x ;
-		if (data->is_facing_left)
+		if (data->player->is_facing_left)
 			nbr -= 1;
 		if (wall_collaction(nbr / data->unit, intercept.y / data->unit, data) == 1)
 		{
@@ -241,7 +241,7 @@ int ray_caste(t_data *data)
 	t_rays *ray;
 
 	data->rays = NULL;
-	ray_angle = data->ply->rotation_angle - FOV / 2;
+	ray_angle = data->player->rotation_angle - FOV / 2;
 	colid = 0;
 	while (colid <= NBR_RAYS)
 	{

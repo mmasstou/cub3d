@@ -26,17 +26,21 @@ void	adding_texture(t_texture **lst, t_texture *new)
 		n->next = new;
 	}
 }
+
 t_texture	*get_textures_data(void *mlx_ptr, char *texture_name, int type)
 {
 	t_texture *tmp;
 	void	*mlx_image;
+	int 	bits_per_pixel;
+	int 	size_line;
+	int 	endian;
 	
 	tmp = (t_texture *)malloc(sizeof(t_texture));
 	tmp->type = type;
 	mlx_image = mlx_xpm_file_to_image(mlx_ptr, texture_name, &(tmp->width), &(tmp->height));
 	if (mlx_image == NULL)
 		return (NULL);
-	tmp->buff = (int *)mlx_get_data_addr(mlx_image, &(tmp->bits_per_pixel),  &(tmp->size_line),  &(tmp->endian));
+	tmp->buff = (int *)mlx_get_data_addr(mlx_image, &bits_per_pixel,  &size_line,  &endian);
 	if (!tmp->buff)
 		return (NULL);
 	tmp->next = NULL;

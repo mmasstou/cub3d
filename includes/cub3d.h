@@ -23,9 +23,6 @@
 # include <math.h>
 # include "key.h"
 //------------------------------------------------ macros
-# define COLOR_SUCCESS "\033[38;5;42m"
-# define COLOR_FAILURE "\x1b[31m"
-# define COLOR_END "\x1b[0m"
 
 # define ZERO '0'
 # define ONE '1'
@@ -60,51 +57,46 @@
 # define RADIUS 120
 
 
-// claver Key
-# define STEP(x, y) (x > y) ? x:y
-//------------------------------------- structs
 typedef struct exist
 {
-    int no;
-    int so;
-    int we;
-    int ea;
-    int f;
-    int c;
+    int	no;
+    int	so;
+    int	we;
+    int	ea;
+    int	f;
+    int	c;
 }   t_exist;
 
 typedef struct s_pos{
-	double x;
-	double y;
+	double	x;
+	double	y;
 }	t_position; 
-//---------------------------- new by bellakrim
+
 typedef struct mlx
 {
-	void *mlx_ptr;
-	void *mlx_window;
-	void *mlx_image;
-	//------------------------ for image filling
+	void	*mlx_ptr;
+	void	*mlx_window;
+	void	*mlx_image;
 	char	*buffer;
 	int		bpp;
 	int		line_lenght;
 	int		endian;
-	//-------------------------
 }	t_mlx;
 
 typedef struct rays
 {
-	double	angle;
-	double	wall_strip_height;
 	t_position	player;
 	t_position	wall_hit;
 	t_position	vertical_wall_hit;
 	t_position	horizontal_wall_hit;
-	bool	found_horizontal_wall;
-	bool	found_vertical_wall;
-	double	distance;
-	bool	wasHitVertical;
-	bool	wasHithorizontal;
-	bool	hit;
+	double		angle;
+	double		wall_strip_height;
+	double		distance;
+	bool		found_horizontal_wall;
+	bool		found_vertical_wall;
+	bool		wasHitVertical;
+	bool		wasHithorizontal;
+	bool		hit;
 	struct rays *next;
 }	t_rays;
 
@@ -115,113 +107,56 @@ typedef struct color
 	int	b;
 }	t_color;
 
-typedef struct s_texture
+typedef struct s_tex
 {
-	int		type;
-	int		*buff;
-	int		width;
-	int		height;
-	int 	bits_per_pixel;
-	int 	size_line;
-	int 	endian;
-	struct s_texture	*next;
+	int				type;
+	int				*buff;
+	int				width;
+	int				height;
+	struct s_tex	*next;
 }	t_texture;
 
-typedef struct s_player{
-	int win_middle_width;
-	char spawning_orientation;
-	int color;
-	float ply_w;
-	float x_pos;
-	float y_pos;
-	float x_pos_o;
-	float y_pos_o;
-	int radius;
-	int turn_direction; // -1 if left , +1 if right
-	int turn_direction_mouse; // -1 if left , +1 if right
-	int mouse_clik; // -1 if left , +1 if right
-	int walk_direction; // -1 if back , +1 if front
-	double rotation_angle;
-	double move_speed;
-	double rotation_speed;
+typedef struct s_player
+{
+	t_position	walk_direction; // -1 if back , +1 if front
+	t_position	pos;
+	int			y_start_point;
+	bool		is_facing_down;
+	bool		is_facing_up;
+	bool		is_facing_right;
+	bool		is_facing_left;
+	char		orientation;
+	int			turn_direction; // -1 if left , +1 if right
+	double		rotation_angle;
+	double		move_speed;
+	double		rotation_speed;
 }	t_player;
-//---------------------------------
+
 typedef struct data
 {
-	// ? this vas is to rayCasting 
-	double	angle_ea;
-	double	angle_no;
-	t_position	step; // ! calcul ths Delta 
-	t_position	intercept;  // ! git first intercept
-	t_position	Horizontal_hit; 
-	t_position	Vertical_hit;
-	t_position  map_coords;
-	t_position win_unit;
-	bool	was_hit_vertical;
-	bool	is_facing_down;
-	bool	is_facing_up;
-	bool	is_facing_right;
-	bool	is_facing_left;
-	double horizontal_distance;
-	double vertical_distance;
-	// ? end
-	int mm;
-	float x1;
-	float y1;
-	float x2;
-	float y2;
-	
 	t_mlx		*mlx_vars;
-	t_player	*ply;
+	t_player	*player;
 	t_rays		*rays;
 	t_texture	*tex;
-	int     params;
-	t_exist exit;
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
-	char	p;
-	t_color	f;
-	t_color	c;
-	char	**map;
-	t_position	map_size;
-	int		start_map;
-	// ++++
-	int		h;
-	double		zoom;
-	float			x_player;
-	float			y_player;
-	int			last_x;
-	int			last_y;
-	int unit;
-	// player movement
-	double		bita;
-	int		p_up;
-	// rays
-	int		nextx;
-	int		nexty;
-	int		deltax;
-	int		deltay;
-	int	color_circle;
-	double	centre;
+	t_exist		exit;
+	t_color		f;
+	t_color		c;
+	int			params;
+	char		*no;
+	char		*so;
+	char		*we;
+	char		*ea;
+	char		**map;
+	int			start_map;
+	int			unit;
 }	t_data;
-
-
-
-enum e_dir{
-	NORD = 121,
-	EAST,
-	WEST,
-	SOUTH
-};
 
 // -&- SRCS -&-
 void	_error(char *msg);
 void	checkargs(int argc, char *argv[]);
 //----------------------------- Parsing
 void	parsing(char *argv[], t_data *data);
-void	stock_minimap(char **minimap, t_data **data, int minimap_size);
+void	stock_minimap(char **map, t_data **data, int map_size);
 bool	is_player(char c, t_data *data);
 void	check_minimap(char **minimap, t_data *data);
 int		get_map_size(char *file);
@@ -272,7 +207,7 @@ int ft_rgb(int t, int r, int g, int b);
 void    draw_ceilling_floor(t_data *data);
 
 
-void    draw_ply(float x, float y, t_data *data, int color);
+void    draw_player(float x, float y, t_data *data, int color);
 void	player_render(t_data *data);
 void	player_update(t_data **data);
 double degreeto_radian(float angle);
@@ -303,5 +238,4 @@ void	*ft_reassign(void *oldptr, void *newptr);
 void init_textures(t_data *data);
 int get_texture_color(t_rays *ray, t_data *data, int y, int wall_strip_height);
 void DrawCircle(int r, t_data *data);
-void plotCircle(int xm, int ym, int r, t_data *data);
 #endif

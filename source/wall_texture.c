@@ -29,38 +29,40 @@ void	adding_texture(t_texture **lst, t_texture *new)
 
 t_texture	*get_textures_data(void *mlx_ptr, char *texture_name, int type)
 {
-	t_texture *tmp;
-	void	*mlx_image;
-	int 	bits_per_pixel;
-	int 	size_line;
-	int 	endian;
-	
+	t_texture	*tmp;
+	void		*mlx_image;
+	int			bits_per_pixel;
+	int			size_line;
+	int			endian;
+
 	tmp = (t_texture *)malloc(sizeof(t_texture));
 	tmp->type = type;
-	mlx_image = mlx_xpm_file_to_image(mlx_ptr, texture_name, &(tmp->width), &(tmp->height));
+	mlx_image = mlx_xpm_file_to_image(\
+	mlx_ptr, texture_name, &(tmp->width), &(tmp->height));
 	if (mlx_image == NULL)
 		return (NULL);
-	tmp->buff = (int *)mlx_get_data_addr(mlx_image, &bits_per_pixel,  &size_line,  &endian);
+	tmp->buff = (int *)mlx_get_data_addr(\
+	mlx_image, &bits_per_pixel, &size_line, &endian);
 	if (!tmp->buff)
 		return (NULL);
 	tmp->next = NULL;
 	return (tmp);
 }
 
-void init_textures(t_data *data)
+void	init_textures(t_data *data)
 {
 	data->tex = NULL;
-	printf("%s\n", data->ea);
-	printf("%s\n", data->so);
-	printf("%s\n", data->we);
-	printf("%s\n", data->no);
-	adding_texture(&data->tex, get_textures_data(data->mlx_vars->mlx_ptr, data->ea, TEX_EA));
-	adding_texture(&data->tex, get_textures_data(data->mlx_vars->mlx_ptr, data->so, TEX_SO));
-	adding_texture(&data->tex, get_textures_data(data->mlx_vars->mlx_ptr, data->we, TEX_WE));
-	adding_texture(&data->tex, get_textures_data(data->mlx_vars->mlx_ptr, data->no, TEX_NO));
+	adding_texture(&data->tex, \
+	get_textures_data(data->mlx_vars->mlx_ptr, data->ea, TEX_EA));
+	adding_texture(&data->tex, \
+	get_textures_data(data->mlx_vars->mlx_ptr, data->so, TEX_SO));
+	adding_texture(&data->tex, \
+	get_textures_data(data->mlx_vars->mlx_ptr, data->we, TEX_WE));
+	adding_texture(&data->tex, \
+	get_textures_data(data->mlx_vars->mlx_ptr, data->no, TEX_NO));
 }
 
-t_texture *get_texture(t_texture *tex, int type)
+t_texture	*find_texture(t_texture *tex, int type)
 {
 	while (tex)
 	{
@@ -71,30 +73,36 @@ t_texture *get_texture(t_texture *tex, int type)
 	return (NULL);
 }
 
-int get_texture_color(t_rays *ray, t_data *data, int y, int wall_strip_height)
+t_texture	*get_texture(t_texture *tex, t_rays *ray)
 {
-	t_position tex_offset;
-	double x;
-	int color;
-	t_texture *tmp;
+	int	type;
 
-	(void)wall_strip_height;
-	tmp = NULL;
-
+	type = 0;
 	if (ray->wasHitVertical)
 	{
 		if (ray->angle <= 3 * M_PI_2 && ray->angle >= M_PI_2)
-			tmp = get_texture(data->tex, TEX_WE);
-		else 
-			tmp = get_texture(data->tex, TEX_EA);
+			type = TEX_WE;
+		else
+			type = TEX_EA;
 	}
 	else if (ray->wasHithorizontal)
 	{
 		if (ray->angle >= 0 && ray->angle <= M_PI)
-			tmp = get_texture(data->tex, TEX_SO);
+			type = TEX_SO;
 		else
-			tmp = get_texture(data->tex, TEX_NO);
+			type = TEX_NO;
 	}
+	return (find_texture(tex, type));
+}
+
+int	get_texture_color(t_rays *ray, t_data *data, int y)
+{
+	t_position	tex_offset;
+	double		x;
+	int			color;
+	t_texture	*tmp;
+
+	tmp = get_texture(data->tex, ray);
 	if (!tmp)
 		return (0);
 	if (ray->wasHitVertical)
@@ -106,9 +114,9 @@ int get_texture_color(t_rays *ray, t_data *data, int y, int wall_strip_height)
 	x = y + (ray->wall_strip_height / 2) - (H / 2);
 	if (x < 0)
 		x = 0;
-	tex_offset.y = x * ((double)tmp->height / ray->wall_strip_height) ;
+	tex_offset.y = x * ((double)tmp->height / ray->wall_strip_height);
 	tex_offset.y = floor(tex_offset.y);
 	tex_offset.y *= tmp->width;
 	color = tmp->buff[((int)tex_offset.y + (int)tex_offset.x)];
-	return(color);
+	return (color);
 }

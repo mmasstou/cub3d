@@ -40,30 +40,11 @@ int	init_data(t_data *data)
 int	main(int argc, char *argv[])
 {
 	t_data	data;
-	int i = 0,j = 0;
 
 	checkargs(argc, argv);
 	init_data(&data);
 	parsing(argv, &data);
-	while (data.map[i])
-	{
-		j = 0;
-		while (data.map[i][j])
-		{
-			if (ft_strchr("SNWE", data.map[i][j]) != NULL)
-			{
-				data.player->pos.x = j + 0.5;
-				data.player->pos.y = i + 0.5;
-			}
-			j++;
-		}
-		i++;
-	}
 	init_player(&(data.player));
-	// j = (W > H) ? H: W;
-	// i = (data.map_coords.x > data.map_coords.y) ? data.map_coords.x: data.map_coords.y;
-	// j /= i;
-	// data.unit = j > 20 ? 22 : j;
 	data.unit = 22;
 	draw__(&data);
 	atexit(checkleaks);

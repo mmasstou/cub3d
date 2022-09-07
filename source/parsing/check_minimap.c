@@ -12,14 +12,13 @@
 
 #include "../../includes/cub3d.h"
 
-void	get_player_pos(int x, int y, t_data **data)
+void	check_player_and_zero(t_data *data, char **minimap, int index, int jndex)
 {
-	(*data)->player->pos.x = x;
-	(*data)->player->pos.y = y;
-}
-
-void	check_player_and_zero(char **minimap, int index, int jndex)
-{
+	if (ft_strchr("SNWE", minimap[index][jndex]) != NULL)
+	{
+		data->player->pos.x = jndex + 0.5;
+		data->player->pos.y = index + 0.5;
+	}
 	chech_direction(minimap, index - 1, jndex);
 	chech_direction(minimap, index + 1, jndex);
 	chech_direction(minimap, index, jndex - 1);
@@ -42,7 +41,7 @@ void	check_minimap(char **map, t_data *data)
 				continue ;
 			else if (map[index][jndex] == ZERO || \
 			is_player(map[index][jndex], data) == true)
-				check_player_and_zero(map, index, jndex);
+				check_player_and_zero(data, map, index, jndex);
 			else
 				_error("Stranger Element");
 		}

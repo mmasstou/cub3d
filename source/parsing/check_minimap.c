@@ -12,7 +12,8 @@
 
 #include "../../includes/cub3d.h"
 
-void	check_player_and_zero(t_data *data, char **minimap, int index, int jndex)
+void	check_player_and_zero(
+	t_data *data, char **minimap, int index, int jndex)
 {
 	if (ft_strchr("SNWE", minimap[index][jndex]) != NULL)
 	{

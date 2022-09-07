@@ -10,12 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+// #include "../includes/cub3d.h"
 
 // void	draw__fov(t_data *data)
 // {
 // 	t_rays *tmp;
-	
 // 	tmp = data->rays;
 // 	while (tmp)
 // 	{

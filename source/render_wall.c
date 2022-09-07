@@ -24,7 +24,7 @@ void	draw_wall(t_data *data, t_rays *ray, int x, int y)
 	jndex = (y + y_end_point);
 	while (y <= jndex)
 	{
-		color = get_texture_color(ray, data, y, y_end_point);
+		color = get_texture_color(ray, data, y);
 		my_mlx_pixel_put(x, y, data, color);
 		y++;
 	}

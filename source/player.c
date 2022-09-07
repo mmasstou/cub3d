@@ -34,7 +34,7 @@ void	init_player(t_player **p)
 		(*p)->rotation_angle = 0;
 	else if ((*p)->orientation == 'W')
 		(*p)->rotation_angle = M_PI;
-	(*p)->move_speed = .060641;
+	(*p)->move_speed = 0.090641;
 	printf("(*p)->player %c\n", (*p)->orientation);
 	(*p)->rotation_speed = degreeto_radian(1.5);
 }

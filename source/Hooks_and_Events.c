@@ -56,8 +56,6 @@ int	close_cross(void *param)
 }
 
 int	kay_press(int key, t_data *data){
-	printf("%d\n", key);
-	printf("++%d\n", AROW_DOWN);
 	if (key == 53)
 	{
 		mlx_destroy_image (data->mlx_vars->mlx_ptr, data->mlx_vars->mlx_image);

@@ -12,119 +12,121 @@
 
 #include "../includes/cub3d.h"
 
-double distance_between_points(double x, double y, double angle)
+double	distance_between_points(double x, double y, double angle)
 {
-	// return (sqrt(((x1 - x) * (x1 - x)) + ((y1 - y) * (y1 - y))));
 	return ((y - x) / cos(angle));
 }
 
-double distance_between_points1(double x, double y, double x1, double y1)
+double	distance_between_points1(double x, double y, double x1, double y1)
 {
 	return (sqrt(((x1 - x) * (x1 - x)) + ((y1 - y) * (y1 - y))));
-	// return ((y - x) / cos(angle));
 }
 
-void normalize_angle(double *angle){
+void	normalize_angle(double *angle)
+{
 	*angle = fmod(*angle, (2 * M_PI));
 	if (*angle < 0)
 		*angle += (2 * M_PI);
 }
 
-t_rays	*init_ray(t_data *data, double angle){
-	t_rays *ray;
+t_rays	*init_ray(t_data *data, double angle)
+{
+	t_rays		*ray;
+	t_player	*p;
+	double		bita;
 
 	ray = (t_rays *)malloc(sizeof(t_rays));
 	if (!ray)
 		_error("can't malloc ray");
 	ray->angle = angle;
+	p = data->player;
 	normalize_angle(&(ray->angle));
-	data->player->is_facing_down = (ray->angle >= 0 && ray->angle <= M_PI);
-	data->player->is_facing_up = !data->player->is_facing_down;
-	data->player->is_facing_right = (ray->angle < (0.5 * M_PI) || ray->angle > (1.5 * M_PI));
-	data->player->is_facing_left = !data->player->is_facing_right;
-	ray->distance = 0;
-	ray->wall_hit.x = 0;
-	ray->wall_hit.y = 0;
-	ray->hit = false;
+	bita = ray->angle;
+	p->is_facing_down = (bita >= 0 && bita <= M_PI);
+	p->is_facing_up = !p->is_facing_down;
+	p->is_facing_right = (bita < (0.5 * M_PI) || bita > (1.5 * M_PI));
+	p->is_facing_left = !p->is_facing_right;
 	ray->wasHithorizontal = false;
 	ray->wasHitVertical = false;
 	ray->found_horizontal_wall = false;
 	ray->found_vertical_wall = false;
-	ray->player.x = data->player->pos.x * data->unit;
-	ray->player.y = data->player->pos.y * data->unit;
+	ray->player.x = p->pos.x * data->unit;
+	ray->player.y = p->pos.y * data->unit;
 	ray->next = NULL;
 	return (ray);
 }
 
-
-/*
-TODO :
-*
-	? --&-- Horizontal coord --&-- 
-	! --& -> calcul first intercept[x,y]
-	! --& -> calcul  steps[x,y]
-	! --& ->  finding position to Wall [x,y]
-	! --& -> get distence 
-	? --&-- Vertical coord --&--
-	! --& -> calcul first intercept[x,y]
-	! --& -> calcul  steps[x,y]
-	! --& ->  finding position to Wall [x,y]
-	! --& -> get distence 
-	? find a fianal postion & distance
-
-*/ 
-
-/* 
-*/
-/* 
-*/
-
-t_rays	*cating_rays(t_data *data, double angle)
+t_position	find_intercept(t_data *data, t_rays *ray, int type)
 {
-	t_rays		*ray;
-	t_position intercept;
-	t_position step;
-	double nbr;
-	double horizontall_distance = 0;
-	double vertical_distance = 0;
+	t_position	intercept;
+	t_position	p;
 
-	ray = init_ray(data, angle);
-	
-	//! HORIZONTALL RAY GRID
-	//? intercept y
-	
-	intercept.y = floor(ray->player.y / data->unit) * data->unit;
-	if (data->player->is_facing_down)
-		intercept.y += data->unit;
-	//? intercept x
-	intercept.x = ray->player.x + (intercept.y - ray->player.y) / tan(ray->angle);
+	p = ray->player;
+	if (type == HORIZO_TYPE)
+	{
+		intercept.y = floor(p.y / data->unit) * data->unit;
+		if (data->player->is_facing_down)
+			intercept.y += data->unit;
+		intercept.x = p.x + (intercept.y - p.y) / tan(ray->angle);
+	}
+	else
+	{
+		intercept.x = floor(p.x / data->unit) * data->unit;
+		if (data->player->is_facing_right)
+			intercept.x += data->unit;
+		intercept.y = p.y + (intercept.x - p.x) * tan(ray->angle);
+	}
+	return (intercept);
+}
 
-	
-	//*Steps
-	//	?step y
+t_position	find_vertical_step(t_data *data, t_rays *ray)
+{
+	t_position	step;
+
+	step.x = data->unit;
+	if (data->player->is_facing_left)
+		step.x *= -1;
+	step.y = data->unit * tan(ray->angle);
+	if ((data->player->is_facing_up && step.y > 0))
+		step.y *= -1;
+	if ((data->player->is_facing_down && step.y < 0))
+		step.y *= -1;
+	return (step);
+}
+
+t_position	find_horizontal_step(t_data *data, t_rays *ray)
+{
+	t_position	step;
+
 	step.y = data->unit;
 	if (data->player->is_facing_up)
 		step.y *= -1;
-	//	?step x
 	step.x = data->unit / tan(ray->angle);
 	if ((data->player->is_facing_left && step.x > 0))
 		step.x *= -1;
 	if ((data->player->is_facing_right && step.x < 0))
 		step.x *= -1;
+	return (step);
+}
 
-		
-	//  finding wall hit
+void	find_horizontal_hit_point(
+	t_data *data, t_rays *ray, t_position intercept, t_position step)
+{
+	double	nbr;
+	int		unit;
+
+	unit = data->unit;
 	while (true)
 	{
 		nbr = intercept.y;
 		if (data->player->is_facing_up)
 			nbr --;
-		if (wall_collaction(intercept.x / data->unit, nbr / data->unit, data) == 1)
+		if (wall_collaction(intercept.x / unit, nbr / unit, data) == 1)
 		{
 			ray->found_horizontal_wall = true;
 			ray->horizontal_wall_hit.x = intercept.x;
 			ray->horizontal_wall_hit.y = intercept.y;
-			break;
+			break ;
 		}
 		else
 		{
@@ -132,76 +134,53 @@ t_rays	*cating_rays(t_data *data, double angle)
 			intercept.y += step.y;
 		}
 	}
-	//! VERTICAL RAY GRID
-	//? intercept x
-	intercept.x = floor(ray->player.x / data->unit) * data->unit;
-	if (data->player->is_facing_right)
-		intercept.x += data->unit;
-	//? intercept y
-	intercept.y = ray->player.y + (intercept.x - ray->player.x) * tan(ray->angle);
+}
 
-	//? step x
-	step.x = data->unit;
-	if (data->player->is_facing_left)
-		step.x *= -1;
-	//? step y
-	step.y = data->unit * tan(ray->angle);
-	if ((data->player->is_facing_up && step.y > 0))
-		step.y *= -1;
-	if ((data->player->is_facing_down && step.y < 0))
-		step.y *= -1;
-	//  finding wall hit > (intercept.x >= 0 && intercept.x <= H) && (intercept.y >= 0 && intercept.y <= W)
+void	find_vertical_hit_point(
+	t_data *data, t_rays *ray, t_position intercept, t_position step)
+{
+	double	nbr;
+	int		unit;
+
+	unit = data->unit;
 	while (true)
 	{
 		nbr = intercept.x ;
 		if (data->player->is_facing_left)
 			nbr -= 1;
-		if (wall_collaction(nbr / data->unit, intercept.y / data->unit, data) == 1)
+		if (wall_collaction(nbr / unit, intercept.y / unit, data) == 1)
 		{
 			ray->found_vertical_wall = true;
 			ray->vertical_wall_hit.x = intercept.x ;
 			ray->vertical_wall_hit.y = intercept.y;
-			break;
+			break ;
 		}
 		else
 		{
-			intercept.x  += step.x;
+			intercept.x += step.x;
 			intercept.y += step.y;
 		}	
 	}
-	//  calculate both horizontal and vertical distance
+}
+
+t_position	get_init_distance(t_rays *ray)
+{
+	t_position	distance;
+
 	if (ray->found_horizontal_wall)
-	{
-		horizontall_distance = distance_between_points1(
-			ray->player.x,
-			ray->player.y,
-			ray->horizontal_wall_hit.x,
-			ray->horizontal_wall_hit.y
-		);
-		// horizontall_distance = distance_between_points(
-		// 	ray->player.x,
-		// 	ray->horizontal_wall_hit.x,
-		// 	ray->angle
-		// );
-	}
+		distance.y = distance_between_points(\
+		ray->player.x, ray->horizontal_wall_hit.x, ray->angle);
 	if (ray->found_vertical_wall)
+		distance.x = distance_between_points(\
+		ray->player.x, ray->vertical_wall_hit.x, ray->angle);
+	return (distance);
+}
+
+void	get_final_distance(t_rays *ray, t_position distance)
+{
+	if (distance.y <= distance.x)
 	{
-		vertical_distance = distance_between_points1(
-			ray->player.x,
-			ray->player.y,
-			ray->vertical_wall_hit.x,
-			ray->vertical_wall_hit.y
-		);
-		// vertical_distance = distance_between_points(
-		// 	ray->player.x,
-		// 	ray->vertical_wall_hit.x,
-		// 	ray->angle
-		// );
-	}
-	// get min distance
-	if (horizontall_distance <= vertical_distance)
-	{
-		ray->distance = horizontall_distance;
+		ray->distance = distance.y;
 		ray->wall_hit.x = ray->horizontal_wall_hit.x;
 		ray->wall_hit.y = ray->horizontal_wall_hit.y;
 		ray->wasHithorizontal = true;
@@ -209,7 +188,7 @@ t_rays	*cating_rays(t_data *data, double angle)
 	}
 	else
 	{
-		ray->distance = vertical_distance;
+		ray->distance = distance.x;
 		ray->wall_hit.x = ray->vertical_wall_hit.x;
 		ray->wall_hit.y = ray->vertical_wall_hit.y;
 		ray->wasHitVertical = true;
@@ -217,8 +196,27 @@ t_rays	*cating_rays(t_data *data, double angle)
 	}
 	if (ray->distance < DISTANCE_OF_VIEW)
 		ray->hit = true;
+}
+
+t_rays	*cating_rays(t_data *data, double angle)
+{
+	t_rays		*ray;
+	t_position	intercept;
+	t_position	step;
+	t_position	distance;
+
+	ray = init_ray(data, angle);
+	intercept = find_intercept(data, ray, HORIZO_TYPE);
+	step = find_horizontal_step(data, ray);
+	find_horizontal_hit_point(data, ray, intercept, step);
+	intercept = find_intercept(data, ray, VERTIC_TYPE);
+	step = find_vertical_step(data, ray);
+	find_vertical_hit_point(data, ray, intercept, step);
+	distance = get_init_distance(ray);
+	get_final_distance(ray, distance);
 	return (ray);
 }
+
 //  intersections
 void	adding_ray(t_rays **lst, t_rays *new)
 {
@@ -234,11 +232,12 @@ void	adding_ray(t_rays **lst, t_rays *new)
 		n->next = new;
 	}
 }
-int ray_caste(t_data *data)
+
+int	ray_caste(t_data *data)
 {
-	int colid;
-	double ray_angle;
-	t_rays *ray;
+	int		colid;
+	double	ray_angle;
+	t_rays	*ray;
 
 	data->rays = NULL;
 	ray_angle = data->player->rotation_angle - FOV / 2;

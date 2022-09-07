@@ -236,6 +236,6 @@ void	*ft_reassign(void *oldptr, void *newptr);
 
 // 
 void init_textures(t_data *data);
-int get_texture_color(t_rays *ray, t_data *data, int y, int wall_strip_height);
+int get_texture_color(t_rays *ray, t_data *data, int y);
 void DrawCircle(int r, t_data *data);
 #endif

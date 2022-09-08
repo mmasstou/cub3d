@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:33 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/03 18:06:06 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/08 12:43:20 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	main(int argc, char *argv[])
 	parsing(argv, &data);
 	init_player(&data);
 	draw__(&data);
-	atexit(checkleaks);
+	free_params(&data);
+	free_array(data.map);
+	// atexit(checkleaks);
 	return (0);
 }

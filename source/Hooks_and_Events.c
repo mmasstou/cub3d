@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:28 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/04 19:42:56 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/06 10:57:31 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@ void	draw__(t_data *data){
 	mlx_hook(data->mlx_vars->mlx_window, KeyPress, KeyPressMask, kay_press, data);
 	mlx_hook(data->mlx_vars->mlx_window, KeyRelease, KeyReleaseMask, kay_releass, data);
 	mlx_hook (data->mlx_vars->mlx_window, 17, 1L << 0, close_cross, data);
-	//---- add function to handle mouse hooks ;
+	//---- add function to handle mouse hooks 
 	mlx_hook (data->mlx_vars->mlx_window, 4, 1L << 0, mouse_press, data);
 	mlx_hook (data->mlx_vars->mlx_window, 5, 1L << 0, mouse_release, data);	
 	mlx_hook (data->mlx_vars->mlx_window, 6, 1L << 0, mouse_move, data);
+	//------- 
 	mlx_loop_hook(data->mlx_vars->mlx_ptr, looop__hooking, data);
     mlx_loop (data->mlx_vars->mlx_ptr);
 }

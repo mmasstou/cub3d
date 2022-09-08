@@ -20,7 +20,7 @@ void	stock_minimap(char **map, t_data **data, int minimap_size)
 	if (!(*data)->map)
 		_error("malloc");
 	index = 0;
-	while (map[index])
+	while (map[index] && map[index][0] != '\0')
 	{
 		map[index] = ft_reassign(map[index], ft_strjoin(map[index], " "));
 		(*data)->map[index] = ft_strdup(map[index]);

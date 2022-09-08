@@ -30,13 +30,19 @@ void	check_minimap(char **map, t_data *data)
 {
 	int	index;
 	int	jndex;
+	int	end_map;
 
 	index = -1;
+	end_map = 0;
 	while (map[++index])
 	{
 		jndex = -1;
 		map[index] = ft_reassign(map[index], ft_strtrim(map[index], "\n"));
-		while (map[index][++jndex] != '\0')
+		if (!map[index] ||( map[index] &&  map[index][0] == '\0'))
+			end_map = index;
+		else if ((map[index] || map[index][0] == '\0' ) && end_map != 0)
+			_error("empty Line in Map");
+		while (map[index] && map[index][++jndex] != '\0')
 		{
 			if (map[index][jndex] == SPACE || map[index][jndex] == ONE)
 				continue ;
@@ -49,5 +55,5 @@ void	check_minimap(char **map, t_data *data)
 	}
 	if (data->player->orientation == 0)
 		_error("No player in Map");
-	stock_minimap(map, &data, index + 1);
+	stock_minimap(map, &data, end_map);
 }

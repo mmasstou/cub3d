@@ -26,6 +26,44 @@ void	check_player_and_zero(
 	chech_direction(minimap, index, jndex + 1);
 }
 
+void	is_empty_line(char *line, int *end_map, int index)
+{
+	char	*str;
+
+	str = ft_strtrim(line, " ");
+	if ((!str || str[0] != '\0') && *end_map != 0)
+	{
+		if (line != NULL)
+			_error("Empty Line in Map");
+	}
+	else if ((!str || str[0] == '\0') && *end_map == 0)
+		*end_map = index;
+	free(str);
+}
+
+int	is_element_in_map(
+	t_data *data, char **map, int index, int jndex)
+{
+	int	ret;
+
+	ret = 0;
+	if (map[index][jndex] == SPACE)
+		ret = 1;
+	else if (map[index][jndex] == ONE)
+		ret = 1;
+	else if (map[index][jndex] == ZERO)
+	{
+		check_player_and_zero(data, map, index, jndex);
+		ret = 1;
+	}
+	else if (is_player(map[index][jndex], data))
+	{
+		check_player_and_zero(data, map, index, jndex);
+		ret = 1;
+	}
+	return (ret);
+}
+
 void	check_minimap(char **map, t_data *data)
 {
 	int	index;
@@ -38,19 +76,13 @@ void	check_minimap(char **map, t_data *data)
 	{
 		jndex = -1;
 		map[index] = ft_reassign(map[index], ft_strtrim(map[index], "\n"));
-		if (!map[index] ||( map[index] &&  map[index][0] == '\0'))
-			end_map = index;
-		else if ((map[index] || map[index][0] == '\0' ) && end_map != 0)
-			_error("empty Line in Map");
+		is_empty_line(map[index], &end_map, index);
 		while (map[index] && map[index][++jndex] != '\0')
 		{
-			if (map[index][jndex] == SPACE || map[index][jndex] == ONE)
+			if (is_element_in_map(data, map, index, jndex))
 				continue ;
-			else if (map[index][jndex] == ZERO || \
-			is_player(map[index][jndex], data) == true)
-				check_player_and_zero(data, map, index, jndex);
 			else
-				_error("Stranger Element");
+				_error("Strange Element");
 		}
 	}
 	if (data->player->orientation == 0)

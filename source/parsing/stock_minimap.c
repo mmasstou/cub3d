@@ -16,7 +16,7 @@ void	stock_minimap(char **map, t_data **data, int minimap_size)
 {
 	int	index;
 
-	(*data)->map = (char **)malloc(sizeof(char *) * minimap_size + 1);
+	(*data)->map = (char **)malloc(sizeof(char *) * minimap_size + 6);
 	if (!(*data)->map)
 		_error("malloc");
 	index = 0;

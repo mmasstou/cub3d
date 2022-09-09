@@ -27,6 +27,7 @@ void	init_player(t_player **p)
 	(*p)->turn_direction = 0;
 	(*p)->walk_direction.x = 0;
 	(*p)->walk_direction.y = 0;
+	(*p)->fov = degreeto_radian(60);
 	if ((*p)->orientation == 'N')
 		(*p)->rotation_angle = 3 * M_PI_2;
 	else if ((*p)->orientation == 'S')

@@ -34,6 +34,7 @@ int	init_data(t_data *data)
 	data->exit.ea = 0;
 	data->exit.f = 0;
 	data->exit.c = 0;
+	data->nbr_rays = W / WALL_STRIPE_WITH;
 	return (0);
 }
 

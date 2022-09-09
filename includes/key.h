@@ -21,11 +21,7 @@
 # define A_KEY 0
 # define S_KEY 1
 # define D_KEY 2 
-// mask
-# define KeyPressMask 1L<<0
-# define KeyReleaseMask 1L<<1
-// events
-# define KeyPress 02
-# define KeyRelease 03
+# define KEYPRESS 02
+# define KEYRELEASE 03
 
 #endif

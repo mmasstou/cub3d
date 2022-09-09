@@ -78,14 +78,14 @@ t_texture	*get_texture(t_texture *tex, t_rays *ray)
 	int	type;
 
 	type = 0;
-	if (ray->wasHitVertical)
+	if (ray->was_hit_vertical)
 	{
 		if (ray->angle <= 3 * M_PI_2 && ray->angle >= M_PI_2)
 			type = TEX_WE;
 		else
 			type = TEX_EA;
 	}
-	else if (ray->wasHithorizontal)
+	else if (ray->was_hit_horizontal)
 	{
 		if (ray->angle >= 0 && ray->angle <= M_PI)
 			type = TEX_SO;
@@ -105,7 +105,7 @@ int	get_texture_color(t_rays *ray, t_data *data, int y)
 	tmp = get_texture(data->tex, ray);
 	if (!tmp)
 		return (0);
-	if (ray->wasHitVertical)
+	if (ray->was_hit_vertical)
 		tex_offset.x = ray->wall_hit.y / data->unit;
 	else
 		tex_offset.x = ray->wall_hit.x / data->unit;

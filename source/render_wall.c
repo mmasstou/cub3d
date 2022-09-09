@@ -38,7 +38,7 @@ void	rendering_walll(t_data *data, t_rays *rays, int ray_id)
 
 	ray_distance = rays->distance * cos(\
 	rays->angle - data->player->rotation_angle);
-	distance_project_plane = ((W / 2) / tan(FOV / 2));
+	distance_project_plane = ((W / 2) / tan(data->player->fov / 2));
 	rays->wall_strip_height = \
 	((data->unit / ray_distance) * distance_project_plane);
 	y_start_point = (H / 2) - (rays->wall_strip_height / 2);

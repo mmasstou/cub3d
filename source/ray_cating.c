@@ -46,8 +46,8 @@ t_rays	*init_ray(t_data *data, double angle)
 	p->is_facing_up = !p->is_facing_down;
 	p->is_facing_right = (bita < (0.5 * M_PI) || bita > (1.5 * M_PI));
 	p->is_facing_left = !p->is_facing_right;
-	ray->wasHithorizontal = false;
-	ray->wasHitVertical = false;
+	ray->was_hit_horizontal = false;
+	ray->was_hit_vertical = false;
 	ray->found_horizontal_wall = false;
 	ray->found_vertical_wall = false;
 	ray->player.x = p->pos.x * data->unit;
@@ -183,19 +183,17 @@ void	get_final_distance(t_rays *ray, t_position distance)
 		ray->distance = distance.y;
 		ray->wall_hit.x = ray->horizontal_wall_hit.x;
 		ray->wall_hit.y = ray->horizontal_wall_hit.y;
-		ray->wasHithorizontal = true;
-		ray->wasHitVertical = false;
+		ray->was_hit_horizontal = true;
+		ray->was_hit_vertical = false;
 	}
 	else
 	{
 		ray->distance = distance.x;
 		ray->wall_hit.x = ray->vertical_wall_hit.x;
 		ray->wall_hit.y = ray->vertical_wall_hit.y;
-		ray->wasHitVertical = true;
-		ray->wasHithorizontal = false;
+		ray->was_hit_vertical = true;
+		ray->was_hit_horizontal = false;
 	}
-	if (ray->distance < DISTANCE_OF_VIEW)
-		ray->hit = true;
 }
 
 t_rays	*cating_rays(t_data *data, double angle)
@@ -240,15 +238,16 @@ int	ray_caste(t_data *data)
 	t_rays	*ray;
 
 	data->rays = NULL;
-	ray_angle = data->player->rotation_angle - FOV / 2;
+	data->player->fov_inc = data->player->fov / data->nbr_rays;
+	ray_angle = data->player->rotation_angle - data->player->fov / 2;
 	colid = 0;
-	while (colid <= NBR_RAYS)
+	while (colid <= data->nbr_rays)
 	{
 		ray = cating_rays(data, ray_angle);
 		rendering_walll(data, ray, colid);
 		adding_ray(&(data->rays), ray);
 		colid++;
-		ray_angle += FOV_INC;
+		ray_angle += data->player->fov_inc;
 	}
 	return (0);
 }

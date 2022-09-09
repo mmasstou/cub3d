@@ -32,8 +32,8 @@ void	draw__(t_data *data)
 	ray_caste(data);
 	mlx_put_image_to_window(\
 	mlx->mlx_ptr, mlx->mlx_window, mlx->mlx_image, 0, 0);
-	mlx_hook(mlx->mlx_window, KeyPress, KeyPressMask, kay_press, data);
-	mlx_hook(mlx->mlx_window, KeyRelease, KeyReleaseMask, kay_releass, data);
+	mlx_hook(mlx->mlx_window, KEYPRESS, 1L<<0, kay_press, data);
+	mlx_hook(mlx->mlx_window, KEYRELEASE, 1L<<1, kay_releass, data);
 	mlx_hook (mlx->mlx_window, 17, 1L << 0, close_cross, data);
 	mlx_loop_hook(mlx->mlx_ptr, looop__hooking, data);
 	mlx_loop (mlx->mlx_ptr);

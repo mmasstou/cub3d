@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_params.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 07:25:24 by abellakr          #+#    #+#             */
-/*   Updated: 2022/08/26 15:34:26 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/09 10:50:48 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	get_map_parameters(char **map, t_data *data)
 		}
 		trimmed_line = ft_strtrim(map[i], " \n");
 		line = ft_split(trimmed_line, ' ');
-		if (array_size(line) != 2 && array_size(line) != 0)
+		if (array_size(line) < 2)
 			ft_error();
 		get_line_parameters (line, data);
 		free_array (line);

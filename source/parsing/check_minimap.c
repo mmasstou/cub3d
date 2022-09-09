@@ -87,5 +87,5 @@ void	check_minimap(char **map, t_data *data)
 	}
 	if (data->player->orientation == 0)
 		_error("No player in Map");
-	stock_minimap(map, &data, index + 1);
+	stock_minimap(map, &data, end_map);
 }

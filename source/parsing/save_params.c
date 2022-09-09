@@ -21,7 +21,7 @@ void	save_no(char **line, t_data *data)
 		data->exit.no++;
 	}
 	else if (!ft_strncmp(line[0], "NO", 2) && data->exit.no == 1)
-		ft_error ();
+		_error(NULL);
 }
 
 //-----------------------------------------------------
@@ -33,7 +33,7 @@ void	save_so(char **line, t_data *data)
 		data->exit.so++;
 	}
 	else if (!ft_strncmp(line[0], "SO", 2) && data->exit.so == 1)
-		ft_error();
+		_error(NULL);
 }
 
 //-----------------------------------------------------
@@ -45,7 +45,7 @@ void	save_we(char **line, t_data *data)
 		data->exit.we++;
 	}
 	else if (!ft_strncmp(line[0], "WE", 2) && data->exit.we == 1)
-		ft_error();
+		_error(NULL);
 }
 
 //-----------------------------------------------------
@@ -57,5 +57,5 @@ void	save_ea(char **line, t_data *data)
 		data->exit.ea++;
 	}
 	else if (!ft_strncmp(line[0], "EA", 2) && data->exit.ea == 1)
-		ft_error();
+		_error(NULL);
 }

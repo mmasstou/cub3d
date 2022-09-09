@@ -12,13 +12,6 @@
 
 #include "../includes/cub3d.h"
 
-void	checkleaks(void)
-{
-	printf("\033[0;31m----------------------------\n");
-	system("leaks cub3D");
-	printf("\n----------------------------\n\033[0m");
-}
-
 int	init_data(t_data *data)
 {
 	data->player = (t_player *)malloc(sizeof(t_player));
@@ -26,6 +19,7 @@ int	init_data(t_data *data)
 		_error("can't malloc");
 	data->map = NULL;
 	data->start_map = 0;
+	data->unit = 22;
 	data->params = 0;
 	data->player->walk_direction.x = 0;
 	data->exit.no = 0;
@@ -38,6 +32,18 @@ int	init_data(t_data *data)
 	return (0);
 }
 
+void	free_texture(t_texture *tex)
+{
+	t_texture	*tmp;
+
+	while (tex)
+	{
+		tmp = tex->next;
+		free(tex);
+		tex = tmp;
+	}
+}
+
 int	main(int argc, char *argv[])
 {
 	t_data	data;
@@ -46,8 +52,11 @@ int	main(int argc, char *argv[])
 	init_data(&data);
 	parsing(argv, &data);
 	init_player(&(data.player));
-	data.unit = 22;
-	draw__(&data);
-	atexit(checkleaks);
+	graphic(&data);
+	free_params(&data);
+	free_array(data.map);
+	free(data.player);
+	free(data.rays);
+	free_texture(data.tex);
 	return (0);
 }

@@ -22,6 +22,13 @@ int	ft_rgb(int t, int r, int g, int b)
 	return ((((t * 255) / 100) << 24) | (r << 16) | (g << 8) | b);
 }
 
+void	normalize_angle(double *angle)
+{
+	*angle = fmod(*angle, (2 * M_PI));
+	if (*angle < 0)
+		*angle += (2 * M_PI);
+}
+
 void	init_player(t_player **p)
 {
 	(*p)->turn_direction = 0;
@@ -37,13 +44,13 @@ void	init_player(t_player **p)
 	else if ((*p)->orientation == 'W')
 		(*p)->rotation_angle = M_PI;
 	(*p)->move_speed = 0.090641;
-	(*p)->rotation_speed = degreeto_radian(1.5);
+	(*p)->rotation_speed = degreeto_radian(2.3);
 }
 
 void	player_update(t_data **data)
 {
 	float		step;
-	t_position	new_player;
+	t_pos		new_player;
 	t_player	*ply;
 
 	ply = (*data)->player;

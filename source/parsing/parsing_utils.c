@@ -47,10 +47,3 @@ void	free_params(t_data *data)
 	free (data->we);
 	free (data->ea);
 }
-
-//-------------------------------------------- error function
-void	ft_error(void)
-{
-	printf ("Error\n");
-	exit (1);
-}

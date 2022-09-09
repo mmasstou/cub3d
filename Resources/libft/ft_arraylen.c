@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 09:07:31 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/02 09:27:57 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/09 18:35:35 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_arraylen(char **array)
 {
-	int index;
+	int	index;
 
 	index = -1;
 	while (array[++index])

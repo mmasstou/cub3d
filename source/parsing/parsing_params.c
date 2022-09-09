@@ -31,7 +31,7 @@ void	get_map_parameters(char **map, t_data *data)
 		trimmed_line = ft_strtrim(map[i], " \n");
 		line = ft_split(trimmed_line, ' ');
 		if (array_size(line) != 2 && array_size(line) != 0)
-			ft_error();
+			_error(NULL);
 		get_line_parameters (line, data);
 		free_array (line);
 		free (trimmed_line);
@@ -47,7 +47,7 @@ void	get_line_parameters(char **line, t_data *data)
 	&& ft_strncmp(line[0], "WE", 2) \
 	&& ft_strncmp(line[0], "EA", 2) && ft_strncmp(line[0], "F", 1) \
 	&& ft_strncmp(line[0], "C", 1)))
-		ft_error();
+		_error(NULL);
 	else if ((line[0] && (!ft_strncmp(line[0], "NO", 2) || \
 	!ft_strncmp(line[0], "SO", 2) \
 	|| !ft_strncmp(line[0], "WE", 2) \
@@ -78,10 +78,10 @@ void	check_files(char *filename)
 
 	extension = ft_strrchr(filename, '.');
 	if (extension == NULL || ft_strncmp(extension, ".xpm", 4))
-		ft_error();
+		_error(NULL);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		ft_error();
+		_error(NULL);
 	close (fd);
 }
 

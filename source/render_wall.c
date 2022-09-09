@@ -30,7 +30,7 @@ void	draw_wall(t_data *data, t_rays *ray, int x, int y)
 	}
 }
 
-void	rendering_walll(t_data *data, t_rays *rays, int ray_id)
+void	rendering_wall(t_data *data, t_rays *rays, int ray_id)
 {
 	double	ray_distance;
 	double	distance_project_plane;

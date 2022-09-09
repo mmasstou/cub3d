@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:04 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/02 18:25:09 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/09 18:33:28 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct exist
 typedef struct s_pos{
 	double	x;
 	double	y;
-}	t_position;
+}	t_pos;
 
 typedef struct mlx
 {
@@ -77,10 +77,10 @@ typedef struct mlx
 
 typedef struct rays
 {
-	t_position	player;
-	t_position	wall_hit;
-	t_position	vertical_wall_hit;
-	t_position	horizontal_wall_hit;
+	t_pos		player;
+	t_pos		wall_hit;
+	t_pos		vertical_wall_hit;
+	t_pos		horizontal_wall_hit;
 	double		angle;
 	double		wall_strip_height;
 	double		distance;
@@ -88,7 +88,6 @@ typedef struct rays
 	bool		found_vertical_wall;
 	bool		was_hit_vertical;
 	bool		was_hit_horizontal;
-	struct rays	*next;
 }	t_rays;
 
 typedef struct color
@@ -109,8 +108,8 @@ typedef struct s_tex
 
 typedef struct s_player
 {
-	t_position	walk_direction;
-	t_position	pos;
+	t_pos		walk_direction;
+	t_pos		pos;
 	int			y_start_point;
 	bool		is_facing_down;
 	bool		is_facing_up;
@@ -146,76 +145,67 @@ typedef struct data
 }	t_data;
 
 // -&- SRCS -&-
-void	_error(char *msg);
-void	checkargs(int argc, char *argv[]);
+void		_error(char *msg);
+void		checkargs(int argc, char *argv[]);
 //----------------------------- Parsing
-void	parsing(char *argv[], t_data *data);
-void	stock_minimap(char **map, t_data **data, int map_size);
-bool	is_player(char c, t_data *data);
-void	check_minimap(char **minimap, t_data *data);
-int		get_map_size(char *file);
-void	chech_direction(char **map, int index, int jndex);
-char	**get_g_map(char *file);
-void	parsing_minimap(char **g_map, t_data *data);
-void	get_map_parameters(char **map, t_data *data);
-void	get_line_parameters(char **line, t_data *data);
-void	free_array(char **array);
-int		array_size(char **tab);
-void	save_data(char **line, t_data *data);
-void	save_no(char **line, t_data *data);
-void	save_so(char **line, t_data *data);
-void	save_we(char **line, t_data *data);
-void	save_ea(char **line, t_data *data);
-void	save_f(char **line, t_data *data);
-void	save_c(char **line, t_data *data);
-void	save_color(char *color, char *color_data, t_data *data);
-void	check_color_validity(char **color_tab);
-void	check_color_digit(char **color_tab);
-void	free_params(t_data *data);
-void	check_files(char *filename);
-void	ft_error(void);
-void	ft_check(t_data *data);
+void		parsing(char *argv[], t_data *data);
+void		stock_minimap(char **map, t_data **data, int map_size);
+bool		is_player(char c, t_data *data);
+void		check_minimap(char **minimap, t_data *data);
+int			get_map_size(char *file);
+void		chech_direction(char **map, int index, int jndex);
+char		**get_g_map(char *file);
+void		parsing_minimap(char **g_map, t_data *data);
+void		get_map_parameters(char **map, t_data *data);
+void		get_line_parameters(char **line, t_data *data);
+void		free_array(char **array);
+int			array_size(char **tab);
+void		save_data(char **line, t_data *data);
+void		save_no(char **line, t_data *data);
+void		save_so(char **line, t_data *data);
+void		save_we(char **line, t_data *data);
+void		save_ea(char **line, t_data *data);
+void		save_f(char **line, t_data *data);
+void		save_c(char **line, t_data *data);
+void		save_color(char *color, char *color_data, t_data *data);
+void		check_color_validity(char **color_tab);
+void		check_color_digit(char **color_tab);
+void		free_params(t_data *data);
+void		check_files(char *filename);
+void		ft_check(t_data *data);
 //---------------------------------------- new by bellakrim
-void	graphic(t_data *data);
-void	draw_minimap(t_data *data);
-void	my_mlx_pixel_put(int x, int y, t_data *data, int color);
-int		esc(int keycode, t_data *data);
-int		close_cross(void *param);
-void	render_player(t_data *data, float x, float y, int color);
-int		move_player_release(int key, t_data *data);
-int		move_player_press(int key, t_data *data);
-void	re_draw(t_data *data);
-int		dda(float x, float y, t_data *data);
-int		draw_rays(t_data *data);
-int		drawing_minimap(t_data	*data);
-void	init_player(t_player **p);
-int		drawing_player(t_data	*data);
-void	updata_data(t_data **data);
-int		ft_rgb(int t, int r, int g, int b);
-void	draw_ceilling_floor(t_data *data);
-void	draw_player(float x, float y, t_data *data, int color);
-void	player_render(t_data *data);
-void	player_update(t_data **data);
-double	degreeto_radian(float angle);
-void	field_of_views(float x1, float y1, double ray_angle, t_data *data);
-int		wall_collaction(float index, float jndex, t_data *data);
-int		ray_caste(t_data *data);
-void	dda_function(t_data *vars);
-int		draw__map(t_data	*data);
-void	draw__player(t_data *data);
-int		kay_press(int key, t_data *data);
-int		kay_releass(int key, t_data *data);
-void	draw__(t_data *data);
-int		looop__hooking(t_data *data);
-void	draw__fov(t_data *data);
-void	draw__pov(t_data *data);
-void	normalize_angle(double *angle);
-void	rendering_wall(t_data *data, t_rays *rays);
-void	rendering_walll(t_data *data, t_rays *rays, int col_id);
-int		mouse_move(int x, int y, t_data *param);
-int		mouse_move_clik(int x, int y, t_data *param);
-void	*ft_reassign(void *oldptr, void *newptr);
-void	init_textures(t_data *data);
-int		get_texture_color(t_rays *ray, t_data *data, int y);
-void	DrawCircle(int r, t_data *data);
+void		my_mlx_pixel_put(int x, int y, t_data *data, int color);
+int			close_cross(t_data *param);
+void		re_draw(t_data *data);
+void		init_player(t_player **p);
+int			ft_rgb(int t, int r, int g, int b);
+void		draw_ceilling_floor(t_data *data);
+void		player_update(t_data **data);
+double		degreeto_radian(float angle);
+int			wall_collaction(float index, float jndex, t_data *data);
+int			kay_press(int key, t_data *data);
+int			kay_releass(int key, t_data *data);
+void		graphic(t_data *data);
+void		re_draw__(t_data *data);
+int			looop__hooking(t_data *data);
+int			ray_caste(t_data *data);
+t_rays		*cating_rays(t_data *data, double angle);
+double		distance_between_points(double x, double y, double angle);
+t_rays		*init_ray(t_data *data, double angle);
+t_pos		find_intercept(t_data *data, t_rays *ray, int type);
+t_pos		find_horizontal_step(t_data *data, t_rays *ray);
+t_pos		find_vertical_step(t_data *data, t_rays *ray);
+void		find_horizontal_hit_point(\
+			t_data *data, t_rays *ray, t_pos intercept, t_pos step);
+void		find_vertical_hit_point(\
+			t_data *data, t_rays *ray, t_pos intercept, t_pos step);
+t_pos		get_init_distance(t_rays *ray);
+void		get_final_distance(t_rays *ray, t_pos distance);
+void		normalize_angle(double *angle);
+void		rendering_wall(t_data *data, t_rays *rays, int col_id);
+void		*ft_reassign(void *oldptr, void *newptr);
+void		init_textures(t_data *data);
+int			get_texture_color(t_rays *ray, t_data *data, int y);
+t_texture	*get_texture(t_texture *tex, t_rays *ray);
+void		free_texture(t_texture *tex);
 #endif

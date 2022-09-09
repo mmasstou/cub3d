@@ -51,7 +51,7 @@ int	is_element_in_map(
 		ret = 1;
 	else if (map[index][jndex] == ONE)
 		ret = 1;
-	else if (map[index][jndex] == ZERO )
+	else if (map[index][jndex] == ZERO)
 	{
 		check_player_and_zero(data, map, index, jndex);
 		ret = 1;
@@ -75,18 +75,17 @@ void	check_minimap(char **map, t_data *data)
 	while (map[++index])
 	{
 		jndex = -1;
-		// map[index] = ft_reassign(map[index], ft_strtrim(map[index], "\n"));
-		map[index] = ft_strtrim(map[index], "\n");
+		map[index] = ft_reassign(map[index], ft_strtrim(map[index], "\n"));
 		is_empty_line(map[index], &end_map, index);
 		while (map[index] && map[index][++jndex] != '\0')
 		{
 			if (is_element_in_map(data, map, index, jndex))
-				continue;
+				continue ;
 			else
 				_error("Strange Element");
 		}
 	}
 	if (data->player->orientation == 0)
 		_error("No player in Map");
-	stock_minimap(map, &data, end_map);
+	stock_minimap(map, &data, index + 1);
 }

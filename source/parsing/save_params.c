@@ -15,13 +15,15 @@
 //-----------------------------------------------------
 void	save_no(char **line, t_data *data)
 {
-	int i = 1;
-	char *tmp1;
-	char *tmp2;
+	char	*tmp1;
+	char	*tmp2;
+	int		i;
+
+	i = 1;
 	if (!ft_strncmp(line[0], "NO", 2) && data->exit.no == 0)
 	{
 		tmp1 = ft_strdup(line[i]);
-		while(line[++i])
+		while (line[++i])
 		{
 			tmp2 = ft_strjoin(tmp1, " ");
 			free(tmp1);
@@ -39,13 +41,15 @@ void	save_no(char **line, t_data *data)
 //-----------------------------------------------------
 void	save_so(char **line, t_data *data)
 {
-	int i = 1;
-	char *tmp1;
-	char *tmp2;
+	int		i;
+	char	*tmp1;
+	char	*tmp2;
+
+	i = 1;
 	if (!ft_strncmp(line[0], "SO", 2) && data->exit.so == 0)
 	{
 		tmp1 = ft_strdup(line[i]);
-		while(line[++i])
+		while (line[++i])
 		{
 			tmp2 = ft_strjoin(tmp1, " ");
 			free(tmp1);
@@ -63,13 +67,15 @@ void	save_so(char **line, t_data *data)
 //-----------------------------------------------------
 void	save_we(char **line, t_data *data)
 {
-	int i = 1;
-	char *tmp1;
-	char *tmp2;
+	int		i;
+	char	*tmp1;
+	char	*tmp2;
+
+	i = 1;
 	if (!ft_strncmp(line[0], "WE", 2) && data->exit.we == 0)
 	{
 		tmp1 = ft_strdup(line[i]);
-		while(line[++i])
+		while (line[++i])
 		{
 			tmp2 = ft_strjoin(tmp1, " ");
 			free(tmp1);
@@ -87,13 +93,15 @@ void	save_we(char **line, t_data *data)
 //-----------------------------------------------------
 void	save_ea(char **line, t_data *data)
 {
-	int i = 1;
-	char *tmp1;
-	char *tmp2;
+	int		i;
+	char	*tmp1;
+	char	*tmp2;
+
+	i = 1;
 	if (!ft_strncmp(line[0], "EA", 2) && data->exit.ea == 0)
 	{
 		tmp1 = ft_strdup(line[i]);
-		while(line[++i])
+		while (line[++i])
 		{
 			tmp2 = ft_strjoin(tmp1, " ");
 			free(tmp1);

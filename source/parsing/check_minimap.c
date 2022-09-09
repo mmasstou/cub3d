@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_minimap.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:24:12 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/02 10:20:22 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/09 11:09:49 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,5 @@ void	check_minimap(char **map, t_data *data)
 	}
 	if (data->player->orientation == 0)
 		_error("No player in Map");
-	stock_minimap(map, &data, end_map);
+	stock_minimap(map, &data, index + 1);
 }

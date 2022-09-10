@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:33 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/02 16:52:07 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/10 11:08:31 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	init_data(t_data *data)
 	data->exit.f = 0;
 	data->exit.c = 0;
 	data->nbr_rays = W / WALL_STRIPE_WITH;
+	data->pressed = FALSE;
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:04 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/09 18:33:28 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/10 13:04:33 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,11 @@ typedef struct data
 	int			start_map;
 	int			unit;
 	int			nbr_rays;
+	bool	pressed;
+	int color_circle;
+	double centre;
+	int init_x_mouse;
+
 }	t_data;
 
 // -&- SRCS -&-
@@ -208,4 +213,14 @@ void		init_textures(t_data *data);
 int			get_texture_color(t_rays *ray, t_data *data, int y);
 t_texture	*get_texture(t_texture *tex, t_rays *ray);
 void		free_texture(t_texture *tex);
+//------------------------- bonus
+void	draw_all(t_data *data);
+double	percent_function(double value, double max_value);
+int shadowing_function(int color, double percent);
+int mouse_move(int x, int y, void *param);
+int mouse_press(int button, int x, int y, void *param);
+int mouse_release(int button, int x, int y, void *param);
+//--------------- draw
+void DrawCircle(int r, t_data *data);
+void    dda_circle(double x1, double y1,double x2, double y2,t_data *vars);
 #endif

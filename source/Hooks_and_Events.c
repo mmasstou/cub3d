@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Hooks_and_Events.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:28 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/09 18:11:40 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/10 13:32:10 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 int	looop__hooking(t_data *data)
 {
+	if(data->pressed == true)
+		data->player->rotation_speed = degreeto_radian(8);
+	else if (data->pressed == false)
+		data->player->rotation_speed = degreeto_radian(6);
 	player_update(&data);
 	re_draw__(data);
 	return (0);

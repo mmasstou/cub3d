@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 18:11:18 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/10 13:28:02 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/10 14:19:52 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	draw_all(t_data *data)
 	draw_ceilling_floor(data);
 	ray_caste(data);
 	DrawCircle(RADIUS, data);
-	// draw map
-	// draw fov
+	draw__map(data);
+	draw__fov(data);
 }
 //-----------------------------------------------------
 int mouse_move(int x, int y, void *param)
@@ -143,4 +143,129 @@ void    dda_circle(double x1, double y1,double x2, double y2,t_data *vars)
         x1 += dx;
         y1 += dy;
     }
+}
+//--------------------------------------------------------------------------------
+void    draw_rect(double x, double y, t_data *data, int color, int type)
+{
+	int index;
+	int jndex;
+	int i;
+	int j;
+
+	index = (x + data->unit);
+	i = (y + data->unit); 
+	j = y;
+	while (x <= index - type)
+	{
+		jndex = i;
+		y = j;
+		while (y <= jndex - type)
+		{
+            if(sqrt(pow(x - data->centre, 2) + pow(y - data->centre, 2)) < RADIUS)
+				my_mlx_pixel_put(x, y, data, color);
+			y++;
+		}
+		x++;
+	}
+}
+//------------------------------------------------------------------------
+int	draw__map(t_data *data)
+{
+	
+	int index = 0;
+	int jndex;
+	data->unit = 30;
+	while (data->map[index])
+	{
+		jndex = 0;
+		while (data->map[index][jndex] && data->map[index][jndex] != '\n')
+		{
+			data->unit_x = jndex * data->unit;
+			data->unit_y = index * data->unit;
+			translation_map(data);
+			if (data->map[index][jndex] == '0' || ft_strchr("SNWE", data->map[index][jndex]) != NULL)
+				draw_rect(data->x_translation, data->y_translation, data, EMPTY_SPACE, 0);
+			else if (data->map[index][jndex] == '1')
+				draw_rect(data->x_translation, data->y_translation, data, WALL, 0);
+			jndex ++;
+		}
+		index ++;
+	}
+	return (0);
+}
+//------------------------------------------- translation map
+void	translation_map(t_data *data)
+{
+	data->k_x = data->player->pos.x * data->unit - data->centre;
+	data->k_y = data->player->pos.y * data->unit - data->centre;
+	//-----------------------------------------
+	if(data->k_x == 0)
+		data->x_translation = data->unit_x;
+	if(data->k_x > 0)
+		data->x_translation = data->unit_x - fabs(data->k_x);
+	else if(data->k_x < 0)
+		data->x_translation = data->unit_x + fabs(data->k_x);
+		//----------------------------
+	if(data->k_y == 0)
+		data->y_translation = data->unit_y;
+	else if(data->k_y < 0)
+		data->y_translation = data->unit_y + fabs(data->k_y);
+	else if(data->k_y > 0)
+		data->y_translation = data->unit_y - fabs(data->k_y);
+}
+//---------------------------------------------------- draw fieald of view 
+void	draw__fov(t_data *data)
+{
+	t_rays *tmp;
+	
+	tmp = data->rays;
+	translation_player(data);
+	while(tmp)
+	{
+		data->x1 = data->x_translation;
+		data->y1 = data->y_translation;
+		translation_fov(data, tmp->wall_hit.x, tmp->wall_hit.y);
+		data->x2 = data->x_fov;
+		data->y2 = data->y_fov;
+		//color
+		data->player->color = BLACK;
+		draw_line(data, data->x_translation, data->y_translation, data->x_fov, data->y_fov);
+		tmp = tmp->next;
+	}
+}
+//------------------------------------------- translation fov
+void translation_fov(t_data *data, float x, float y)
+{
+	data->k_x = data->player->pos.x * data->unit - data->centre;
+	data->k_y = data->player->pos.y * data->unit - data->centre;
+	if(data->k_x == 0)
+		data->x_fov = x;
+	else if(data->k_x > 0)
+		data->x_fov = x - fabs(data->k_x);
+	else if(data->k_x < 0)
+		data->x_fov = x + fabs(data->k_x);
+	if(data->k_y == 0)
+		data->y_fov = y;
+	else if(data->k_y < 0)
+		data->y_fov = y + fabs(data->k_y);
+	else if(data->k_y > 0)
+		data->y_fov = y - fabs(data->k_y);
+}
+//-------------------------------------------------------------
+void	translation_player(t_data *data)
+{
+	data->k_x = data->player->pos.x * data->unit - data->centre;
+	data->k_y = data->player->pos.y * data->unit - data->centre;
+	if(data->k_x == 0)
+		data->x_translation = data->player->pos.x * data->unit;
+	else if(data->k_x > 0)
+		data->x_translation = data->player->pos.x * data->unit - fabs(data->k_x);
+	else if(data->k_x < 0)
+		data->x_translation = data->player->pos.x * data->unit + fabs(data->k_x);
+	if(data->k_y == 0)
+		data->y_translation = data->player->pos.y * data->unit;
+	else if(data->k_y < 0)
+		data->y_translation = (data->player->pos.y * data->unit) + fabs(data->k_y);
+	else if(data->k_y > 0)
+		data->y_translation = (data->player->pos.y * data->unit) - fabs(data->k_y);
 }

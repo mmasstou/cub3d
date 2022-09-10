@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:04 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/10 13:04:33 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/10 14:14:04 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct mlx
 	int		endian;
 }	t_mlx;
 
-typedef struct rays
+typedef struct s_rays
 {
 	t_pos		player;
 	t_pos		wall_hit;
@@ -88,6 +88,7 @@ typedef struct rays
 	bool		found_vertical_wall;
 	bool		was_hit_vertical;
 	bool		was_hit_horizontal;
+	struct s_rays	*next;
 }	t_rays;
 
 typedef struct color
@@ -122,6 +123,7 @@ typedef struct s_player
 	double		rotation_angle;
 	double		move_speed;
 	double		rotation_speed;
+	int color;
 }	t_player;
 
 typedef struct data
@@ -146,6 +148,18 @@ typedef struct data
 	int color_circle;
 	double centre;
 	int init_x_mouse;
+	double unit_x;
+	double unit_y;
+	double x_translation;
+	double y_translation;
+	double k_x;
+	double k_y;
+	double x1;
+	double y1;
+	double x2;
+	double y2;
+	double x_fov;
+	double y_fov;
 
 }	t_data;
 
@@ -223,4 +237,11 @@ int mouse_release(int button, int x, int y, void *param);
 //--------------- draw
 void DrawCircle(int r, t_data *data);
 void    dda_circle(double x1, double y1,double x2, double y2,t_data *vars);
+void    draw_rect(double x, double y, t_data *data, int color, int type);
+int	draw__map(t_data *data);
+void	translation_map(t_data *data);
+void	draw__fov(t_data *data);
+void translation_fov(t_data *data, float x, float y);
+void    draw_line(t_data *data, int x, int y, int x1, int y1);
+void	translation_player(t_data *data);
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_cating.c                                       :+:      :+:    :+:   */
+/*   ray_catingUtils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:47 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/02 10:32:13 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/10 14:16:20 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_rays	*init_ray(t_data *data, double angle)
 	ray->found_vertical_wall = false;
 	ray->player.x = p->pos.x * data->unit;
 	ray->player.y = p->pos.y * data->unit;
+	ray->next = NULL;
 	return (ray);
 }
 

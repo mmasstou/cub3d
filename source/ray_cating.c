@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_cating.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:47 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/02 10:32:13 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/10 14:06:20 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,21 @@ t_rays	*cating_rays(t_data *data, double angle)
 	return (ray);
 }
 
+void	adding_ray(t_rays **lst, t_rays *new)
+{
+	t_rays	*n;
+
+	if (*lst == NULL)
+		*lst = new;
+	else
+	{
+		n = *lst;
+		while (n->next != NULL)
+			n = n->next;
+		n->next = new;
+	}
+}
+
 int	ray_caste(t_data *data)
 {
 	int		colid;
@@ -45,6 +60,7 @@ int	ray_caste(t_data *data)
 	{
 		ray = cating_rays(data, ray_angle);
 		rendering_wall(data, ray, colid);
+		adding_ray(&(data->rays), ray);
 		colid++;
 		ray_angle += data->player->fov_inc;
 	}

@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 18:11:18 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/10 14:19:52 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/10 14:57:29 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,7 @@ void	draw__fov(t_data *data)
 	t_rays *tmp;
 	
 	tmp = data->rays;
+	data->color_circle = 0;
 	translation_player(data);
 	while(tmp)
 	{

@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:28 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/10 13:32:10 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/10 14:49:15 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	looop__hooking(t_data *data)
 {
 	if(data->pressed == true)
-		data->player->rotation_speed = degreeto_radian(8);
+		data->player->rotation_speed = degreeto_radian(3);
 	else if (data->pressed == false)
-		data->player->rotation_speed = degreeto_radian(6);
+		data->player->rotation_speed = degreeto_radian(5);
 	player_update(&data);
 	re_draw__(data);
 	return (0);

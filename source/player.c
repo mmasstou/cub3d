@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:42 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/10 13:08:42 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/10 14:49:23 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	init_player(t_player **p)
 		(*p)->rotation_angle = 0;
 	else if ((*p)->orientation == 'W')
 		(*p)->rotation_angle = M_PI;
-	(*p)->move_speed = 0.2;
-	(*p)->rotation_speed = degreeto_radian(6);
+	(*p)->move_speed = 0.1;
+	(*p)->rotation_speed = degreeto_radian(5);
 }
 
 void	player_update(t_data **data)

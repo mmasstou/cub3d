@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:04 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/10 14:14:04 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/11 11:28:11 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,17 @@ typedef struct mlx
 
 typedef struct s_rays
 {
-	t_pos		player;
-	t_pos		wall_hit;
-	t_pos		vertical_wall_hit;
-	t_pos		horizontal_wall_hit;
-	double		angle;
-	double		wall_strip_height;
-	double		distance;
-	bool		found_horizontal_wall;
-	bool		found_vertical_wall;
-	bool		was_hit_vertical;
-	bool		was_hit_horizontal;
+	t_pos			player;
+	t_pos			wall_hit;
+	t_pos			vertical_wall_hit;
+	t_pos			horizontal_wall_hit;
+	double			angle;
+	double			wall_strip_height;
+	double			distance;
+	bool			found_horizontal_wall;
+	bool			found_vertical_wall;
+	bool			was_hit_vertical;
+	bool			was_hit_horizontal;
 	struct s_rays	*next;
 }	t_rays;
 
@@ -123,7 +123,7 @@ typedef struct s_player
 	double		rotation_angle;
 	double		move_speed;
 	double		rotation_speed;
-	int color;
+	int			color;
 }	t_player;
 
 typedef struct data
@@ -144,22 +144,22 @@ typedef struct data
 	int			start_map;
 	int			unit;
 	int			nbr_rays;
-	bool	pressed;
-	int color_circle;
-	double centre;
-	int init_x_mouse;
-	double unit_x;
-	double unit_y;
-	double x_translation;
-	double y_translation;
-	double k_x;
-	double k_y;
-	double x1;
-	double y1;
-	double x2;
-	double y2;
-	double x_fov;
-	double y_fov;
+	bool		pressed;
+	int			color_circle;
+	double		centre;
+	int			init_x_mouse;
+	double		unit_x;
+	double		unit_y;
+	double		x_translation;
+	double		y_translation;
+	double		k_x;
+	double		k_y;
+	double		x1;
+	double		y1;
+	double		x2;
+	double		y2;
+	double		x_fov;
+	double		y_fov;
 
 }	t_data;
 
@@ -228,20 +228,20 @@ int			get_texture_color(t_rays *ray, t_data *data, int y);
 t_texture	*get_texture(t_texture *tex, t_rays *ray);
 void		free_texture(t_texture *tex);
 //------------------------- bonus
-void	draw_all(t_data *data);
-double	percent_function(double value, double max_value);
-int shadowing_function(int color, double percent);
-int mouse_move(int x, int y, void *param);
-int mouse_press(int button, int x, int y, void *param);
-int mouse_release(int button, int x, int y, void *param);
+void		draw_all(t_data *data);
+double		percent_function(double value, double max_value);
+int			shadowing_function(int color, double percent);
+int			mouse_move(int x, int y, void *param);
+int			mouse_press(int button, int x, int y, void *param);
+int			mouse_release(int button, int x, int y, void *param);
 //--------------- draw
-void DrawCircle(int r, t_data *data);
-void    dda_circle(double x1, double y1,double x2, double y2,t_data *vars);
-void    draw_rect(double x, double y, t_data *data, int color, int type);
-int	draw__map(t_data *data);
-void	translation_map(t_data *data);
-void	draw__fov(t_data *data);
-void translation_fov(t_data *data, float x, float y);
-void    draw_line(t_data *data, int x, int y, int x1, int y1);
-void	translation_player(t_data *data);
+void		DrawCircle(int r, t_data *data);
+int			draw__map(t_data *data);
+void		translation_map(t_data *data);
+void		draw__fov(t_data *data);
+void		translation_fov(t_data *data, float x, float y);
+void		translation_player(t_data *data);
+void		dda_circle(double x1, double y1, double x2, double y2, t_data *vars);
+void		draw_line(t_data *data, int x, int y, int x1, int y1);
+void		draw_rect(double x, double y, t_data *data, int color, int type);
 #endif

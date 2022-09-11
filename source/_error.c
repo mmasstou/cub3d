@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 11:24:54 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/11 08:43:20 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/11 13:17:48 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	_error(char *msg)
 	{
 		ft_putstr_fd(" ❌", STDERR_FILENO);
 		ft_putstr_fd(msg, STDERR_FILENO);
+		ft_putendl_fd("\033[0m", STDERR_FILENO);
 	}
-	ft_putendl_fd("\033[0m", STDERR_FILENO);
 	exit(1);
 }

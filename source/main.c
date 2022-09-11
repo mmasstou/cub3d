@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:33 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/02 16:52:07 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/11 12:30:23 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,6 @@ int	init_data(t_data *data)
 	data->exit.c = 0;
 	data->nbr_rays = W / WALL_STRIPE_WITH;
 	return (0);
-}
-
-void	free_texture(t_texture *tex)
-{
-	t_texture	*tmp;
-
-	while (tex)
-	{
-		tmp = tex->next;
-		free(tex);
-		tex = tmp;
-	}
 }
 
 int	main(int argc, char *argv[])

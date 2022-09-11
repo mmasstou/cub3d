@@ -6,11 +6,23 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 12:42:42 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/11 12:00:02 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/11 12:30:30 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	free_texture(t_texture *tex)
+{
+	t_texture	*tmp;
+
+	while (tex)
+	{
+		tmp = tex->next;
+		free(tex);
+		tex = tmp;
+	}
+}
 
 int	get_texture_color(t_rays *ray, t_data *data, int y)
 {

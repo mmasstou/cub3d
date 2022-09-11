@@ -6,28 +6,11 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:42 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/02 15:53:35 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/11 13:09:53 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-double	degreeto_radian(float angle)
-{
-	return (angle * (M_PI / 180));
-}
-
-int	ft_rgb(int t, int r, int g, int b)
-{
-	return ((((t * 255) / 100) << 24) | (r << 16) | (g << 8) | b);
-}
-
-void	normalize_angle(double *angle)
-{
-	*angle = fmod(*angle, (2 * M_PI));
-	if (*angle < 0)
-		*angle += (2 * M_PI);
-}
 
 void	init_player(t_player **p)
 {

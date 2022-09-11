@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:33 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/10 11:08:31 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/11 14:48:35 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	init_data(t_data *data)
 		_error("can't malloc");
 	data->map = NULL;
 	data->start_map = 0;
-	data->unit = 22;
+	data->unit = 32;
 	data->params = 0;
 	data->player->walk_direction.x = 0;
 	data->exit.no = 0;

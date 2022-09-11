@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:04 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/11 11:28:11 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/11 12:01:55 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,7 @@ void		translation_map(t_data *data);
 void		draw__fov(t_data *data);
 void		translation_fov(t_data *data, float x, float y);
 void		translation_player(t_data *data);
+//-----------------
 void		dda_circle(double x1, double y1, double x2, double y2, t_data *vars);
 void		draw_line(t_data *data, int x, int y, int x1, int y1);
 void		draw_rect(double x, double y, t_data *data, int color, int type);

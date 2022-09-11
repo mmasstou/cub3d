@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 11:56:25 by abellakr          #+#    #+#             */
-/*   Updated: 2022/09/11 12:05:11 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/11 14:19:29 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,45 +17,47 @@ void DrawCircle(int r, t_data *data)
 {
     double i;
 	double angle;
-	double x1;
-	double  y1;
+	t_pos p1;
+	t_pos p2;
 	
 	i = 0;
 	data->color_circle = WHITE;
 	data->centre = r + BORDER;
+	p1.x = r + BORDER;
+	p1.y = r + BORDER;
 	while(i < 360)
 	{
         angle = i;
-        x1 = r * cos(angle * M_PI / 180) + r;
-        y1 = r * sin(angle * M_PI / 180) + r;
-        dda_circle(r + BORDER, r + BORDER, x1 + BORDER, y1 + BORDER, data);
+        p2.x = (r * cos(angle * M_PI / 180) + r) + BORDER;
+        p2.y = (r * sin(angle * M_PI / 180) + r) + BORDER;
+        dda_circle(p1, p2,data);
 		i+=0.01;
     }
 }
 //----------------- draw line function  for circle
-void    dda_circle(double x1, double y1,double x2, double y2,t_data *vars)
+void    dda_circle(t_pos p1, t_pos p2, t_data *vars)
 {
     double    steps;
     double    dx;
     double    dy;
 
-    dx = x2 - x1;
-    dy = y2 - y1;
+    dx = p2.x - p1.x;
+    dy = p2.y - p1.y;
     if (fabs(dx) > fabs(dy))
         steps = fabs(dx);
     else
         steps = fabs(dy);
     dx /= steps;
     dy /= steps;
-    while ((int)(x1 - x2) || (int)(y1 - y2))
+    while ((int)(p1.x - p2.x) || (int)(p1.y - p2.y))
     {
-        my_mlx_pixel_put(x1 , y1 , vars, vars->color_circle);
-        x1 += dx;
-        y1 += dy;
+        my_mlx_pixel_put(p1.x , p1.y , vars, vars->color_circle);
+        p1.x += dx;
+        p1.y += dy;
     }
 }
 //--------------------------------------------------------------------------------
-void    draw_rect(double x, double y, t_data *data, int color, int type)
+void    draw_rect(double x, double y, t_data *data, int color)
 {
 	int index;
 	int jndex;
@@ -65,13 +67,13 @@ void    draw_rect(double x, double y, t_data *data, int color, int type)
 	index = (x + data->unit);
 	i = (y + data->unit); 
 	j = y;
-	while (x <= index - type)
+	while (x <= index)
 	{
 		jndex = i;
 		y = j;
-		while (y <= jndex - type)
+		while (y <= jndex)
 		{
-            if(sqrt(pow(x - data->centre, 2) + pow(y - data->centre, 2)) < RADIUS)
+            if(sqrt(pow(x - data->centre, 2) + pow(y - data->centre, 2)) <= RADIUS)
 				my_mlx_pixel_put(x, y, data, color);
 			y++;
 		}

@@ -6,40 +6,46 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 09:05:40 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/10 14:58:34 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/11 15:32:37 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-//-----------------------------------------------------------------------------
-void draw_line(t_data *data, int x, int y, int x1, int y1)
+// -----------------------------------------------------------------------------
+void draw_line(t_data *data, t_pos p1, t_pos p2)
 {
-    int dx, dy, err, sx,sy,e2;
+    t_line var;
 
-    dx = abs(x1 - x);
-    dy = -abs(y1 - y);
-    sx = x < x1 ? 1 : -1;
-    sy = y < y1 ? 1 : -1;
-    err = dx + dy;
+    var.dx = abs(p2.i - p1.i);
+    var.dy = -abs(p2.j - p1.j);
+    if(p1.i < p2.i)
+       var.sx = 1;
+     else
+        var.sx = -1;
+    if(p1.j < p2.j)
+       var.sy = 1;
+     else
+        var.sy = -1;
+    var.e1 = var.dx + var.dy;
     while (1)
     {
-        if(sqrt(pow(x - data->centre, 2) + pow(y - data->centre, 2)) < RADIUS)	
-        	my_mlx_pixel_put(x,y,data,data->player->color);
-        e2 = 2*err;
-        if (e2 >= dy) 
-        { /* e_xy+e_x > 0 */
-            if (x == x1)
+        if(sqrt(pow(p1.i - data->centre, 2) + pow(p1.j - data->centre, 2)) <= RADIUS)	
+        	my_mlx_pixel_put(p1.i,p1.j,data,data->player->color);
+        var.e2 = 2 * var.e1;
+        if (var.e2 >= var.dy) 
+        {
+            if (p1.i == p2.i)
                 break;
-            err += dy;
-            x += sx;
+            var.e1 += var.dy;
+            p1.i += var.sx;
          }
-         if (e2 <= dx) 
-        { /* e_xy+e_y < 0 */
-            if (y == y1) 
+         if (var.e2 <= var.dx) 
+        {
+            if (p1.j == p2.j) 
                  break;
-            err += dx;
-            y += sy;
+            var.e1 += var.dx;
+            p1.j += var.sy;
          }
     }
 }

@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:04 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/11 12:01:55 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/11 15:21:50 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef struct exist
 typedef struct s_pos{
 	double	x;
 	double	y;
+	int i;
+	int j;
 }	t_pos;
 
 typedef struct mlx
@@ -162,7 +164,15 @@ typedef struct data
 	double		y_fov;
 
 }	t_data;
-
+typedef struct s_line
+{
+	int	dx;
+	int	dy;
+	int	e1;
+	int	sx;
+	int	sy;
+	int	e2;
+}	t_line;
 // -&- SRCS -&-
 void		_error(char *msg);
 void		checkargs(int argc, char *argv[]);
@@ -242,7 +252,7 @@ void		draw__fov(t_data *data);
 void		translation_fov(t_data *data, float x, float y);
 void		translation_player(t_data *data);
 //-----------------
-void		dda_circle(double x1, double y1, double x2, double y2, t_data *vars);
-void		draw_line(t_data *data, int x, int y, int x1, int y1);
-void		draw_rect(double x, double y, t_data *data, int color, int type);
+void		dda_circle(t_pos p1, t_pos p2,t_data *vars);
+void		draw_rect(double x, double y, t_data *data, int color);
+void		draw_line(t_data *data, t_pos p1, t_pos p2);
 #endif

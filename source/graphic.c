@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 18:11:18 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/11 14:49:13 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/11 16:25:41 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,11 @@ void	draw_all(t_data *data)
 {
 	draw_ceilling_floor(data);
 	ray_caste(data);
-	DrawCircle(RADIUS, data);
+	draw_circle(RADIUS, data);
 	draw__map(data);
 	draw__fov(data);
 }
+
 //------------------------------------------------ redraw 
 void	re_draw__(t_data *data)
 {
@@ -70,15 +71,14 @@ void	re_draw__(t_data *data)
 //---------------------------------------------------- draw fieald of view 
 void	draw__fov(t_data *data)
 {
-	t_rays *tmp;
+	t_rays	*tmp;
 	t_pos	p1;
 	t_pos	p2;
-	
+
 	tmp = data->rays;
 	data->color_circle = 0;
 	translation_player(data);
-
-	while(tmp)
+	while (tmp)
 	{
 		translation_fov(data, tmp->wall_hit.x, tmp->wall_hit.y);
 		data->player->color = BLACK;
@@ -94,9 +94,10 @@ void	draw__fov(t_data *data)
 //------------------------------------------------------------------------
 int	draw__map(t_data *data)
 {
-	
-	int index = 0;
-	int jndex;
+	int	index;
+	int	jndex;
+
+	index = 0;
 	data->unit = 30;
 	while (data->map[index])
 	{
@@ -106,8 +107,10 @@ int	draw__map(t_data *data)
 			data->unit_x = jndex * data->unit;
 			data->unit_y = index * data->unit;
 			translation_map(data);
-			if (data->map[index][jndex] == '0' || ft_strchr("SNWE", data->map[index][jndex]) != NULL)
-				draw_rect(data->x_translation, data->y_translation, data, EMPTY_SPACE);
+			if (data->map[index][jndex] == '0' || \
+			ft_strchr("SNWE", data->map[index][jndex]) != NULL)
+				draw_rect(data->x_translation, data->y_translation, \
+				data, EMPTY_SPACE);
 			else if (data->map[index][jndex] == '1')
 				draw_rect(data->x_translation, data->y_translation, data, WALL);
 			jndex ++;

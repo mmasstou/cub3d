@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:28 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/10 14:49:15 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/11 16:26:20 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	looop__hooking(t_data *data)
 {
-	if(data->pressed == true)
+	if (data->pressed == true)
 		data->player->rotation_speed = degreeto_radian(3);
 	else if (data->pressed == false)
 		data->player->rotation_speed = degreeto_radian(5);

@@ -6,7 +6,7 @@
 #    By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/11 11:54:55 by abellakr          #+#    #+#              #
-#    Updated: 2022/09/11 11:55:40 by abellakr         ###   ########.fr        #
+#    Updated: 2022/09/11 12:04:36 by abellakr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ EVENTS = events/
 FRAMEWORKS =  $(MINILIBX_DIR)/libmlx.a -framework AppKit -framework OpenGL
 # Srcs
 SRCS = $(SOURCE)main.c  $(SOURCE)_error.c $(SOURCE)checkargs.c  $(SOURCE)player.c $(SOURCE)Hooks_and_Events.c $(SOURCE)map.c $(SOURCE)ray_cating.c $(SOURCE)render_wall.c $(SOURCE)ft_reassign.c $(SOURCE)draw_ceilling_floor.c $(SOURCE)draw_line.c $(SOURCE)draw__fov.c $(SOURCE)wall_texture.c $(SOURCE)ray_catingUtils.c $(SOURCE)ray_catingUtils_1.c $(SOURCE)graphic.c $(SOURCE)wall_textureUtils.c
-PARS_SRCS = $(PARS_DIR)parsing.c $(PARS_DIR)stock_minimap.c $(PARS_DIR)is_player.c $(PARS_DIR)check_minimap.c $(PARS_DIR)get_map_size.c  $(PARS_DIR)chech_direction.c $(PARS_DIR)get_g_map.c $(PARS_DIR)parsing_minimap.c $(PARS_DIR)parsing_utils.c  $(PARS_DIR)parsing_params.c $(PARS_DIR)save_params.c  $(PARS_DIR)save_params2.c $(SOURCE)mouse_events.c
+PARS_SRCS = $(PARS_DIR)parsing.c $(PARS_DIR)stock_minimap.c $(PARS_DIR)is_player.c $(PARS_DIR)check_minimap.c $(PARS_DIR)get_map_size.c  $(PARS_DIR)chech_direction.c $(PARS_DIR)get_g_map.c $(PARS_DIR)parsing_minimap.c $(PARS_DIR)parsing_utils.c  $(PARS_DIR)parsing_params.c $(PARS_DIR)save_params.c  $(PARS_DIR)save_params2.c $(SOURCE)mouse_events.c $(SOURCE)draw_shapes.c $(SOURCE)translation.c
 
 
 # Objs

@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 12:42:42 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/09 18:25:52 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/11 12:00:02 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,12 @@ int	get_texture_color(t_rays *ray, t_data *data, int y)
 		tex_offset.x = ray->wall_hit.y / data->unit;
 	else
 		tex_offset.x = ray->wall_hit.x / data->unit;
-	tex_offset.x = tex_offset.x - floor(tex_offset.x);
-	tex_offset.x *= tmp->width;
+	tex_offset.x = (tex_offset.x - floor(tex_offset.x)) * tmp->width;
 	x = y + (ray->wall_strip_height / 2) - (H / 2);
 	if (x < 0)
 		x = 0;
-	tex_offset.y = x * ((double)tmp->height / ray->wall_strip_height);
-	tex_offset.y = floor(tex_offset.y);
-	tex_offset.y *= tmp->width;
+	tex_offset.y = floor(x * \
+	((double)tmp->height / ray->wall_strip_height)) * tmp->width;
 	color = tmp->buff[((int)tex_offset.y + (int)tex_offset.x)];
 	return (color);
 }

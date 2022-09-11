@@ -6,7 +6,7 @@
 /*   By: mmasstou <mmasstou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 17:32:25 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/11 10:10:15 by mmasstou         ###   ########.fr       */
+/*   Updated: 2022/09/11 10:28:25 by mmasstou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,12 @@ void	draw_wall(t_data *data, t_rays *ray, int x, int y)
 void	rendering_wall(t_data *data, t_rays *rays, int ray_id)
 {
 	double	ray_distance;
-	double	distance_project_plane;
 	int		y_start_point;
 
 	ray_distance = rays->distance * cos(\
 	rays->angle - data->player->rotation_angle);
-	distance_project_plane = ((W / 2) / tan(data->player->fov / 2));
-	rays->wall_strip_height = \
-	((data->unit * distance_project_plane) / ray_distance);
+	rays->wall_strip_height = (W * data->unit) / \
+	(2 * tan(data->player->fov / 2) * ray_distance);
 	y_start_point = (H / 2) - (rays->wall_strip_height / 2);
 	if (y_start_point < 0)
 		y_start_point = 0;

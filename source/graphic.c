@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 18:11:18 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/10 14:57:29 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/11 11:01:25 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,11 @@ int mouse_release(int button, int x, int y, void *param)
 {
 	t_data *data = (t_data *)param;
 	if(button == 1 && x < W && x >= 0 && y < H && y >= 0 )
+	{
+		data->pressed = FALSE;
+		data->player->turn_direction = 0;
+	}
+	else if(x > W || x < 0 || y > H || y < 0)
 	{
 		data->pressed = FALSE;
 		data->player->turn_direction = 0;

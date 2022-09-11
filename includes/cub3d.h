@@ -6,7 +6,7 @@
 /*   By: abellakr <abellakr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:35:04 by mmasstou          #+#    #+#             */
-/*   Updated: 2022/09/11 15:21:50 by abellakr         ###   ########.fr       */
+/*   Updated: 2022/09/11 16:28:41 by abellakr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ typedef struct exist
 typedef struct s_pos{
 	double	x;
 	double	y;
-	int i;
-	int j;
+	int		i;
+	int		j;
 }	t_pos;
 
 typedef struct mlx
@@ -245,14 +245,14 @@ int			mouse_move(int x, int y, void *param);
 int			mouse_press(int button, int x, int y, void *param);
 int			mouse_release(int button, int x, int y, void *param);
 //--------------- draw
-void		DrawCircle(int r, t_data *data);
+void		draw_circle(int r, t_data *data);
 int			draw__map(t_data *data);
 void		translation_map(t_data *data);
 void		draw__fov(t_data *data);
 void		translation_fov(t_data *data, float x, float y);
 void		translation_player(t_data *data);
 //-----------------
-void		dda_circle(t_pos p1, t_pos p2,t_data *vars);
+void		dda_circle(t_pos p1, t_pos p2, t_data *vars);
 void		draw_rect(double x, double y, t_data *data, int color);
 void		draw_line(t_data *data, t_pos p1, t_pos p2);
 #endif
